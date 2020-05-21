@@ -1,0 +1,52 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.0.16",
+    "@types/snapsvg": "^0.5.0",
+    "complex.js": {
+      "integrity": "sha512-6IArJLApNtdg1P1dFtn3dnyzoZBEF0MwMnrfF1exSBRpZYoy4yieMkpZhQDC0uwctw48vii0CFVyHfpgZ/DfGw==",
+      "resolved": "https://registry.npmjs.org/complex.js/-/complex.js-2.0.11.tgz",
+      "version": "2.0.11"
+    },
+    "decimal.js": {
+      "integrity": "sha512-vDPw+rDgn3bZe1+F/pyEwb1oMG2XTlRVgAa6B4KccTEpYgF8w6eQllVbQcfIJnZyvzFtFpxnpGtx8dd7DJp/Rw==",
+      "resolved": "https://registry.npmjs.org/decimal.js/-/decimal.js-10.2.0.tgz",
+      "version": "10.2.0"
+    },
+    "escape-latex": {
+      "integrity": "sha512-nV5aVWW1K0wEiUIEdZ4erkGGH8mDxGyxSeqPzRNtWP7ataw+/olFObw7hujFWlVjNsaDFw5VZ5NzVSIqRgfTiw==",
+      "resolved": "https://registry.npmjs.org/escape-latex/-/escape-latex-1.2.0.tgz",
+      "version": "1.2.0"
+    },
+    "fraction.js": {
+      "integrity": "sha512-8Z1K0VTG4hzYY7kA/1sj4/r1/RWLBD3xwReT/RCrUCbzPszjNQCCsy3ktkU/eaEqX3MYa4pY37a52eiBlPMlhA==",
+      "resolved": "https://registry.npmjs.org/fraction.js/-/fraction.js-4.0.12.tgz",
+      "version": "4.0.12"
+    },
+    "javascript-natural-sort": {
+      "integrity": "sha1-+eIwPUUH9tdDVac2ZNFED7Wg71k=",
+      "resolved": "https://registry.npmjs.org/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz",
+      "version": "0.7.1"
+    },
+    "mathjs": "^6.6.0",
+    "node_modules": "latest",
+    "seed-random": {
+      "integrity": "sha1-KpsZ4lCoFwmSMaW5mk2vgLf77VQ=",
+      "resolved": "https://registry.npmjs.org/seed-random/-/seed-random-2.2.0.tgz",
+      "version": "2.2.0"
+    },
+    "snapsvg": "^0.5.1",
+    "svg.js": "^2.7.1",
+    "tiny-emitter": {
+      "integrity": "sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==",
+      "resolved": "https://registry.npmjs.org/tiny-emitter/-/tiny-emitter-2.1.0.tgz",
+      "version": "2.1.0"
+    },
+    "typed-function": {
+      "integrity": "sha512-RbN7MaTQBZLJYzDENHPA0nUmWT0Ex80KHItprrgbTPufYhIlTePvCXZxyQK7wgn19FW5bnuaBIKcBb5mRWjB1Q==",
+      "resolved": "https://registry.npmjs.org/typed-function/-/typed-function-1.1.1.tgz",
+      "version": "1.1.1"
+    }
+  }
+}
