@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greedy</title>
+    <link rel="stylesheet" href="greedyStyle.css">
+    <script src="snap.svg-min.js"></script>
+</head>
+<body>
+<h3>Greedy Algorithm</h3>
+
+<p>
+    See how the greedy algorithm works by inputting a proper fraction:
+</p>
+<p>
+    1. Find the biggest possible fraction that can fit inside.
+</p>
+<p>
+    2. Keep doing it until the fraction has been filled.
+</p>
+<label for="inputNum">Enter a number to be the numerator: </label>
+<input type="number" id="inputNum" min="1">
+<p>
+
+</p>
+<label for="inputNum">Enter a number to be the denominator (must be greater than numerator): </label>
+<input type="number" id="inputDen" min="inputNum.value">
+
+<button onclick="greedyCall(inputNum.value, inputDen.value)">Try it</button>
+
+<svg id="svg" height="400" width="2000"></svg>
+<script src="greedyAgain.js"></script>
+
+</body>
+</html>
