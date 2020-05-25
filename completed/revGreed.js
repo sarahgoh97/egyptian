@@ -1,17 +1,19 @@
-//basically starts from biggest denominator and works its way down
+//Reverse Greedy Method
+
 function revGreed(num, den, heuristic) {
-    console.log("Egyptian fractions for " + num + "/" + den + " " + heuristic);
-
-    //var heuristic = ["BASIC", "SMALL_UNIT", "SMALL_DEN", "SMALL_NUM", "BIG_DIVISOR"];
-
-    let denominators = [];
-    let inverse = 0;
-    let factors = [];
+    if (!checkValid()) {
+        return;
+    }
+    var result = "Unit fractions of " + num + "/" + den + " are: ";
+    //continue only if valid fraction
+    var denominators = [];
+    var inverse = 0;
+    var factors = [];
 
     while (num > 1) {
         //find modular inverse of num-1 mod den
         inverse = modInv(num, den);
-        console.log("The inverse is: " + inverse);
+        //console.log("The inverse is: " + inverse);
         if (inverse < 1) {
             return;
         } else {
@@ -19,7 +21,7 @@ function revGreed(num, den, heuristic) {
             factors = factorise(den * den);
             //find possible values of d from 1 to den^2
         }
-        console.log("Factors are: " + factors);
+        //console.log("Factors are: " + factors);
         var removed = 0;
         switch (heuristic) {
             case "BASIC":
@@ -40,32 +42,58 @@ function revGreed(num, den, heuristic) {
         }
         denominators.push(removed);
         //console.log(denominators);
-
-        num = num * removed - den;
-        den = den * removed;
-
-        let gcd = findGCD(num, den);
-        num = num / gcd;
-        den = den / gcd;
-        //console.log("Next is: " + num + "/" + den);
-        //repeat until reach UF
+        getRemainingFraction();
     }
     denominators.push(den);
     removeDuplicates(denominators);
-    denominators.sort(function (a, b) {
-        return a - b
-    });
-    denominators.forEach(print);
+    denominators.sort(compareNumbers);
+    print();
 
-    function print(value) {
-        console.log("1/" + value + " ");
+    //checks if fraction given is valid
+    function checkValid() {
+        if (num === 1) {
+            console.log("This is already a unit fraction: " + num + "/" + den);
+            return false;
+        }
+        if (num >= den) {
+            console.log("This is not a proper fraction, please choose a numerator smaller than the denominator");
+            return false;
+        }
+        if (num < 0 || den < 0) {
+            console.log("Please use positive integers for both the numerators and denominators");
+            return false;
+        }
+        return true;
+    }
+    //used for sorting
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+    //for printing answer
+    function print() {
+        for (var counter = 0; counter < denominators.length; counter++) {
+            result = result + "1/" + denominators[counter];
+            if (counter !== denominators.length - 1) {
+                result = result + ", "
+            }
+        }
+        console.log(result);
+    }
+    //get remaining fraction to be found
+    function getRemainingFraction() {
+        num = num * removed - den;
+        den = den * removed;
+
+        var gcd = findGCD(num, den);
+        num = num / gcd;
+        den = den / gcd;
     }
 
     function basic() {
-//find the minimum value of (num-1 mod den * d) mod den
-        let minimum = den * den;
-        let curr = factors[0];
-        for (let counter = 0; counter < factors.length; counter++) {
+        //find the minimum value of (num-1 mod den * d) mod den
+        var minimum = den * den;
+        var curr = factors[0];
+        for (var counter = 0; counter < factors.length; counter++) {
             curr = (factors[counter] * inverse) % den;
             if (curr * num > factors[counter] && curr < minimum) {
                 //console.log(factors[counter]);
@@ -74,18 +102,18 @@ function revGreed(num, den, heuristic) {
         }
         //console.log("Minimum is " + minimum);
         //get the denominator
-        let numRemove = (minimum * num) % den;
-        let denRemove = minimum * den;
-        let removed = denRemove / numRemove;
+        var numRemove = (minimum * num) % den;
+        var denRemove = minimum * den;
+        var removed = denRemove / numRemove;
         //remove UF
         return removed;
     }
 
     function small_unit() {
-        let maximum = 0;
-        let temp = 0;
+        var maximum = 0;
+        var temp = 0;
         //ie. find largest UF to remove
-        for (let counter = 0; counter < factors.length; counter++) {
+        for (var counter = 0; counter < factors.length; counter++) {
             if (((factors[counter] * inverse) % den) * num > factors[counter]) {
                 //console.log(factors[counter]);
                 temp = factors[counter] / ((factors[counter] * inverse) % den);
@@ -103,23 +131,23 @@ function revGreed(num, den, heuristic) {
 
         //remove UF
         //x-UF/y --> num = num * denOfUF - 1
-        let removedNum = maximum;
+        var removedNum = maximum;
         //den = den * denOfUF
-        let removedDen = den;
+        var removedDen = den;
         //actual denominator pushed = den/num
-        let removed = removedDen / removedNum;
+        var removed = removedDen / removedNum;
         return removed;
     }
 
     function small_denominator() {
-        let maximum = 0;
-        let temp = 0;
-        let first = 0;
-        let second = 0;
-        let minimum = den * den;
-        let frac = 0;
+        var maximum = 0;
+        var temp = 0;
+        var first = 0;
+        var second = 0;
+        var minimum = den * den;
+        var frac = 0;
         //ie. find UF to remove
-        for (let counter = 0; counter < factors.length; counter++) {
+        for (var counter = 0; counter < factors.length; counter++) {
             if (((factors[counter] * inverse) % den) * num > factors[counter]) {
                 //console.log(factors[counter]);
                 temp = factors[counter] / ((factors[counter] * inverse) % den);
@@ -154,23 +182,23 @@ function revGreed(num, den, heuristic) {
 
         //remove UF
         //x-UF/y --> num = num * denOfUF - 1
-        //let removedNum = minimum;
+        //var removedNum = minimum;
         //den = den * denOfUF
-        //let removedDen = den;
+        //var removedDen = den;
         //actual denominator pushed = den/num
-        let removed = minimum; //removedDen / removedNum; console.log("Removed: " + removed);
+        var removed = minimum; //removedDen / removedNum; console.log("Removed: " + removed);
         return removed;
     }
 
     function small_numerator() {
-        let numerator = 0;
-        let temp = 0;
-        let top = 0;
-        let bottom = 0;
-        let minimum = den * den;
-        let frac = 1;
+        var numerator = 0;
+        var temp = 0;
+        var top = 0;
+        var bottom = 0;
+        var minimum = den * den;
+        var frac = 1;
         //ie. find UF to remove
-        for (let counter = 0; counter < factors.length; counter++) {
+        for (var counter = 0; counter < factors.length; counter++) {
             if (((factors[counter] * inverse) % den) * num > factors[counter]) {
                 //console.log(factors[counter]);
                 temp = factors[counter] / ((factors[counter] * inverse) % den); //console.log(temp);
@@ -222,17 +250,17 @@ function revGreed(num, den, heuristic) {
 
         //remove UF
         //x-UF/y --> num = num * denOfUF - 1
-        //let removedNum = minimum; console.log(removedNum);
+        //var removedNum = minimum; console.log(removedNum);
         //den = den * denOfUF
-        //let removedDen = den;
+        //var removedDen = den;
         //actual denominator pushed = den/num
-        let removed = frac;//removedDen / removedNum;
+        var removed = frac;//removedDen / removedNum;
         return removed;
     }
 
     function big_divisor() {
-        let maximum = 0;
-        let temp = 0;
+        var maximum = 0;
+        var temp = 0;
 
         var counter = factors.length-1;
         while (maximum === 0 && counter >= 0) {
@@ -245,11 +273,11 @@ function revGreed(num, den, heuristic) {
 
         //remove UF
         //x-UF/y --> num = num * denOfUF - 1
-        let removedNum = maximum;
+        var removedNum = maximum;
         //den = den * denOfUF
-        let removedDen = den;
+        var removedDen = den;
         //actual denominator pushed = den/num
-        let removed = removedDen / removedNum;
+        var removed = removedDen / removedNum;
         return removed;
     }
 
@@ -257,7 +285,7 @@ function revGreed(num, den, heuristic) {
     function modInv(small,big) {
 
         small = small % big;
-        for (let counter = 1; counter < big; counter++){
+        for (var counter = 1; counter < big; counter++){
             if ((counter*small)%big === 1)
                 return counter;
         }
@@ -265,9 +293,9 @@ function revGreed(num, den, heuristic) {
     }
 
     function factorise(num) {
-        let factors = [];
-        let factor = 1;
-        let max = Math.floor(Math.sqrt(num));
+        var factors = [];
+        var factor = 1;
+        var max = Math.floor(Math.sqrt(num));
 
         while (factor <= max) {
             if (num % factor === 0) {
@@ -326,12 +354,12 @@ function revGreed(num, den, heuristic) {
 
 
 //TEST
-//revGreed(31,311, "BASIC");
-//revGreed(23,231,"BASIC");
-//revGreed(23,231, "SMALL_UNIT");
-//revGreed(23,231, "SMALL_NUM");
-//revGreed(23,231, "SMALL_DEN");
-//revGreed(23,231,"BIG_DIV");
+revGreed(31,311, "BASIC");
+revGreed(23,231,"BASIC");
+revGreed(23,231, "SMALL_UNIT");
+revGreed(23,231, "SMALL_NUM");
+revGreed(23,231, "SMALL_DEN");
+revGreed(23,231,"BIG_DIV");
 
 //revGreed(17,180, "SMALL_NUM");
 //revGreed(10,143, "SMALL_NUM");

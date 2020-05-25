@@ -1,122 +1,86 @@
-// JavaScript source code
-/*
-function binaryRema(num, den) {
-    let denominators = [];
+//Binary Remainder method
 
-    let binDen = 1;
-    //let nextNum = num * binDen;
-
-    //to get first denominator
-    while (num <= den) {
-        //num = nextNum;
-        num = num * 2;
-        binDen = binDen * 2;
-        //console.log("current: " + num + " which denominator power: " + binDen);
-    }
-    //console.log(num + " " + binDen);
-    //denominators.push(binDen);
-
-    //for getting the first part
-    while (num > den) {
-        denominators.push(binDen);
-        console.log(binDen + " " + num);
-        num = num % den;
-        num = num * 2;
-        binDen = binDen * 2;
-    }
-    num = num / 2;
-
-
-    //now to express the numerator as binary then split into the fractions
-    let binaryRep = [];
-    let counter = 0;
-    //index 0 is the largest power one
-    while (num >= 1) {
-        if (num % 2 === 1) {
-            binaryRep[counter] = 1;
-        } else {
-            binaryRep[counter] = 0;
-        }
-        num = Math.floor(num / 2);
-        counter = counter + 1;
-    }
-
-    for (counter = 0; counter < binaryRep.length; counter++) {
-        binDen = binDen / 2;
-        if (binaryRep[counter] === 1) {
-            denominators.push(den * binDen);
-        }
-    }
-
-   console.log(binaryRep);
-
-    denominators.sort(function(a,b){return a-b});
-    denominators.forEach(print);
-
-    function print(value) {
-        console.log("1/" + value + " ");
-    }
-}
-*/
 function binaryRem(num, den) {
-    console.log (num + "/" + den + "=");
-
-    let p = 2; //power of 2
-    let tempNum = 1;
-    let tempDen = 1;
-    let denominators = [];
-
-    if (num === 1) {
-        denominators.push(den);
-        return 0;
+    if (!checkValid()) {
+        return;
     }
+    //continue only if valid fraction
+    var powerOf2 = 1; //start from 2^0
+    var tempNum = 1;
+    var tempDen = 1;
+    var denominators = [];
+    //find powers-of-2 used
+    findPowerOfTwo();
+    //finding other UFs
+    findOtherDenominators();
+    denominators.sort(compareNumbers);
+    print();
 
-    let complete = false;
-    while (!complete) {
-        tempNum = num * 2 - den;
-        tempDen = den * p;
-        if (tempNum >= 0) {
-            denominators.push(p);
-            if (tempNum <= p * 2) {
-                let counter = 0;
-                //console.log(tempNum + " " + p);
-                while (tempNum >= 1) { //gets the decomposition of the sum of powers of 2
-                    //console.log(tempNum);
-                    if (tempNum % 2 === 1) { //means it is valid power of 2
-                        denominators.push(tempDen / Math.pow(2, counter));
-                        //console.log(p);
-                    }
-                    tempNum = Math.floor(tempNum / 2);
-                    counter = counter + 1;
-                }
-                if (tempNum === 0) complete = true;
-            }
-            num = tempNum;
-            //den = tempDen;
-        } else {
-            num = num * 2;
+    //checks if given fraction is valid
+    function checkValid() {
+        if (num === 1) {
+            console.log("This is already a unit fraction: " + num + "/" + den);
+            return false;
         }
-        p = p * 2;
+        if (num >= den) {
+            console.log("This is not a proper fraction, please choose a numerator smaller than the denominator");
+            return false;
+        }
+        if (num < 0 || den < 0) {
+            console.log("Please use positive integers for both the numerators and denominators");
+            return false;
+        }
+        return true;
     }
-
-    //console.log(denominators);
-
-    denominators.sort(function(a,b){return a-b});
-    denominators.forEach(print);
-
-    function print(value) {
-        console.log("1/" + value);
+    //find power of 2 to use
+    function findPowerOfTwo() {
+        var numerator = num;
+        var complete = false;
+        while (!complete) {
+            powerOf2 = powerOf2 * 2;
+            //multiply new numerator by 2 while denominator steadily increases
+            tempNum = numerator * 2 - den;
+            tempDen = den * powerOf2;
+            if (tempNum >= 0) {
+                denominators.push(powerOf2);
+                if (tempNum <= powerOf2 * 2) { //can split into sums of powers of 2
+                    complete = true;
+                }
+                numerator = tempNum;
+            } else {
+                numerator = numerator * 2;
+            }
+        }
+    }
+    //find the other denominators that are not powers of 2 but multiples of original denominator
+    function findOtherDenominators() {
+        var counter = 0;
+        while (tempNum >= 1) {
+            //console.log(tempNum);
+            if (tempNum % 2 === 1) { //means it is valid power of 2
+                denominators.push(tempDen / Math.pow(2, counter));
+            }
+            tempNum = Math.floor(tempNum / 2);
+            counter = counter + 1;
+        }
+    }
+    //used for sorting
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+    //for printing answer
+    function print() {
+        var result = "Unit fractions of " + num + "/" + den + " are: ";
+        for (var counter = 0; counter < denominators.length; counter++) {
+            result = result + "1/" + denominators[counter];
+            if (counter !== denominators.length - 1) {
+                result = result + ", "
+            }
+        }
+        console.log(result);
     }
 }
 
-//console.log("18/23=");
-//binaryRem(18,23);
-//console.log("31/311=");
-//binaryRem(31,311);
-//console.log("next");
-//binaryRem(5,6);
-//console.log("next");
-//binaryRem(3,7);
-//console.log("2/17");
-//binaryRem(6,7);
 binaryRem(4,21);
+binaryRem(18,23);
+binaryRem(31,311);

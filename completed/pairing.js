@@ -1,52 +1,89 @@
+//Pairing method
+
 function pairing (num, den) {
-    let denominators = [];
-    let counter = 0;
+    if (!checkValid()) {
+        return;
+    }
+    //continue only if valid fraction
+    //split the fraction into its ufs of 1/den
+    var denominators = [];
+    var counter = 0;
     while (counter < num) {
         denominators.push(den);
         counter++;
     }
+    //all same means they are duplicates
+    removeDuplicates();
+    denominators.sort(compareNumbers);
+    print();
 
-    var duplicate = true;
-
-    while (duplicate) {
-        denominators.sort(function(a,b){return a-b});
-        if (denominators[0] === 0)
-            denominators.shift();
-        duplicate = false;
-        //denominators.forEach(print);
-        for (counter = 0; counter < denominators.length - 1; counter++) {
-            if (denominators[counter] !== 0 && denominators[counter] === denominators[counter+1]) {
-                duplicate = true;
-                console.log(denominators[counter] + " in " +  counter + " same as " + denominators[counter+1]);
+    //check if given fraction is valid
+    function checkValid() {
+        if (num === 1) {
+            console.log("This is already a unit fraction: " + num + "/" + den);
+            return false;
+        }
+        if (num >= den) {
+            console.log("This is not a proper fraction, please choose a numerator smaller than the denominator");
+            return false;
+        }
+        if (num < 0 || den < 0) {
+            console.log("Please use positive integers for both the numerators and denominators");
+            return false;
+        }
+        return true;
+    }
+    //to get rid of duplicate unit fractions
+    function removeDuplicates() {
+        var duplicate = true;
+        while (duplicate) {
+            denominators.sort(compareNumbers);
+            if (denominators[0] === 0) {
+                denominators.shift();
+            }
+            duplicate = false;
+            for (counter = 0; counter < denominators.length - 1; counter++) {
+                if (denominators[counter] === denominators[counter + 1]) {
+                    duplicate = true;
+                    //console.log(denominators[counter] + " in " +  counter + " same as " + denominators[counter+1]);
+                    break;
+                }
+            }
+            if (duplicate) {
+                replaceDuplicates();
+            } else {
                 break;
             }
         }
-        if (!duplicate)
-            break;
-        if (denominators[counter] % 2 === 0) {
-            denominators[counter] = denominators[counter]/2;
-            denominators[counter+1] = 0;
-        } else {
-            denominators[counter] = (denominators[counter] + 1) / 2;
-            denominators[counter+1] = (denominators[counter+1] * (denominators[counter+1] + 1)) / 2;
+
+        //to replace duplicates
+        function replaceDuplicates() {
+            if (denominators[counter] % 2 === 0) { //divisible by 2
+                denominators[counter] = denominators[counter] / 2;
+                denominators[counter + 1] = 0;
+            } else { //change to even denominators to divide by 2
+                denominators[counter] = (denominators[counter] + 1) / 2;
+                denominators[counter + 1] = (denominators[counter + 1] * (denominators[counter + 1] + 1)) / 2;
+            }
         }
-        console.log("changed into " + denominators[counter] + " and " + denominators[counter+1]);
-        //denominators[counter] = denominators[counter] + 1;
-        //denominators.push(denominators[counter]*(denominators[counter]+1));
     }
-
-    denominators.sort(function(a,b){return a-b});
-    denominators.forEach(print);
-
-    function print(value) {
-        if (value != 0)
-            console.log("1/" + value + " ");
+    //used for sorting
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+    //for printing answer
+    function print() {
+        var result = "Unit fractions of " + num + "/" + den + " are: ";
+        for (counter = 0; counter < denominators.length; counter++) {
+            result = result + "1/" + denominators[counter];
+            if (counter !== denominators.length - 1) {
+                result = result + ", "
+            }
+        }
+        console.log(result);
     }
 }
-//console.log("18/23: ");
-//pairing(18,23); //1/2 + 1/6 + 1/12 + 1/35 + 1/276 + 1/2415
-//console.log("5/6: ");
-//pairing(5,6);
-//console.log("11/12: ")
-//pairing(11,12);
-pairing(4,15);
+
+pairing(4,21);
+pairing(3,7);
+pairing(3,35);
