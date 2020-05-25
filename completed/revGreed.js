@@ -11,17 +11,13 @@ function revGreed(num, den, heuristic) {
     var factors = [];
 
     while (num > 1) {
-        //find modular inverse of num-1 mod den
         inverse = modInv(num, den);
-        //console.log("The inverse is: " + inverse);
         if (inverse < 1) {
             return;
         } else {
             //factorise den^2
             factors = factorise(den * den);
-            //find possible values of d from 1 to den^2
         }
-        //console.log("Factors are: " + factors);
         var removed = 0;
         switch (heuristic) {
             case "BASIC":
@@ -41,7 +37,6 @@ function revGreed(num, den, heuristic) {
                 break;
         }
         denominators.push(removed);
-        //console.log(denominators);
         getRemainingFraction();
     }
     denominators.push(den);
@@ -65,233 +60,17 @@ function revGreed(num, den, heuristic) {
         }
         return true;
     }
-    //used for sorting
-    function compareNumbers(a, b) {
-        return a - b;
-    }
-    //for printing answer
-    function print() {
-        for (var counter = 0; counter < denominators.length; counter++) {
-            result = result + "1/" + denominators[counter];
-            if (counter !== denominators.length - 1) {
-                result = result + ", "
-            }
-        }
-        console.log(result);
-    }
-    //get remaining fraction to be found
-    function getRemainingFraction() {
-        num = num * removed - den;
-        den = den * removed;
-
-        var gcd = findGCD(num, den);
-        num = num / gcd;
-        den = den / gcd;
-    }
-
-    function basic() {
-        //find the minimum value of (num-1 mod den * d) mod den
-        var minimum = den * den;
-        var curr = factors[0];
-        for (var counter = 0; counter < factors.length; counter++) {
-            curr = (factors[counter] * inverse) % den;
-            if (curr * num > factors[counter] && curr < minimum) {
-                //console.log(factors[counter]);
-                minimum = curr;
-            }
-        }
-        //console.log("Minimum is " + minimum);
-        //get the denominator
-        var numRemove = (minimum * num) % den;
-        var denRemove = minimum * den;
-        var removed = denRemove / numRemove;
-        //remove UF
-        return removed;
-    }
-
-    function small_unit() {
-        var maximum = 0;
-        var temp = 0;
-        //ie. find largest UF to remove
-        for (var counter = 0; counter < factors.length; counter++) {
-            if (((factors[counter] * inverse) % den) * num > factors[counter]) {
-                //console.log(factors[counter]);
-                temp = factors[counter] / ((factors[counter] * inverse) % den);
-                if (temp > maximum) {
-                    maximum = temp;
-                }
-            }
-        }
-        //find UF with the smallest denominator to remove
-        //(num-1 mod den * d) mod den
-
-        //go through all the possible values of d
-        //compare all the d's to see which gives largest UF/smallest denominator
-
-
-        //remove UF
-        //x-UF/y --> num = num * denOfUF - 1
-        var removedNum = maximum;
-        //den = den * denOfUF
-        var removedDen = den;
-        //actual denominator pushed = den/num
-        var removed = removedDen / removedNum;
-        return removed;
-    }
-
-    function small_denominator() {
-        var maximum = 0;
-        var temp = 0;
-        var first = 0;
-        var second = 0;
-        var minimum = den * den;
-        var frac = 0;
-        //ie. find UF to remove
-        for (var counter = 0; counter < factors.length; counter++) {
-            if (((factors[counter] * inverse) % den) * num > factors[counter]) {
-                //console.log(factors[counter]);
-                temp = factors[counter] / ((factors[counter] * inverse) % den);
-                var tempNum = factors[counter];
-                var tempDen = (factors[counter] * inverse) % den;
-                //first = 1 / (temp / den);
-                //second = 1 / ((num - temp) / den);
-
-                var firstNum = tempNum;
-                var firstDen = tempDen * den;
-                var secondNum = num * tempDen - tempNum;
-                var secondDen = den * tempDen;
-
-                first = firstDen / findGCD(firstNum, firstDen);
-                second = secondDen / findGCD(secondNum, secondDen);
-
-                //first = den / temp;
-                //second = first / (num / temp - 1);
-                maximum = Math.max(first, second); //console.log("First and second are: " + first + " " + second + "\n");
-                if (maximum > 0) {
-                    if (minimum >= maximum) {
-                        minimum = first;
-                        //console.log("Minimum is now " + minimum);
-                        //frac = temp;
-                    }
-                }
-                //den of temp / den
-                //console.log("temp is "+ temp + "\tden*y:" + first + "\tgcd: " + second + "\tmax: " + maximum + "\tmin: " + minimum +"\tgonna remove: " + den/frac);
-            }
-        }
-
-
-        //remove UF
-        //x-UF/y --> num = num * denOfUF - 1
-        //var removedNum = minimum;
-        //den = den * denOfUF
-        //var removedDen = den;
-        //actual denominator pushed = den/num
-        var removed = minimum; //removedDen / removedNum; console.log("Removed: " + removed);
-        return removed;
-    }
-
-    function small_numerator() {
-        var numerator = 0;
-        var temp = 0;
-        var top = 0;
-        var bottom = 0;
-        var minimum = den * den;
-        var frac = 1;
-        //ie. find UF to remove
-        for (var counter = 0; counter < factors.length; counter++) {
-            if (((factors[counter] * inverse) % den) * num > factors[counter]) {
-                //console.log(factors[counter]);
-                temp = factors[counter] / ((factors[counter] * inverse) % den); //console.log(temp);
-
-                /*
-
-                var firstNum = num * tempDen - tempNum;;
-                var firstDen = den * tempDen;
-                var secondNum = tempNum;
-                var secondDen = tempDen * den;
-
-                var first = firstNum / findGCD(firstNum, firstDen);
-                var second = secondNum / findGCD(secondNum, secondDen);
-
-                numerator = firstNum / findGCD(firstNum, firstDen) - secondDen / findGCD(secondNum, secondDen);
-                console.log("first and second and numerator: " + first + "\t" + second + "\t" + numerator);*/
-                //numerator = tempNum / den / tempDen;
-                //console.log(numerator);
-                //bottom = den / temp;
-                //top = num * den / temp - den;
-
-                //numerator = top / findGCD(top, bottom);
-
-                var tempNum = factors[counter];
-                var tempDen = (factors[counter] * inverse) % den;
-
-                numerator = num * tempDen - tempNum;
-                var denominator = den * tempDen;
-//console.log(tempNum + " "  + tempDen + " " + numerator + "/" + denominator)
-                numerator = numerator / findGCD(numerator, denominator);
-                if (Number.isInteger(numerator)) {
-                    if (minimum > numerator) {
-                        minimum = numerator;
-                        frac = denominator / findGCD(tempNum, denominator);
-                    } else if (minimum === numerator) {
-                        if (frac > denominator / findGCD(tempNum, denominator)) {
-                            minimum = numerator;
-                            frac = denominator / findGCD(tempNum, denominator);
-                        }
-                    }
-                }
-                //console.log("removing " + frac + " num and min and frac " + numerator+" " + minimum + " " + frac);
-                //den of temp / den
-                //console.log("temp is "+ temp + "\tnum:" + top + "\tden: " + bottom + "\tnumerator: " + numerator+ "\tmin: " + minimum +"\tgonna remove: " + den/frac);
-            }
-            //console.log(frac);
-        }
-
-
-        //remove UF
-        //x-UF/y --> num = num * denOfUF - 1
-        //var removedNum = minimum; console.log(removedNum);
-        //den = den * denOfUF
-        //var removedDen = den;
-        //actual denominator pushed = den/num
-        var removed = frac;//removedDen / removedNum;
-        return removed;
-    }
-
-    function big_divisor() {
-        var maximum = 0;
-        var temp = 0;
-
-        var counter = factors.length-1;
-        while (maximum === 0 && counter >= 0) {
-            if (((factors[counter] * inverse) % den) * num > factors[counter]) {
-                //console.log(factors[counter]);
-                maximum = factors[counter] / ((factors[counter] * inverse) % den);
-            }
-            counter--;
-        }
-
-        //remove UF
-        //x-UF/y --> num = num * denOfUF - 1
-        var removedNum = maximum;
-        //den = den * denOfUF
-        var removedDen = den;
-        //actual denominator pushed = den/num
-        var removed = removedDen / removedNum;
-        return removed;
-    }
-
-
+    //gets modular inverse of small mod big
     function modInv(small,big) {
 
         small = small % big;
         for (var counter = 1; counter < big; counter++){
-            if ((counter*small)%big === 1)
+            if ((counter * small) % big === 1)
                 return counter;
         }
         return -1;
     }
-
+    //finds all the factors of num and returns an array
     function factorise(num) {
         var factors = [];
         var factor = 1;
@@ -306,10 +85,162 @@ function revGreed(num, den, heuristic) {
             }
             factor = factor + 1;
         }
-        factors.sort(function(a,b){return a-b});
+        factors.sort(compareNumbers);
         return factors;
     }
+    //used for sorting
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+    //for printing answer
+    function print() {
+        for (var counter = 0; counter < denominators.length; counter++) {
+            result = result + "1/" + denominators[counter];
+            if (counter !== denominators.length - 1) {
+                result = result + ", "
+            }
+        }
+        console.log(result);
+    }
 
+    //basic method of finding the largest possible denominator for the unit fraction
+    function basic() {
+        //find the minimum value of (num-1 mod den * d) mod den
+        var minimum = den * den;
+        var curr = factors[0];
+        for (var counter = 0; counter < factors.length; counter++) {
+            curr = (factors[counter] * inverse) % den;
+            if (checkDen(counter) && curr < minimum) {
+                //console.log(factors[counter]);
+                minimum = curr;
+            }
+        }
+        //get the denominator
+        var removedNum = (minimum * num) % den;
+        var removedDen = minimum * den;
+        var removed = removedDen / removedNum;
+        //remove UF
+        return removed;
+    }
+    //small unit method of finding the largest possible denominator for the unit fraction
+    function small_unit() {
+        var maximum = 0;
+        var temp = 0;
+        //ie. find largest UF to remove / smallest denominator
+        for (var counter = 0; counter < factors.length; counter++) {
+            if (checkDen(counter)) {
+                temp = factors[counter] / ((factors[counter] * inverse) % den);
+                if (temp > maximum) {
+                    maximum = temp;
+                }
+            }
+        }
+        //remove UF
+        //x-UF/y --> num = num * denOfUF - 1
+        var removedNum = maximum;
+        //den = den * denOfUF
+        var removedDen = den;
+        //actual denominator pushed = den/num
+        var removed = removedDen / removedNum;
+        return removed;
+    }
+    //small denominator method of finding the largest possible denominator for the unit fraction
+    function small_denominator() {
+        var maximum = 0;
+        var temp = 0;
+        var first = 0;
+        var second = 0;
+        var minimum = den * den;
+        var frac = 0;
+        //ie. find UF to remove, using integers for calculations
+        for (var counter = 0; counter < factors.length; counter++) {
+            if (checkDen(counter)) {
+                //console.log(factors[counter]);
+                temp = factors[counter] / ((factors[counter] * inverse) % den);
+                var tempNum = factors[counter];
+                var tempDen = (factors[counter] * inverse) % den;
+                //first = 1 / (temp / den);
+                //second = 1 / ((num - temp) / den);
+                var firstNum = tempNum;
+                var firstDen = tempDen * den;
+                var secondNum = num * tempDen - tempNum;
+                var secondDen = den * tempDen;
+                first = firstDen / findGCD(firstNum, firstDen);
+                second = secondDen / findGCD(secondNum, secondDen);
+                //first = den / temp;
+                //second = first / (num / temp - 1);
+                maximum = Math.max(first, second);
+                if (maximum > 0) {
+                    if (minimum >= maximum) {
+                        minimum = first;
+                        //console.log("Minimum is now " + minimum);
+                    }
+                }
+                //den of temp / den
+            }
+        }
+        //remove UF
+        var removed = minimum;
+        return removed;
+    }
+    //small numerator method of finding the largest possible denominator for the unit fraction
+    function small_numerator() {
+        var numerator = 0;
+        var denominator = den;
+        var temp = 0;
+        var minimum = den * den;
+        var frac = 1;
+        //ie. find UF to remove
+        for (var counter = 0; counter < factors.length; counter++) {
+            if (checkDen(counter)) {
+                temp = factors[counter] / ((factors[counter] * inverse) % den);
+
+                var tempNum = factors[counter];
+                var tempDen = (factors[counter] * inverse) % den;
+
+                numerator = num * tempDen - tempNum;
+                denominator = den * tempDen;
+                numerator = numerator / findGCD(numerator, denominator);
+                if (Number.isInteger(numerator)) {
+                    if (minimum > numerator) {
+                        minimum = numerator;
+                        frac = denominator / findGCD(tempNum, denominator);
+                    } else if (minimum === numerator) {
+                        if (frac > denominator / findGCD(tempNum, denominator)) {
+                            minimum = numerator;
+                            frac = denominator / findGCD(tempNum, denominator);
+                        }
+                    }
+                }
+            }
+        }
+        //remove UF
+        var removed = frac;
+        return removed;
+    }
+    //big divisor method of finding the largest possible denominator for the unit fraction
+    function big_divisor() {
+        var maximum = 0;
+
+        var counter = factors.length-1;
+        while (maximum === 0 && counter >= 0) {
+            if (((factors[counter] * inverse) % den) * num > factors[counter]) {
+                //console.log(factors[counter]);
+                maximum = factors[counter] / ((factors[counter] * inverse) % den);
+            }
+            counter--;
+        }
+        //remove UF
+        var removedNum = maximum;
+        var removedDen = den;
+        var removed = removedDen / removedNum;
+        return removed;
+    }
+    //check denominator's validity to be used
+    function checkDen(counter) {
+        return ((factors[counter] * inverse) % den) * num > factors[counter];
+    }
+    //get the greatest common deonominator between small and big
     function findGCD(small, big) {
         if (!Number.isInteger(small) || !Number.isInteger(big))
             return -1;
@@ -320,22 +251,19 @@ function revGreed(num, den, heuristic) {
             if (small === 0) return big;
         }
     }
-
+    //uses pairing method to remove duplicate unit fractions
     function removeDuplicates(denominators) {
         var duplicate = true;
 
         while (duplicate) {
-            denominators.sort(function (a, b) {
-                return a - b
-            });
+            denominators.sort(compareNumbers);
             if (denominators[0] === 0)
                 denominators.shift();
             duplicate = false;
             //denominators.forEach(print);
-            for (counter = 0; counter < denominators.length - 1; counter++) {
+            for (var counter = 0; counter < denominators.length - 1; counter++) {
                 if (denominators[counter] !== 0 && denominators[counter] === denominators[counter + 1]) {
                     duplicate = true;
-                    console.log(denominators[counter] + " in " + counter + " same as " + denominators[counter + 1]);
                     break;
                 }
             }
@@ -349,6 +277,15 @@ function revGreed(num, den, heuristic) {
                 denominators[counter + 1] = (denominators[counter + 1] * (denominators[counter + 1] + 1)) / 2;
             }
         }
+    }
+    //get remaining fraction to be found
+    function getRemainingFraction() {
+        num = num * removed - den;
+        den = den * removed;
+
+        var gcd = findGCD(num, den);
+        num = num / gcd;
+        den = den / gcd;
     }
 }
 
