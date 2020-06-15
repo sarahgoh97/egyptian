@@ -1,4 +1,5 @@
 //Greedy Iteration Method
+//while loop
 
 function greedy(num, den) {
     if (!checkValid(num, den)) { //change to error message?
