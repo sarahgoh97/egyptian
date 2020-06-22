@@ -1,88 +1,110 @@
-//Greedy Iterative Method
-//in the usual sense of the word iterative it builds up
-    //it builds up to the final part when it reaches the original frac
-//book actually considers the recursive method iterative
-//using loops
+/* Greedy iterative method
+ * using loops (not taught in book because considered syntactic sugar)
+ * using loops require variables, the others can just use constants */
 function greedy(num, den) {
     if (!checkValid(num, den)) { //change to error message?
         return;
     }
     //continue only if valid fraction
     //while loops
-    var result = "Unit fractions of " + num + "/" + den + " are: ";
+    let result = "While loop: ";
     result = result + greedyWhileLoop(num, den);
     console.log(result);
     //do while loops
-    result = "Unit fractions of " + num + "/" + den + " are: ";
+    result = "Do while loop: ";
     result = result + greedyDoWhileLoop(num, den);
     console.log(result);
 
     //for loops do not make sense
-    result = "Unit fractions of " + num + "/" + den + " are: ";
+    result = "For loop: ";
     result = result + greedyForLoop(num, den);
     console.log(result);
 }
 
 //checks if fraction given is valid
 function checkValid(num, den) {
-    if (num === 1) {
-        console.log("This is already a unit fraction: " + num + "/" + den);
-        return false;
-    }
     if (num >= den) {
-        console.log("This is not a proper fraction, please choose a numerator smaller than the denominator");
-        return false;
+        return "This is not a proper fraction, please choose a numerator smaller than the denominator";
     }
     if (num < 0 || den < 0) {
-        console.log("Please use positive integers for both the numerators and denominators");
-        return false;
+        return "Please use positive integers for both the numerators and denominators";
     }
     return true;
 }
 //this is returning smth diff from greedyRec - string
 function greedyWhileLoop(num, den) {
-    var result = "";
+    let result = "";
+    let unit_fraction_den = 1;
     while (num > 0) {
-        var biggest = Math.ceil(den / num);
-        var result = result + "1/" + biggest;
-        num = num * biggest - den;
-        den = den * biggest;
+        unit_fraction_den = ceiling(num, den);
+        result = result + unit_fraction_den;
+        num = num * unit_fraction_den - den;
+        den = den * unit_fraction_den;
         if (num !== 0) {
-            result = result + ", ";
+            result = result + " ";
         }
     }
     return result;
 }
 
 function greedyDoWhileLoop(num, den) {
-    var result = "";
+    let result = "";
+    let unit_fraction_den = 1;
     do {
-        var biggest = Math.ceil(den / num);
-        result = result + "1/" + biggest;
-        num = num * biggest - den;
-        den = den * biggest;
+        unit_fraction_den = ceiling(num, den);
+        result = result + unit_fraction_den;
+        num = num * unit_fraction_den - den;
+        den = den * unit_fraction_den;
         if (num !== 0) {
-            result = result + ", ";
+            result = result + " ";
         }
     } while (num > 0);
     return result;
 }
-//doesnt make sense but it can work
+/* doesn't make sense because not fixed iterations but it can work */
 function greedyForLoop(num, den) {
-    var result = "";
-    var tempNum;
-    for (tempNum = num; tempNum > 0; tempNum--) {
-        var biggest = Math.ceil(den / num);
-        result = result + "1/" + biggest;
-        num = num * biggest - den;
-        den = den * biggest;
+    let result = "";
+    let tempNum = num;
+    let unit_fraction_den = 1;
+    for (tempNum = num; tempNum >= 0; tempNum--) {
+        unit_fraction_den = ceiling(num, den);
+        result = result + unit_fraction_den;
+        num = num * unit_fraction_den - den;
+        den = den * unit_fraction_den;
         if (num !== 0) {
-            result = result + ", ";
+            result = result + " ";
         }
-        tempNum = num + 1; //because for loop will decrement it
+        tempNum = num; //because for loop will decrement it
     }
     return result;
 }
+
+/* similar format to functions found in chapter 1
+ * getting the ceiling of big / small */
+function ceiling(small, big) {
+    return intDivisionRemainder(small, big) === 0
+        ? intDivisionQuotient(small, big)
+        : intDivisionQuotient(small, big) + 1;
+}
+/* finds the quotient of big / small, found when big is no longer bigger than small */
+function intDivisionQuotient(small, big) {
+    function iter(small, big, multiplier) {
+        return small * multiplier <= big
+            ? iter(small, big, multiplier + 1)
+            : multiplier - 1;
+    }
+    return iter(small, big, 1);
+}
+/* finds the remainder of big / small, found when big is no longer bigger than small */
+function intDivisionRemainder(small, big) {
+    function iter(small, big, multiplier) {
+        return small * multiplier <= big
+            ? iter(small, big, multiplier + 1)
+            : big - small * (multiplier - 1);
+    }
+    return iter(small, big, 1);
+}
+
 
 greedy(4,21);
 greedy(3,7);

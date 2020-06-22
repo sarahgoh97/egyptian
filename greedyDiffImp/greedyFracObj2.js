@@ -1,36 +1,35 @@
-//Greedy Recursive Method
-//checking validity abstracted
-//fractions abstracted instead of 2 integers (using another way of defining objects in js)
-    //some functions fractions use tgt
-//includes gcd
+/* Greedy iterative method
+ * checking validity abstracted
+ * fractions abstracted as an object not 2 separate ints
+   * have functions that fractions can use (eg. simplify)
+   * avoid using dot operator
+ * returns a string */
 function checkValidFrac(frac) {
     if (getNum(frac) >= getDen(frac)) {
-        console.log("This is not a proper fraction, please choose a numerator smaller than the denominator");
-        return false;
+        return "This is not a proper fraction, please choose a numerator smaller than the denominator";
     }
     if (getNum(frac) < 0 || getDen(frac) < 0) {
-        console.log("Please use positive integers for both the numerators and denominators");
-        return false;
+        return "Please use positive integers for both the numerators and denominators";
     }
-    return true;
+    return "";
 }
 function greedy(num, den) {
-    var frac = make_frac(num, den);
-    if (!checkValidFrac(frac)) {
-        return false;
-    }
-    return iter(frac);
-    function iter(frac) {
-        print(frac);
+    function iter(frac, ans) {
+        //print(frac); //for debugging
         if (getNum(frac) === 0) {
-            console.log(" ");
+            return ans;
         } else {
-            var biggest = Math.ceil(getDen(frac) / getNum(frac));
-            console.log(biggest);
-            var newFrac = make_frac(getNum(frac) * biggest - getDen(frac), getDen(frac) * biggest);
-            iter(simplify(newFrac));
+            const unit_fraction_den = ceiling(getNum(frac), getDen(frac));
+            const newFrac = make_frac(getNum(frac) * unit_fraction_den - getDen(frac),
+                getDen(frac) * unit_fraction_den);
+            return iter(simplify(newFrac), ans + unit_fraction_den + " ");
         }
     }
+    const frac = make_frac(num, den);
+    if (checkValidFrac(frac) !== "") {
+        return checkValidFrac(frac);
+    }
+    return iter(frac, "");
 }
 //function that fractions use, can be used across all ef algos potentially for the fractions
 function make_frac(num, den) {
@@ -47,9 +46,8 @@ function print(frac) {
     console.log("The fraction is " + getNum(frac) + " / " + getDen(frac));
 }
 function simplify(frac) { //can see difference for 4/21
-    var greatestCommonDen = gcd(getNum(frac), getDen(frac));
-    var simplifiedFrac = make_frac(getNum(frac) / greatestCommonDen, getDen(frac) / greatestCommonDen);
-    return simplifiedFrac;
+    const greatestCommonDen = gcd(getNum(frac), getDen(frac));
+    return make_frac(getNum(frac) / greatestCommonDen, getDen(frac) / greatestCommonDen);
 }
 function gcd(small, big) { //iterative
     if (small === 0) {
@@ -59,7 +57,26 @@ function gcd(small, big) { //iterative
         return gcd(remainder, small);
     }
 }
+/* similar format to functions found in chapter 1
+ * getting the ceiling of big / small */
+function ceiling(small, big) {
+    return intDivisionRemainder(small, big) === 0
+        ? intDivisionQuotient(small, big)
+        : intDivisionQuotient(small, big) + 1;
+}
+/* finds the quotient of big / small, found when big is no longer bigger than small */
+function intDivisionQuotient(small, big) {
+    return small <= big
+        ? 1 + intDivisionQuotient(small, big - small)
+        : 0;
+}
+/* finds the remainder of big / small, found when big is no longer bigger than small */
+function intDivisionRemainder(small, big) {
+    return small <= big
+        ? intDivisionRemainder(small, big - small)
+        : big;
+}
 
-greedy(4,21);
-greedy(3,7);
-greedy(5,3);
+console.log(greedy(4,21));
+console.log(greedy(3,7));
+console.log(greedy(5,3));
