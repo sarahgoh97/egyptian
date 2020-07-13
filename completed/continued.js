@@ -16,9 +16,13 @@ function continued(num, den) {
     var conNums = [];
     var conDens = [];
     findPrimaryConvergents();
+    console.log(conNums + " " + conDens);
     var secConNums = [];
     var secConDens = [];
+    //largestInt = integerParts[integerParts.length - 1]
     findSecondaryConvergents();
+    console.log(secConNums);
+    console.log(secConDens);
     changingConvergentsToDenominators();
     print();
 
@@ -81,7 +85,7 @@ function continued(num, den) {
     }
     //find secondary convergents for continued fraction
     function findSecondaryConvergents() {
-        for (var counter = 0; counter <= largestInt; counter++) {
+        /*for (var counter = 0; counter <= largestInt; counter++) {
             secConNums.push([]);
             secConDens.push([]);
         }
@@ -91,7 +95,22 @@ function continued(num, den) {
                 secConNums[counter].push(conNums[index-1] + conNums[index] * counter);
                 secConDens[counter].push(conDens[index-1] + conDens[index] * counter);
             }
+        }*/
+        for (var counter = 0; counter < conNums.length - 2; counter++) {
+            secConNums.push([]);
+            secConDens.push([]);
         }
+        for (var counter = 0; counter < conNums.length - 2; counter++){
+            secConNums[counter].push(conNums[counter+1]);
+            secConDens[counter].push(conDens[counter+1]);
+            for (var index = 1; index <= integerParts[counter+1]; index++){
+                if (counter + 1 < conNums.length) {
+                    secConNums[counter].push(conNums[counter + 1] + conNums[counter + 2] * index);
+                    secConDens[counter].push(conDens[counter + 1] + conDens[counter + 2] * index);
+                }
+            }
+        }
+
     }
     //get unit fractions' denominators based on convergents found
     function changingConvergentsToDenominators() {
@@ -99,10 +118,9 @@ function continued(num, den) {
         //when the primary number [i] too big, replace with secondary list from i-1 to i+1 and remove i
         for (var counter = 2; counter < conNums.length - 1; counter++) {
             if (conNums[counter] / conDens[counter] > conNums[counter + 1] / conDens[counter + 1]) {
-                for (index = 1; index <= largestInt; index++) {
-                    if (conDens[counter+1] > secConDens[index][counter-2]) {
-                        denominators.push(secConDens[index][counter - 2]);
-                    }
+                for (var index = 1; index < integerParts[counter-1]; index++) {
+                        denominators.push(secConDens[counter - 2][index]);
+                        console.log("counter and index: " + counter + "|" + index + " " + secConDens[counter-2][index]);
                 }
             } else {
                 denominators.push(conDens[counter]);
@@ -127,8 +145,9 @@ function continued(num, den) {
     }
 }
 
-continued(4,21);
+continued(11,21);
 continued(18,23);
+continued(5,6);
 //continued(3,7);
 //continued(7,15);
 //continued(6,7);
