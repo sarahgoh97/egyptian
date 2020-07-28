@@ -7,6 +7,5 @@
     <orderEntry type="library" name="@types/mathjs" level="application" />
     <orderEntry type="library" name="@types/node" level="application" />
     <orderEntry type="library" name="@types/snapsvg" level="application" />
-    <orderEntry type="library" name="svg.js" level="project" />
   </component>
 </module>
