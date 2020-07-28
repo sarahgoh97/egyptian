@@ -1,0 +1,73 @@
+<SUBSECTION>
+  <NAME>History of Egyptian Fractions</NAME>
+  <LABEL NAME="sec:history-ef"></LABEL>
+
+  <TEXT>
+    Egyptians used hieroglyphs to represent their numbers. When they use
+    fractions, an eye above the number to represent the unit fractions (insert
+    from presentation.tex). There are also special fractions based on the Eye
+    of Horus which use the power of 2. These are seen in the pictures below.
+  </TEXT>
+
+  <SCHEME>
+    <FIGURE src="img_egypt/notation.png">
+       <LABEL NAME="fig:notation"/>
+       <CAPTION>Fractions in Egyptian Hieroglyphs
+       </CAPTION>
+    </FIGURE>
+  </SCHEME>
+
+  <SCHEME>
+    <FIGURE src="img_egypt/power2.png">
+      <LABEL NAME="fig:power2"/>
+      <CAPTION>Special Fractions with Powers of 2
+      </CAPTION>
+    </FIGURE>
+  </SCHEME>
+
+  <TEXT>
+    As mentioned previously, Egyptians are limited in their representations of
+    fractions but still needed a method of dividing wages among the workers.
+    For example, when there are 5 sacks of rice as wages, the Egyptians used
+    these fractions to split them among their 6 workers. In these cases, they
+    built a table of fractions to keep track of how to divide the wages. This
+    is evidenced by the Rhind Papyrus which came from about 1850BC. It contains
+    a table of Egyptian Fraction representations mainly for fractions for 2/n,
+    where the unit fractions used are distinct.
+  </TEXT>
+
+  <SCHEME>
+    <FIGURE src="img_egypt/SurreyAhmesPapyrus.png">
+       <LABEL NAME="fig:rhind"/>
+       <CAPTION>Rhind Papyrus
+       </CAPTION>
+    </FIGURE>
+  </SCHEME>
+
+  <TEXT>
+    With such tables, the Egyptians can use the unit fractions to decide how to
+    split the wages. For example,
+  </TEXT>
+
+  <LATEX>
+    $\frac{5}{6} = \frac{1}{2} + \frac{1}{3}$
+  </LATEX>
+
+  <TEXT>
+    This means that they can split the 5 bags into 2 groups. 3 of the bags can
+    be split into halves while the other 2 can be split into thirds. From these,
+    the taskmaster can give each worker a half and a third. This makes it
+    easier for Egyptian taskmasters to give out wages for their workers. This is
+    different from our modern methods of simply dividing each bag into 6 parts
+    and giving each worker 5 of these parts.
+  </TEXT>
+
+  <TEXT>
+    This example shows how Egyptian Fraction representations are different from
+    our usage of ordinary fractions with a numerator greater than 1. Though it
+    is not obvious how the Egyptians derive these representations, they seem to
+    indicate the Egyptians used advanced mathematical concepts like the Sieve
+    of Eratosthenes and practical numbers. This allows room for mathematical
+    research in this area, which has been growing over the years.
+  </TEXT>
+</SUBSECTION>

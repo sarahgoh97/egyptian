@@ -2,142 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13720c13-880b-46d3-a134-670bb3273ca0" name="Default" comment="xml files from sicp on Source Academy Github">
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/Makefile" />
       <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter0/section1.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter0/subsection1.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter0/subsection2.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter0/subsection3.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter0/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/chapter1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/section1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection6.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection7.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section1/subsection8.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/section2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section2/subsection6.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section3/section3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section3/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section3/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section3/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter1/section3/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/chapter2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section1/section1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section1/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section1/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section1/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section1/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section2/section2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section2/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section2/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section2/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section2/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section3/section3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section3/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section3/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section3/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section3/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section4/section4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section4/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section4/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section4/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section5/section5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section5/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section5/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter2/section5/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/chapter3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section1/section1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section1/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section1/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section1/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section2/section2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section2/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section2/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section2/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section2/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/section3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section3/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section4/section4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section4/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section4/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/section5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter3/section5/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/chapter4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/section1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection6.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section1/subsection7.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section2/section2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section2/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section2/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section2/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section3/section3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section3/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section3/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section3/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section4/section4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section4/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section4/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section4/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter4/section4/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/chapter5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/section1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section1/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section2/section2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section2/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section2/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section2/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section2/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section3/section3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section3/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section3/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section4/section4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section4/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section4/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section4/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section4/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/section5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection2.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection4.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection6.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/chapter5/section5/subsection7.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/contents.ent" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/02foreword02.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/03prefaces03.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/04acknowledgements04.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/97references97.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/98indexpreface98.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/xml/others/99making99.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/egyptian.iml" afterPath="$PROJECT_DIR$/egyptian.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -910,7 +780,7 @@
       <workItem from="1594608184542" duration="9105000" />
       <workItem from="1594706888934" duration="764000" />
       <workItem from="1594803083628" duration="1251000" />
-      <workItem from="1595316235818" duration="36897000" />
+      <workItem from="1595316235818" duration="36959000" />
     </task>
     <task id="LOCAL-00001" summary="nodejs lib">
       <created>1589951003646</created>
@@ -1059,11 +929,18 @@
       <option name="project" value="LOCAL" />
       <updated>1594609781217</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="xml files from sicp on Source Academy Github">
+      <created>1595924958041</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1595924958041</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="431863000" />
+    <option name="totallyTimeSpent" value="431925000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
