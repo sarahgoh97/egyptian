@@ -1,0 +1,64 @@
+1.1.1 Expressions
+- remove division operations (because it violates the only integers thing)
+- remove decimals
+
+1.1.2 Naming and the Environment
+- pythagorean theorem
+    - Pythagoras lived in Egypt
+    - pythagorasConstants.js
+- can keep example of circles maybe?
+            - examples of pyramid with height and base (surface area/volume)
+            - examples of const with dividing wages (rice, workers)
+                - maybe not this
+
+1.1.3 Evaluating Operator Combinations
+- no change to JS parts
+
+1.1.4 Functions
+- pythagorean theorem
+    - keep the square examples
+    - use sum of squares
+    - pythagorasFunction.js
+            - finding pyramid stuff
+                - a bit too complicated, requires division
+
+
+1.1.5 The Substituion Model for Functional Application
+- keep same explanation for square and sum of squares
+
+1.1.6 Conditional Expressions and Predicates
+- checking proper fractions
+    - sometimes the denominator smaller than numerator because its negative and
+    the numerator is positive
+    - need to use absolute function to check
+        - keep abs function in book
+    - add function to test proper fraction
+        - checkProperFraction.js
+    - take out exercises with division inside (1.1, 1.2)
+
+1.1.7 Example: Square Roots by Newton's Method -> Example: Ceiling and Floor
+- example of ceiling and floor as mathematical functions and how it looks like
+with computer functions
+- doing subtraction recursively
+    - function division(big, small) {}
+        - initially returns only quotient
+        - remainder is missing - need another one for remainder
+    - integer division functions here
+        - integerDivisionQuotientRecursive.js
+        - integerDivisionRemainderRecursive.js
+    - ceiling function
+        - ceilingRecursive.js
+
+1.1.8 Functions as Black-Box Abstractions
+- multiple ways of doing the smaller functions (same as book)
+- lexical scoping with division stuff in ceiling function
+    - ceilingBlock.js
+
+
+1.2.1 Linear Recursion and Iteration
+- recursive vs. iterative version of integer division functions
+- keeping a counter until it exceeds the bigger number
+    - integerDivisionQuotientIterative.js
+    - integerDivisionRemainderIterative.js
+
+1.2.2 Tree Recursion
