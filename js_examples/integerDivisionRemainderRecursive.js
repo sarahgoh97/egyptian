@@ -1,7 +1,7 @@
-function divisionRem (big, small) {
+function divisionRemRec (big, small) {
     return big < small ?
         big :
         divisionRem(big - small, small);
 }
 
-divisionRem(31,4); //3
+divisionRemRec(31,4); //3
