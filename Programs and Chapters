@@ -82,3 +82,52 @@ with computer functions
 1.2.6 Testing for Primality
 - nah lets take this out
 
+1.3 Formulating Abstractions with Higher-Order Functions
+- talking about pythagoras instead of cube
+    - pythagorasFunction.js
+
+1.3.1 Functions as Arguments
+- template of name(a, b) { return a > b ? 0 : term(a) + name(next(a), b); }
+    - integerDivisionQuotientRecursive.js
+    - integerDivisionRemainderRecursive.js
+    - sumHarmonicFractions.js (fraction(a,b) = a/b)
+        - potentially using sum later for getting EFs, if not just not talk
+            - for sum(term, a, next, b)
+                - init: a is first index, b is last index, next is a + 1,
+                term is the function based on a (eg. array[a])
+                - sumHarmonicFractionsAbstract.js
+        - then just use the same examples?
+            - may be able to say that can use pi for pyramids, so find pi
+- good for summations and recursion but not really here huh
+
+1.3.2 Function Definition Expressions
+- not separating next as a function but use the "=>"
+    - sumHarmonicFractionsExp.js
+- const to create local names
+    - finding pyramid stuff?
+        - pyramid surface area based on the length of square base?
+        - or max amt of resources so need to find out the height is
+        - if have vertical ht and base, need to use pythagoras and sqrt to
+        get slant height to get area of triangle x 4
+        - if have resources and base, can see the max slant height then use
+        pythagoras to get vertical ht - so maybe just stop at slant height
+        - pyramidSlantHeight.js
+            - only dealing with integer division
+- const to create local names + conditional statements
+    - gcdConstCond.js
+    - fastDivision?
+
+1.3.3 Functions as General Methods
+- greedy method instead of finding roots of eqns by half-interval method
+    - explaining greedy method, mention proofs in appendix or smth
+    - starts with a fraction and finding denominators
+    - can display the results we want but realise that the answer returned is wrong
+- show limitation of current one that even though print correctly but output of func is wrong
+    - greedyBruteForce.js
+    - wrong because cannot tell what are the individual ones
+    - greedySummed.js
+        - explain how ceiling works with proof and show that its faster
+
+1.3.4 Functions as Returned Values
+- talk about how the above 2 methods are valid in finding the biggest uf
+    - greedyFuncReturned
