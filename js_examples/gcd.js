@@ -1,9 +1,5 @@
-function gcd(small, big) {
-    if (small === 0) {
-        return big;
-    } else {
-        const remainder = big % small;
-        return gcd(remainder, small);
-    }
+function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
 }
+
 gcd(6,52);
