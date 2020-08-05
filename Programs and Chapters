@@ -23,7 +23,7 @@
                 - a bit too complicated, requires division
 
 
-1.1.5 The Substituion Model for Functional Application
+1.1.5 The Substitution Model for Functional Application
 - keep same explanation for square and sum of squares
 
 1.1.6 Conditional Expressions and Predicates
@@ -48,6 +48,8 @@ with computer functions
         - integerDivisionRemainderRecursive.js
     - ceiling function
         - ceilingRecursive.js
+(- alternative is to do the pyramid stuff)
+(- using egyptian way of doing multiplication/division)
 
 1.1.8 Functions as Black-Box Abstractions
 - multiple ways of doing the smaller functions (same as book)
@@ -62,3 +64,21 @@ with computer functions
     - integerDivisionRemainderIterative.js
 
 1.2.2 Tree Recursion
+- splitting/pairing method of ef instead of fib?
+    - from 1/x = 1/(x+1) + 1/x(x+1)
+    - hard because only one number as output for now
+- just keep fib becuase nothing else works lol
+
+1.2.3 Orders of Growth
+- do the egyptian multiplication/division (need to do intDivQuoEgy and the Rem)
+- gcd
+    - gcd.js
+
+1.2.4 Functions as Arguments
+- intDivision as general function for quotient and remainder
+    - integerDivisionGeneral.js
+
+1.2.5 Greatest Common Divisors
+1.2.6 Testing for Primality
+- nah lets take this out
+
