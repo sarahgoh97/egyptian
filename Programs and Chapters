@@ -131,3 +131,56 @@ with computer functions
 1.3.4 Functions as Returned Values
 - talk about how the above 2 methods are valid in finding the biggest uf
     - greedyFuncReturned
+
+2.1 Introduction to Data Abstraction
+- arithmetic ops for rational numbers (fractions)
+    - use the same
+- pairs used to represent fractions can just keep
+    - fractions.js
+        - includde operations as part of 2.1
+- print function using display
+- 2.1.4 example of interval arithmetic
+    - working greedy method with printing but output still wrong
+        - greedyFractions.js
+        - returns the original fraction started out with
+    - now can return fractions though
+        - harmonic sum of fractions (without simplifying)
+        - sumHarmonicFractionsPairs.js
+            - simplify with gcd to make it nicer
+    - introduce another ef algo?
+        - splitting method: 2/x = 1/x+1 + 1/x(x+1) - nah
+
+2.2 Hierarchical Data and the Closure Property
+- rep seq of answers from greedy algo with list (list ops)
+    - adding stuff to list
+        - add new function called addToFront for lists
+    - splittingRelation.js and pairingRelation.js
+    - explain splitting ef method?
+        - initialise list of splitting fractions
+        - splittingInitialise.js
+    - using pairs to show greedy works
+        - greedyFractionsList.js
+    - start cf by using fraction to make list of cf reps
+- mapping over lists
+    - continued fractions
+        - continuedFractionPrimary.js
+            - without mapping
+        - continuedFractionPrimaryMap.js
+            - edited map with ref to prev and beforePrev
+            - original map has only function and the list
+    - splitting needs to find 2 of the same kind to merge
+- 2.2.2 Hierarchical Structures
+  - trees and mapping over them
+    - splitting?
+        - enumerate through the list
+        - filter if same
+        - map to the diff ones
+        - accumulate by adding and removing, keep same if no repeat
+  - nested
+        - secondary convergents
+            - enumerate through the primary convergents
+            - no filter, just in range
+            - map to secondary convergents (2d)
+            - accumulate into table, put null if nth
+- 2.2.4 example: a pic language
+  - has images
