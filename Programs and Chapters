@@ -137,7 +137,10 @@ with computer functions
     - use the same
 - pairs used to represent fractions can just keep
     - fractions.js
-        - includde operations as part of 2.1
+        - include operations as part of 2.1
+- can also use pairs for non-fractions, stuff, eg. division
+    - now only loop once with pairs returning quotient and remainder tgt
+    - integerDivisionPairs.js
 - print function using display
 - 2.1.4 example of interval arithmetic
     - working greedy method with printing but output still wrong
