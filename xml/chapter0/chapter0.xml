@@ -1,0 +1,126 @@
+<CHAPTER>
+    <NAME>
+        Egyptian Fractions
+    </NAME>
+
+    <HISTORY>
+        % fall '97 Add tex '\label's for manual to reference.
+        % 8/26/97  FIX TYPOS FOR THIRD PRINTING -- p.45, p.70
+        %
+        % 4/15/96 FIX TYPO FOUND BY COMPARING TO BEFORE-INDEXING -- MUST REPRINT P.60
+        % 4/13-4/15 Indexing [after final printout of chapters]
+        % 4/11 Corrections and adjustments based on <QUOTE>final</QUOTE> check and
+        % spell-checking
+        % 4/9  trivial fixes based on comparison to before-indexing
+        % 4/6-... Julie index fixes (and 4/8 change 'ns')
+        % 4/5/96 Hal indexing
+        % 3/29/96, 4/3/96 Julie: indexing fixes
+        % 3/18/96 rest of pagination, minor other indexing changes
+        % 3/14 &amp; 3/16/96 Paginated up to p.64 (look for \pagekludge)
+        % 3/10-3/14/96 minor changes/fixes; indexing; Moved exercise
+        % 3/9/96  fix spacing in some exercise parts
+        % 3/6/96  fix typos
+        % 3/5/96  minor typesetting fixes
+        % 3/4/96  edit first-class-proc footnote for PSZ; fix minor error
+        % 2/26-3/1/96 fix some bad line breaks
+        % 2/24/96 flush \noindent after {lisp} by closing up space with %
+        % 2/24/96 fix format of GCD-reduction equation
+        % 2/23/96 fix typesetting with new smallequation macro
+        % 2/22/96 new spec for epigraph
+        % 2/21/96 fixed format of absolute-value def
+        % 2/20/96 fix how arrows are done
+        % 2/19/96 changed exp-iter -> expt-iter, fast-exp -> fast-expt
+        % 2/19/96 fixed () in a reference
+        % 2/19/96 fixed et al.
+    </HISTORY>
+
+    <CHAPTERCONTENT/>
+
+    <TEXT>
+        Egyptian fractions are a unique way of representing and using fractions.
+        This is because the Ancient Egyptians only used unit fractions which are
+        fractions that have a numerator of 1. In other words, they only used
+        reciprocals as fractions. For example,
+        <LATEX>
+            $\frac{1}{3}, \frac{1}{14}, 2^{-1}$
+        </LATEX>
+        are used by the Egyptians but
+        <LATEX>
+            $\frac{5}{6}, \frac{2}{14}$
+        </LATEX>
+        are not because their numerators are not 1. Hence, a different method is
+        required to represent these fractions that have a numerator greater than 1.
+        The Egyptians represented their fractions with positive, distinct unit
+        fractions. Looking at the first example fraction,
+        <LATEX>
+            \[\frac{5}{6} = \frac{1}{2} + \frac{1}{3}\]
+        </LATEX>
+        <LATEX>
+            \[\frac{5}{6} = \frac{1}{2} + \frac{1}{4} + \frac{1}{12}\]
+        </LATEX>
+        These representations are correct because they represent the fraction with
+        distinct unit fractions. However, these examples would be wrong:
+        <LATEX>
+            \[\frac{5}{6} = \frac{1}{3} + \frac{1}{4} + \frac{1}{4}\]
+        </LATEX>
+        This is wrong because the denominators in the second and third unit
+        fractions are the same. Since the unit fractions are not distinct, this is
+        an invalid representation.
+        <LATEX>
+            \[\frac{5}{6} = \frac{1}{1} - \frac{1}{6}\]
+        </LATEX>
+        This would also be wrong because the second unit fraction used is negative.
+    </TEXT>
+
+    <TEXT>
+        Though Egyptian Fractions may seem vastly different from programming, it
+        can help to explain the rationale of various essential concepts in
+        programming to beginner students. Fractions are something basic that
+        students have learnt at a young age and this could be useful in helping
+        them to understand computing concepts which may be too abstract to grasp
+        initially. This makes programming easier to grasp for new students. At the
+        same time, the mathematical complexity behind Egyptian Fractions can
+        engage students that can grasp the programming concepts easily. Egyptian
+        Fractions can also provide context for the programs implemented.
+    </TEXT>
+
+    <TEXT>
+        This is adapted from Martin Henz's book called ``Structure and
+        Interpretation of Computer Programs - JavaScript Adaptation" which can be
+        found online at (https://source-academy.github.io/sicp/). This will cover
+        the same concepts and will also be teaching JavaScript with the online
+        environment developed by Henz (https://sourceacademy.nus.edu.sg/playground).
+        This provides a platform for students to learn programming with
+        JavaScript in a more accessible manner.
+    </TEXT>
+
+    <TEXT>
+        (Just to test whether I can type in something here and be able to
+        display on the internet)
+        <SNIPPET>
+            <JAVASCRIPT>
+                const egyptians = 4;
+                egyptians;
+            </JAVASCRIPT>
+        </SNIPPET>
+        by clicking it, it will respond by creating a separate
+        browser tab where the statement is shown, with the option
+        to evaluate the statement by pressing a <QUOTE>Run</QUOTE> button.
+        Click on the primitive expression statement, and see what happens!
+    </TEXT>
+
+    <CHAPTERCONTENT/>
+
+    <!-- Section 1 : History of Egyptian Fractions -->
+    &section0.1;
+
+    <!-- Section 2 : Work Done on Egyptian Fractions -->
+    &section0.2;
+
+    <!-- Section 3 : Application of Egyptian Fractions -->
+    &section0.3;
+
+    <!-- Section 4 : Using Natural Numbers Only -->
+    &section0.4;
+
+</CHAPTER>

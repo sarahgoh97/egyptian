@@ -1,0 +1,39 @@
+<SECTION>
+    <NAME>Application of Egyptian Fractions</NAME>
+    <LABEL NAME="sec:application"/>
+
+    <SECTIONCONTENT/>
+
+    <TEXT>
+        Egyptian Fractions do not seem useful at first glance. However, there are
+        a few possible areas of application. For example, some computers do not do
+        division directly but uses multiplication with the reciprocal instead. In
+        that case, Egyptian Fractions may be applied such that reciprocals or unit
+        fractions can be useful for division computations.
+    </TEXT>
+
+    <TEXT>
+        Another potential application is looking at resistors placed in parallel in
+        a circuit. When resistors are placed in parallel, their total resistance is
+        the inverse of the sum of the reciprocals of the individual resistances, ie.
+    </TEXT>
+
+    <LATEX>
+        \[\frac{1}{R_{tot}} = \frac{1}{R_1} + \frac{1}{R_2} + ... \]
+    </LATEX>
+
+    <TEXT>
+        The right hand side has a similar representation as Egyptian Fractions. One
+        possible way to make use of this is to come up with resistance values to get
+        nicer round numbers for students that are learning about parallel
+        resistors. Another possibility is to use the standard values of resistors
+        and get the total resistance more easily instead of the usual tedious
+        method of cross-multiplying and flipping the fractions.
+    </TEXT>
+
+    <TEXT>
+        There may be other possible areas of application that have not yet been
+        explored.
+    </TEXT>
+
+</SECTION>

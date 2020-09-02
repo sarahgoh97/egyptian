@@ -29,7 +29,7 @@
     instead of our usual base 10 in mathematics that we use. This is also known
     as machine language. When we program, we use identifiers and syntax that we
     can read and understand. As we compile, these programs are converted into
-    0s and 1s for computers to understand and return the result.
+    0s andnd and return the result.
   </TEXT>
 
   <SCHEME>

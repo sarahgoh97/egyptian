@@ -1,0 +1,44 @@
+<SECTION>
+    <NAME>Using Natural Numbers Only</NAME>
+    <LABEL NAME="sec:natural-numbers"/>
+
+    <SECTIONCONTENT/>
+
+    <TEXT>
+        The Egyptians did not have a concept of numbers other than natural
+        numbers. Even in their fractions they were represented by integers
+        placed in a certain order. Likewise, when we deal with fractions we use
+        2 natural numbers placed vertically and a line between them to show
+        which is the numerator and the denominator. Hence, we will also limit
+        ourselves to using only natural numbesr as we get into the programming
+        with Egyptian Fractions. Though computers can represent other types of
+        numbers, like negative numbers of decimals, they are not relevant in
+        this context and we will not use them here.
+    </TEXT>
+
+    <FIGURE>
+        <FIGURE src="img_egypt/naturalnumbers.png"></FIGURE>
+        <LABEL NAME="fig:natural-numbers"/>
+        <CAPTION>Numerals Used in Egyptian Hieroglyphs
+        </CAPTION>
+    </FIGURE>
+
+    <TEXT>
+        As we see again below, the numbers in the powers of 2 are special to the
+        Egyptians. Likewise, the binary system is also very relevant to computer
+        science. When looking at the lower levels of a computer, we see that
+        computers only understand 0s and 1s which are numbers with a base of 2,
+        instead of our usual base 10 in mathematics that we use. This is also known
+        as machine language. When we program, we use identifiers and syntax that we
+        can read and understand. As we compile, these programs are converted into
+        0s and and return the result.
+    </TEXT>
+
+    <FIGURE>
+        <FIGURE src="img_egypt/power2.png"></FIGURE>
+        <LABEL NAME="fig:power2"/>
+        <CAPTION>Special Fractions with Powers of 2
+        </CAPTION>
+    </FIGURE>
+
+</SECTION>
