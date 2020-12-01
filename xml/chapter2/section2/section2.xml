@@ -4,6 +4,15 @@
   <SECTIONCONTENT/>
 
   <LABEL NAME="sec:hierarchical-data"/>
+
+    <TEXT>
+        [<EM>
+This section talks about how pairs can be connected using the closure property
+      with the box-and-pointer notation. It then goes on to use this property
+      to build hierarchical structures.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     As we have seen, pairs provide a primitive <QUOTE>glue</QUOTE> that we can
     use to construct compound data objects.

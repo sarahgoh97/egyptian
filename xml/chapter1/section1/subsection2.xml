@@ -3,6 +3,17 @@
   <LABEL NAME="sec:naming"></LABEL>
 
   <TEXT>
+    [<EM>
+      In this subsection, the original authors talk about using constants and
+      the program environment. He uses the example of constants to demonstrate
+      abstraction in programming. Following the original idea, only the examples
+      are changed to fit natural numbers. Originally, a circle was used
+      an example. Now, it is an example of Egyptian workers so that only
+      addition and multiplication are used.
+    </EM>]
+  </TEXT>
+
+  <TEXT>
     A critical aspect of a programming language is the means it provides
     for using
     <INDEX>naming<SUBINDEX>of computational objects</SUBINDEX></INDEX>
@@ -44,16 +55,19 @@
     </SPLITINLINE>
     Typing
     <SNIPPET>
-      <NAME>var_size</NAME>
+      <NAME>var_workers</NAME>
       <SCHEME>
 (define size 2)
       </SCHEME>
       <JAVASCRIPT>
-const size = 2;
+const workers = 2;
       </JAVASCRIPT>
+      <!--<JAVASCRIPT>
+const size = 2;
+      </JAVASCRIPT>-->
     </SNIPPET>
     causes the interpreter to associate the value 2 with the
-    name <SCHEMEINLINE>size</SCHEMEINLINE>.<FOOTNOTE>
+    name <SCHEMEINLINE><!--size-->workers</SCHEMEINLINE>.<FOOTNOTE>
     <SPLITINLINE>
       <SCHEME>    
         <!--
@@ -71,10 +85,44 @@ const size = 2;
         on previous statements.
       </JAVASCRIPT>
     </SPLITINLINE></FOOTNOTE>
-    Once the name <SCHEMEINLINE>size</SCHEMEINLINE>
+    Once the name <SCHEMEINLINE><!--size-->workers</SCHEMEINLINE>
     has been associated with the number 2, we can
     refer to the value 2 by name:
     <SNIPPET>
+      <NAME>workers_use_1</NAME>
+      <REQUIRES>var_workers</REQUIRES>
+      <EXPECTED>2</EXPECTED>
+      <SCHEME>
+size
+      </SCHEME>
+      <SCHEMEOUTPUT>
+2
+      </SCHEMEOUTPUT>
+      <JAVASCRIPT>
+workers;
+      </JAVASCRIPT>
+      <JAVASCRIPT_OUTPUT>
+2
+      </JAVASCRIPT_OUTPUT>
+    </SNIPPET>
+    <SNIPPET>
+      <NAME>workers_use_2</NAME>
+      <REQUIRES>var_workers</REQUIRES>
+      <EXPECTED>10</EXPECTED>
+      <SCHEME>
+(* 5 size)
+      </SCHEME>
+      <SCHEMEOUTPUT>
+10
+      </SCHEMEOUTPUT>
+      <JAVASCRIPT>
+5 * workers;
+      </JAVASCRIPT>
+      <JAVASCRIPT_OUTPUT>
+10
+      </JAVASCRIPT_OUTPUT>
+    </SNIPPET>
+    <!--<SNIPPET>
       <NAME>size_use_1</NAME>
       <REQUIRES>var_size</REQUIRES>
       <EXPECTED>2</EXPECTED>
@@ -107,7 +155,7 @@ size;
       <JAVASCRIPT_OUTPUT>
 10
       </JAVASCRIPT_OUTPUT>
-    </SNIPPET>
+    </SNIPPET>-->
   </TEXT>
   <SPLIT>
     <JAVASCRIPT>
@@ -122,18 +170,26 @@ size;
 	  program, preceded by all required statements, then appears in a new
 	  browser tab. Thus, as a result of clicking on
           <SNIPPET>
-            <REQUIRES>var_size</REQUIRES>
+            <REQUIRES>var_workers</REQUIRES>
             <JAVASCRIPT>
-5 * size;
+5 * workers;
             </JAVASCRIPT>
+<!--            <REQUIRES>var_size</REQUIRES>
+            <JAVASCRIPT>
+5 * workers;
+            </JAVASCRIPT>-->
           </SNIPPET>
           a new tab appears that contains the program
           <SNIPPET>
 	    <EXPECTED>10</EXPECTED>
             <JAVASCRIPT>
+const workers = 2;
+5 * workers;
+            </JAVASCRIPT>
+            <!--<JAVASCRIPT>
 const size = 2;
 5 * size;
-            </JAVASCRIPT>
+            </JAVASCRIPT>-->
           </SNIPPET>
           You notice here that JavaScript statements can be placed in a sequence.
           The interpreter evaluates the components of the sequence in the given
@@ -154,6 +210,7 @@ const size = 2;
       </JAVASCRIPT>
     </SPLITINLINE>
 
+<!--
     <SNIPPET>
       <NAME>pi</NAME>
       <SCHEME>
@@ -218,6 +275,65 @@ circumference;
 62.8318
       </JAVASCRIPT_OUTPUT>
     </SNIPPET>
+-->
+    <SNIPPET>
+      <NAME>hours</NAME>
+      <JAVASCRIPT>
+const hours = 7;
+      </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET>
+      <NAME>pay_per_hour</NAME>
+      <JAVASCRIPT>
+const pay_per_hour = 12;
+      </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET>
+      <NAME>wage</NAME>
+      <EXPECTED>84</EXPECTED>
+      <REQUIRES>hours</REQUIRES>
+      <REQUIRES>pay_per_hour</REQUIRES>
+      <JAVASCRIPT>
+hours * pay_per_hour;
+      </JAVASCRIPT>
+      <JAVASCRIPT_OUTPUT>
+84
+      </JAVASCRIPT_OUTPUT>
+    </SNIPPET>
+
+    The <EM>value expression</EM> to the right of the
+    <SCHEMEINLINE>=</SCHEMEINLINE> sign can be any expression, including a
+    combination.
+    <SNIPPET>
+        <NAME>cost</NAME>
+        <REQUIRES>hours</REQUIRES>
+        <REQUIRES>pay_per_hour</REQUIRES>
+        <REQUIRES>var_workers</REQUIRES>
+        <JAVASCRIPT>
+const daily_cost = hours * pay_per_hour * workers;
+        </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET>
+        <NAME>cost_use</NAME>
+        <REQUIRES>cost</REQUIRES>
+        <JAVASCRIPT>
+daily_cost;
+        </JAVASCRIPT>
+    </SNIPPET>
+<!--
+    <SNIPPET>
+        <NAME>circumference</NAME>
+        <JAVASCRIPT>
+const circumference = 2 * pi * radius;
+        </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET>
+        <NAME>circumference_use</NAME>
+        <REQUIRES>circumference</REQUIRES>
+        <JAVASCRIPT>
+circumference;
+        </JAVASCRIPT>
+    </SNIPPET>  -->
     <INDEX>means of abstraction<SUBINDEX>
     <ORDER>define</ORDER><TT>define</TT></SUBINDEX></INDEX>
     <SPLITINLINE>

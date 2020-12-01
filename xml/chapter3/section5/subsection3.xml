@@ -4,6 +4,14 @@
   </NAME>
 
   <LABEL NAME="sec:exploiting-streams"/>
+
+    <TEXT>
+        [<EM>
+This subsection talks about the benefits of using streams which are different
+        from concepts in previous chapters.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     Streams with delayed evaluation can be a powerful modeling tool,
     providing many of the benefits of local state and assignment.

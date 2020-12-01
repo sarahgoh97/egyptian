@@ -5,7 +5,12 @@
 
   <LABEL NAME="sec:benefits-of-assignment"/>
   <INDEX>assignment<SUBINDEX>benefits of|(</SUBINDEX></INDEX>
-
+    <TEXT>
+        [<EM>
+This subsection talks about the advantages of using assignment like modelling
+        change.
+    </EM>]
+    </TEXT>
   <TEXT>
     <INDEX>object(s)<SUBINDEX>benefits of modeling with</SUBINDEX></INDEX>
     <INDEX>modularity<SUBINDEX>through modeling with objects</SUBINDEX></INDEX>

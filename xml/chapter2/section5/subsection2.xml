@@ -5,6 +5,15 @@
 
   <LABEL NAME="sec:combining-data-of-different-types"/>
 
+    <TEXT>
+        [<EM>
+This subsection discusses the possible ways of combining data or using
+        mathematical operations on the different data types. Some possible ways
+        are to use the table from the previous subsection, or to use coercion
+        of types or to use hierarchies of types with inheritance across types.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We have seen how to define a unified arithmetic system that
     encompasses ordinary numbers, complex numbers, rational numbers, and

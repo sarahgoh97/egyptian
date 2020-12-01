@@ -15,6 +15,14 @@
   <INDEX>internal definition
   <SUBINDEX>environment@in environment model|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about unassigned variables and understanding the
+        environment model for block structures introduced in Chapter 1.
+    </EM>]
+    </TEXT>
+
+
   <SPLIT>
     <SCHEME>
     </SCHEME>

@@ -2,8 +2,17 @@
   <NAME>Systems with Generic Operations</NAME>
 
   <SECTIONCONTENT/>
-
   <LABEL NAME="sec:generic-operators"/>
+
+  <TEXT>
+    [<EM>
+    This section talks about defining functions that are generic over different
+    types of arguments. In this context, it will look at how mathematical
+    operations can be used on the different types of numbers explored, which
+    are numbers on their own, rational numbers and complex numbers.
+  </EM>]
+  </TEXT>
+
   <TEXT>
     <INDEX>arithmetic<SUBINDEX>generic</SUBINDEX></INDEX>
     In the previous section, we saw how to design systems in which data

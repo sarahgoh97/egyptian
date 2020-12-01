@@ -6,6 +6,14 @@
   <SECTIONCONTENT/>
 
   <TEXT>
+    [<EM>
+      In this section, the original authors talk about the basic elements of
+      programming like primitive expressions and using the concepts of
+      combination and abstraction to explain data and functions.
+    </EM>]
+  </TEXT>
+
+  <TEXT>
     A powerful programming language is more than just a means for
     instructing a computer to perform tasks.  The language also serves as
     a framework within which we organize our ideas about processes.  Thus,

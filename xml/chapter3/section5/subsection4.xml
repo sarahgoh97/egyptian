@@ -7,6 +7,13 @@
   <INDEX>stream(s)<SUBINDEX>delayed evaluation and|(</SUBINDEX></INDEX>
   <INDEX>delayed evaluation<SUBINDEX>streams and|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about the delay in feedback loops which allow functions
+        that are defined in terms of themselves to work.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     The <SCHEMEINLINE>integral</SCHEMEINLINE>
     <SPLITINLINE>

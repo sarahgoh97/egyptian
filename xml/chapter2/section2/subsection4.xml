@@ -6,6 +6,22 @@
   <LABEL NAME="sec:graphics"/>
   <INDEX>picture language|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This section uses a picture language to demonstrate how visual patterns can be
+        formed from a basic drawing. The picture language uses only one
+        element, a painter which draws the images. This data abstraction was
+        implemented using functional representations and shows higher level
+        abstraction.
+
+        A potential change to be done to this chapter is to discuss a package
+        for Egyptian Fractions, to be able to decompose them differently. On
+        top of that, there can also be mathematical functions added to it, such
+        as addition and multiplication to represent the new fraction in its
+        Egyptian decomposition. However, these are ideas are still in the work.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     This section presents a simple language for drawing pictures that
     illustrates the power of data abstraction and closure, and also exploits

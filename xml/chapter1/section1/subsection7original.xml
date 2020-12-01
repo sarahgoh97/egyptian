@@ -1,18 +1,6 @@
 <SUBSECTION>
-  <NAME>Example: Division of 2 Natural Numbers - Quotient and Remainder</NAME>
+  <NAME>Example: Square Roots by Newton<APOS/>s Method</NAME>
   <LABEL NAME="sec:sqrt"/>
-
-    <TEXT>
-        [<EM>
-        In this subsection, the original authors used square root  by
-        Newton<APOS/>s method to explain the difference between a computer
-        function and a mathematical function. However, this method involves
-        real numbers. Instead of using that example, the example of division
-        is used here instead. This is also a good time to introduce divide and
-        modulo operations to students since they are not included in the
-        initial sections of the book.
-    </EM>]
-    </TEXT>
 
   <TEXT>
     <INDEX>procedure<SUBINDEX>mathematical function vs.|(</SUBINDEX></INDEX>
@@ -39,26 +27,25 @@
     must be effective.
   </TEXT>
   <TEXT>
-    As a case in point, consider the problem of dividing 2 natural numbers and
-    getting the quotient and remainder since the Egyptians only used natural
-    numbers and did not have a decimal system like we do now. We can define
-    the division function as
+    As a case in point, consider the problem of computing square
+    roots.  We can define the square-root function as
     <LATEX>
       \[
-      x \div y = q \text{ and } r \text{ such that } x = qy + r
+      \sqrt{x} =\text{ the }y\text{ such that }y \geq 0\text{ and }
+      y^2 = x
       \]
     </LATEX>
     This describes a perfectly legitimate mathematical function.  We could
-    use it to recognize the quotient and remainder based on the division of the
-    2 numbers or to derive applications using this division. On the other hand,
-    the definition does not describe a
+    use it to recognize whether one number is the square root of another, or
+    to derive facts about square roots in general.  On the other hand, the
+    definition does not describe a
     <SPLITINLINE>
       <SCHEME>procedure.</SCHEME>
       <JAVASCRIPT>computer function.</JAVASCRIPT>
     </SPLITINLINE>
-    Indeed, it tells us almost nothing about how to actually find the quotient
-    or remainder when dividing 2 numbers.  It will not help matters to rephrase
-    this definition in
+    Indeed, it tells us almost nothing about how to actually find the square
+    root of a given number.  It will not help matters to rephrase this
+    definition in
     <SPLITINLINE>
       <SCHEME>pseudo-Lisp:</SCHEME>
       <JAVASCRIPT>pseudo-JavaScript:</JAVASCRIPT>
@@ -70,8 +57,8 @@
               (= (square y) x))))
       </SCHEME>
       <JAVASCRIPT>
-function divide(x, y) {
-    return the q $\texttt{and}$ r $\texttt{with}$ x = qy + r;
+function sqrt(x) {
+    return the y $\texttt{with}$ y &gt;= 0 &amp;&amp; square(y) === x;
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -122,40 +109,55 @@ function divide(x, y) {
     <INDEX>function (mathematical)<SUBINDEX>procedure vs.|)</SUBINDEX></INDEX>
   </TEXT>
   <TEXT>
-    <INDEX>division|(</INDEX>
-    How does one compute quotients and remainders when dividing 2 numbers? The
-    simplest way is to continuously subtract the divisor,
-    <LATEXINLINE>$y$</LATEXINLINE> , from the dividend,
-    <LATEXINLINE>$x$</LATEXINLINE>, until the divisor is smaller than the
-    dividend. Then, the remainder is found from the divisor left.
-    For example, we can compute 17 divided by 5 as follows:
+    <INDEX>square root|(</INDEX>
+    <INDEX>Newton<APOS/>s method
+    <SUBINDEX>square@for square roots|(</SUBINDEX></INDEX>
+    How does one compute square roots?  The most common way is to use
+    Newton<APOS/>s method of successive approximations, which says that whenever
+    we have a guess <LATEXINLINE>$y$</LATEXINLINE> for the value of the square
+    root of a number <LATEXINLINE>$x$</LATEXINLINE>, we can perform a simple
+    manipulation to get a better guess (one closer to the actual square root)
+    by averaging <LATEXINLINE>$y$</LATEXINLINE> with
+    <LATEXINLINE>$x/y$</LATEXINLINE>.<FOOTNOTE>This square-root algorithm is
+    actually a special case of Newton<APOS/>s method, which is a general
+    technique for finding roots of equations.  The square-root algorithm itself
+    was developed by Heron of
+    <INDEX>Heron of Alexandria</INDEX>
+    Alexandria in the first century <SC>a.d</SC>.  We will see how to express
+    the general Newton<APOS/>s method as a
+    <SPLITINLINE>
+      <SCHEME>
+        Lisp procedure
+      </SCHEME>
+      <JAVASCRIPT>
+        JavaScript function
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    in section<SPACE/><REF NAME="sec:proc-returned-values"/>.</FOOTNOTE>
+    For example, we can compute the square root of 2 as follows.  Suppose our
+    initial guess is<SPACE/>1:
     <LATEX>
       \[
       \begin{array}{lll}
-      \textrm{Index} &amp; \textrm{Dividend} &amp; \textrm{Divisor} \\[1em]
-      0    &amp; 17   &amp; 5 \\[1em]
-      1    &amp; 12   &amp; 5 \\[1em]
-      2    &amp; 7    &amp; 5 \\[1em]
-      3    &amp; 2    &amp; 5
+      \textrm{Guess} &amp; \textrm{Quotient} &amp; \textrm{Average}\\[1em]
+      1      &amp; {\displaystyle \frac{2}{1} = 2}           &amp; {\displaystyle \frac{(2+1)}{2} = 1.5} \\[1em]
+      1.5    &amp; {\displaystyle \frac{2}{1.5} = 1.3333}    &amp; {\displaystyle \frac{(1.3333+1.5)}{2} = 1.4167} \\[1em]
+      1.4167 &amp; {\displaystyle \frac{2}{1.4167} = 1.4118} &amp; {\displaystyle \frac{(1.4167+1.4118)}{2} = 1.4142} \\[1em]
+      1.4142 &amp; \ldots &amp; \ldots
       \end{array}
       \]
     </LATEX>
-    Using this process, we can find 2 as the remainder. However, we have not
-    been able to find the quotient yet. Following the process we used above, we
-    can see that if we keep track of the index we can also find the quotient
-    based on how many times we subtract the divisor from the dividend. Then, we
-    can find 3 as the quotient.
+    Continuing this process, we obtain better and better approximations to the
+    square root.
   </TEXT>
   <TEXT>
-    Now let<APOS/>s formalize the process in terms of functions. Since we can
-    only find the answers one at a time, we will start with the remainder as it
-    is more intuitive and have another function for the quotient later. This
-    function is more commonly known as the
-    <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> function in computing. We
-    start with the values of the dividend and divisor. If the dividend is
-    smaller than the divisor, we are done; if not, we must repeat the
-    subtraction to make the divisor smaller each time. We write this basic
-    strategy as a
+    Now let<APOS/>s formalize the process in terms of functions.  We start with
+    a value for the
+    <INDEX>radicand</INDEX>
+    radicand (the number whose square root we are trying to compute) and a value
+    for the guess.  If the guess is good enough for our purposes, we are done;
+    if not, we must repeat the process with an improved guess.  We write this
+    basic strategy as a
     <SPLITINLINE>
       <SCHEME>
         procedure:
@@ -166,96 +168,175 @@ function divide(x, y) {
     </SPLITINLINE>
 
     <SNIPPET>
-      <NAME>modulo_definition</NAME>
-      <REQUIRES>small_enough</REQUIRES>
-      <REQUIRES>next</REQUIRES>
-      <REQUIRES>minus_definition</REQUIRES>
-      <EXAMPLE>modulo_example</EXAMPLE>
+      <NAME>sqrt_iter</NAME>
+      <REQUIRES>good_enough</REQUIRES>
+      <REQUIRES>improve</REQUIRES>
+      <EXAMPLE>sqrt_iter_example</EXAMPLE>
+      <SCHEME>
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+       guess
+      (sqrt-iter (improve guess x) x)))
+      </SCHEME>
       <JAVASCRIPT>
-function modulo(x, y) {
-    return small_enough(x, y)
-           ? x
-           : modulo(next(x, y), y);
+function sqrt_iter(guess, x) {
+    return good_enough(guess, x)
+           ? guess
+           : sqrt_iter(improve(guess, x), x);
 }
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET HIDE="yes">
-      <NAME>modulo_example</NAME>
+      <NAME>sqrt_iter_example</NAME>
+      <SCHEME>
+(sqrt-iter 3 25)
+      </SCHEME>
       <JAVASCRIPT>
-modulo(26, 5);
+sqrt_iter(3, 25);
       </JAVASCRIPT>
     </SNIPPET>
   </TEXT>
   <TEXT>
-<!--  <SNIPPET HIDE="yes">
-      <NAME>natural</NAME>
-      <JAVASCRIPT>
-function natural(value) {
-    const rounded = math_round(value);
-    return rounded === value &amp;&amp; value > 0
-        ? value
-        : NaN;
-}
-      </JAVASCRIPT>
-    </SNIPPET>-->
-    The next dividend to test is found by subtracting the divisor from the
-    dividend with the <JAVASCRIPTINLINE>minus</JAVASCRIPTINLINE> function we
-    defined earlier in <REF NAME="sec:conditionals"/>:
-
+    A guess is improved by averaging it with the quotient of the radicand and
+    the old guess:
     <SNIPPET>
-      <NAME>next</NAME>
-      <REQUIRES>minus_definition</REQUIRES>
-      <EXAMPLE>next_example</EXAMPLE>
+      <NAME>improve</NAME>
+      <REQUIRES>average_definition</REQUIRES>
+      <EXAMPLE>improve_example</EXAMPLE>
+      <SCHEME>
+(define (improve guess x)
+   (average guess (/ x guess)))
+      </SCHEME>
       <JAVASCRIPT>
-function next(x, y) {
-    return minus(x, y);
+function improve(guess, x) {
+    return average(guess, x / guess);
 }
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET HIDE="yes">
-      <NAME>next_example</NAME>
+      <NAME>improve_example</NAME>
+      <SCHEME>
+(improve 3 25)
+      </SCHEME>
       <JAVASCRIPT>
-next(26, 5);
+improve(3, 25);
+      </JAVASCRIPT>
+    </SNIPPET>
+    where
+    <!-- \indcode*{average} -->
+    <SNIPPET>
+      <NAME>average_definition</NAME>
+      <EXAMPLE>average_example</EXAMPLE>
+      <SCHEME>
+(define (average x y)
+   (/ (+ x y) 2))
+      </SCHEME>
+      <JAVASCRIPT>
+function average(x,y) {
+    return (x + y) / 2;
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET HIDE="yes">
+      <NAME>average_example</NAME>
+      <SCHEME>
+(average 3 6)
+      </SCHEME>
+      <JAVASCRIPT>
+average(3, 6);
       </JAVASCRIPT>
     </SNIPPET>
   </TEXT>
   <TEXT>
-    We also have to say what we mean by <QUOTE>small enough</QUOTE>. One part
-    is obviously checking whether the dividend is smaller than the divisor. If
-    it is smaller, we should stop the function and return the dividend. On the
-    other hand, when the dividend is NaN we know that it means it is either an
-    invalid dividend or it is 0. In these cases, we should stop the process as
-    well. We can test that by using an
-    <JAVASCRIPTINLINE>isNaN</JAVASCRIPTINLINE> function that tests for whether
-    a number is NaN. A number is NaN if it is not a natural number,
-    ie. 1, 2, ...
+    We also have to say what we mean by <QUOTE>good enough.</QUOTE>  The
+    following will do for illustration, but it is not really a very good
+    test.  (See exercise<SPACE/><REF NAME="ex:ex-sqrt-end-test"/>.)
+    The idea is to improve the answer until it is close enough so that its
+    square differs from the radicand by less than a predetermined
+    tolerance (here 0.001):<SPLIT><SCHEME><FOOTNOTE>We will usually give
+    <INDEX>predicate<SUBINDEX>naming convention for</SUBINDEX></INDEX>
+    <INDEX>naming conventions
+    <SUBINDEX>?@<SCHEMEINLINE>?</SCHEMEINLINE> for predicates</SUBINDEX></INDEX>
+    <INDEX>question mark, in predicate names</INDEX>
+    <!-- \indcodeplus{?}{, in predicate names} -->
+    predicates names ending with question marks, to help us remember that they
+    are predicates.  This is just a stylistic convention.  As far as the
+    interpreter is concerned, the question mark is just an ordinary
+    character.</FOOTNOTE></SCHEME></SPLIT>
+    <COMMENT>footnote removed; does not apply; unfortunately
+    we cannot use ? in identifiers
+    in JavaScript.</COMMENT>
     <SNIPPET>
-        <NAME>isNaN_definition</NAME>
-        <JAVASCRIPT>
-function isNaN(x) {
-    return ! (x >= 1);
-}
-        </JAVASCRIPT>
-    </SNIPPET>
-    <SNIPPET>
-      <NAME>small_enough</NAME>
-      <REQUIRES>isNaN_definition</REQUIRES>
-      <EXAMPLE>small_enough_example</EXAMPLE>
+      <NAME>good_enough</NAME>
+      <REQUIRES>abs_definition</REQUIRES>
+      <REQUIRES>square_definition</REQUIRES>
+      <EXAMPLE>good_enough_example</EXAMPLE>
+      <SCHEME>
+(define (good-enough? guess x)
+   (&lt; (abs (- (square guess) x)) 0.001))
+      </SCHEME>
       <JAVASCRIPT>
-function small_enough(x, y) {
-    return x &lt; y || isNaN(x)
-        ? true
-        : false;
+function good_enough(guess, x) {
+    return abs(square(guess) - x) &lt; 0.001;
 }
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET HIDE="yes">
-      <NAME>small_enough_example</NAME>
+      <NAME>good_enough_example</NAME>
+      <SCHEME>
+(good-enough? 1.41 2)
+      </SCHEME>
       <JAVASCRIPT>
-small_enough(26, 5);
+good_enough(1.41, 2);
       </JAVASCRIPT>
     </SNIPPET>
-    With these, we can find the modulo (ie. remainder) of any 2 numbers.
+  </TEXT>
+  <TEXT>
+    Finally, we need a way to get started.  For instance, we can always guess
+    that the square root of any number
+    is<SPACE/>1:<SPLITINLINE><SCHEME><FOOTNOTE>Observe that we express
+    our initial guess as 1.0 rather than 1.  This would not make any difference
+    in many Lisp implementations.
+    <INDEX>rational number(s)<SUBINDEX>MIT@in MIT Scheme</SUBINDEX></INDEX>
+    <INDEX>exact integer</INDEX><INDEX>integer(s)
+    <SUBINDEX>exact</SUBINDEX></INDEX>
+    <INDEX>division of integers</INDEX><INDEX>integer(s)
+    <SUBINDEX>dividing</SUBINDEX></INDEX>
+    <INDEX>number(s)<SUBINDEX>rational number</SUBINDEX></INDEX>
+    <INDEX>number(s)<SUBINDEX>integer, exact</SUBINDEX></INDEX>
+    <INDEX>number(s)<SUBINDEX>decimal point in</SUBINDEX></INDEX>
+    <INDEX>decimal point in numbers</INDEX>
+    <INDEX>MIT Scheme<SUBINDEX>numbers</SUBINDEX></INDEX>
+    <INDEX>implementation dependencies<SUBINDEX>numbers</SUBINDEX></INDEX>
+    <INDEX>number(s)<SUBINDEX>implementation dependencies</SUBINDEX></INDEX>
+    MIT Scheme, however, distinguishes between exact integers and decimal values,
+    and dividing two integers produces a rational number rather than a decimal.
+    For example, dividing 10 by 6 yields 5/3, while dividing 10.0 by 6.0 yields
+    1.6666666666666667.  (We will learn how to implement arithmetic on rational
+    numbers in section<SPACE/><REF NAME="sec:rationals"/>.)  If we start with an
+    initial guess of 1 in our square-root program, and
+    <LATEXINLINE>$x$</LATEXINLINE> is an exact integer, all subsequent values
+    produced in the square-root computation will be rational numbers rather than
+    decimals.  Mixed operations on rational numbers and decimals always yield
+    decimals, so starting with an initial guess of 1.0 forces all subsequent
+    values to be decimals.</FOOTNOTE></SCHEME></SPLITINLINE>
+    <COMMENT>Footnote removed: it was specific to Scheme (or even more specific:
+    to MIT Scheme)</COMMENT>
+    <SNIPPET>
+      <NAME>sqrt</NAME>
+      <REQUIRES>sqrt_iter</REQUIRES>
+      <EXAMPLE>sqrt_example_2</EXAMPLE>
+      <EXPECTED>2.2360688956433634</EXPECTED>
+      <SCHEME>
+(define (sqrt x)
+   (sqrt-iter 1.0 x))
+                </SCHEME>
+                <JAVASCRIPT>
+function sqrt(x) {
+    return sqrt_iter(1, x);
+}
+                </JAVASCRIPT>
+    </SNIPPET>
   </TEXT>
   <TEXT>
     If we type these
@@ -278,141 +359,90 @@ small_enough(26, 5);
       </JAVASCRIPT>
     </SPLITINLINE>
 
-    <SNIPPET>
-      <NAME>modulo_example_2</NAME>
-      <REQUIRES>modulo_definition</REQUIRES>
-      <EXPECTED>1</EXPECTED>
+    <SNIPPET PAGE="24">
+      <NAME>sqrt_example</NAME>
+      <REQUIRES>sqrt</REQUIRES>
+      <SCHEME>
+(sqrt 9)
+      </SCHEME>
+      <SCHEMEOUTPUT>
+3.00009155413138
+      </SCHEMEOUTPUT>
       <JAVASCRIPT>
-modulo(26, 5);
+sqrt(9);
       </JAVASCRIPT>
+      <JAVASCRIPT_OUTPUT>
+3.00009155413138
+      </JAVASCRIPT_OUTPUT>
     </SNIPPET>
-  </TEXT>
-    Now, we can do likewise to find the quotient in a similar manner. The
-    predicate used for stopping is the same as finding the remainder, but the
-    value we return is different. To keep track of the number of iterations, we
-    can use a counter in our new function
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>:
-    <SNIPPET>
-      <NAME>divide_iter</NAME>
-      <REQUIRES>small_enough</REQUIRES>
-      <REQUIRES>next</REQUIRES>
-      <REQUIRES>inc</REQUIRES>
-      <EXAMPLE>divide_iter_example</EXAMPLE>
+    <SNIPPET PAGE="24" HIDE="yes">
+      <NAME>sqrt_example_2</NAME>
+      <SCHEME>
+(sqrt 5)
+      </SCHEME>
       <JAVASCRIPT>
-function divide_iter(x, y, counter) { //finding x/y
-    return small_enough(x, y)
-           ? minus(counter, 1)
-           : divide_iter(next(x, y), y, inc(counter));
-}
-      </JAVASCRIPT>
-    </SNIPPET>
-    <SNIPPET HIDE="yes">
-      <NAME>divide_iter_example</NAME>
-      <JAVASCRIPT>
-divide_iter(26, 5, 1);
-      </JAVASCRIPT>
-    </SNIPPET>
-    To increase the counter at each step, we use this function:
-    <SNIPPET>
-      <NAME>inc</NAME>
-      <EXAMPLE>inc_example</EXAMPLE>
-      <JAVASCRIPT>
-function inc(x) {
-    return x + 1;
-}
-      </JAVASCRIPT>
-    </SNIPPET>
-    <SNIPPET HIDE="yes">
-      <NAME>inc_example</NAME>
-      <JAVASCRIPT>
-inc(3);
-      </JAVASCRIPT>
-    </SNIPPET>
-    Finally, we need a way to get started. We start with 1 since 0 is not a
-    natural number:
-    <SNIPPET>
-      <NAME>divide_definition</NAME>
-      <REQUIRES>divide_iter</REQUIRES>
-      <EXAMPLE>divide_example</EXAMPLE>
-      <JAVASCRIPT>
-function divide(x, y) {
-    return divide_iter(x, y, 1);
-}
-      </JAVASCRIPT>
-    </SNIPPET>
-    <SNIPPET HIDE="yes">
-      <NAME>divide_example</NAME>
-      <JAVASCRIPT>
-divide(26, 5);
-      </JAVASCRIPT>
-    </SNIPPET>
-    With this, we can find the quotient of any division with 2 numbers. Putting
-    it in the interpreter
-    <SNIPPET>
-      <NAME>divide_example_2</NAME>
-      <REQUIRES>divide_definition</REQUIRES>
-      <EXPECTED>5</EXPECTED>
-      <JAVASCRIPT>
-divide(26, 5);
+sqrt(5);
       </JAVASCRIPT>
     </SNIPPET>
 
-  <TEXT>
-    Here are some more examples:
     <SNIPPET>
-      <NAME>modulo_example_3</NAME>
-      <REQUIRES>modulo_definition</REQUIRES>
-      <EXPECTED>NaN</EXPECTED>
+      <NAME>sqrt_example_3</NAME>
+      <REQUIRES>sqrt</REQUIRES>
+      <SCHEME>
+(sqrt (+ 100 37))
+      </SCHEME>
+      <SCHEMEOUTPUT>
+11.704699917758145
+      </SCHEMEOUTPUT>
       <JAVASCRIPT>
-modulo(39, 3);
+sqrt(100 + 37);
       </JAVASCRIPT>
       <JAVASCRIPT_OUTPUT>
-NaN
-      </JAVASCRIPT_OUTPUT>
-    </SNIPPET>
-
-    <SNIPPET>
-      <NAME>divide_example_3</NAME>
-      <REQUIRES>divide_definition</REQUIRES>
-      <EXPECTED>13</EXPECTED>
-      <JAVASCRIPT>
-divide(39, 3);
-      </JAVASCRIPT>
-      <JAVASCRIPT_OUTPUT>
-13
+11.704699917758145
       </JAVASCRIPT_OUTPUT>
     </SNIPPET>
     <SNIPPET>
-      <NAME>modulo_example_4</NAME>
-      <REQUIRES>modulo_definition</REQUIRES>
-      <EXPECTED>3</EXPECTED>
+      <NAME>sqrt_example_4</NAME>
+      <EXPECTED>1.7739279023207892</EXPECTED>
+      <REQUIRES>sqrt</REQUIRES>
+      <SCHEME>
+(sqrt (+ (sqrt 2) (sqrt 3)))
+      </SCHEME>
+      <SCHEMEOUTPUT>
+1.7739279023207892
+      </SCHEMEOUTPUT>
       <JAVASCRIPT>
-modulo(3, 8);
+sqrt(sqrt(2) + sqrt(3));
       </JAVASCRIPT>
       <JAVASCRIPT_OUTPUT>
-3
+1.7739279023207892		
       </JAVASCRIPT_OUTPUT>
     </SNIPPET>
-
     <SNIPPET>
-      <NAME>divide_example_4</NAME>
-      <REQUIRES>divide_definition</REQUIRES>
-      <EXPECTED>NaN</EXPECTED>
+      <NAME>sqrt_example_5</NAME>
+      <REQUIRES>sqrt</REQUIRES>
+      <SCHEME>
+(square (sqrt 1000))
+      </SCHEME>
+      <SCHEMEOUTPUT>
+1000.000369924366
+      </SCHEMEOUTPUT>
       <JAVASCRIPT>
-divide(3, 8);
+square(sqrt(1000));
       </JAVASCRIPT>
       <JAVASCRIPT_OUTPUT>
-NaN
+1000.000369924366
       </JAVASCRIPT_OUTPUT>
     </SNIPPET>
-    The last example will return NaN because the quotient is 0.
+    <INDEX>square root|)</INDEX>
+    <INDEX>Newton<APOS/>s method
+    <SUBINDEX>square@for square roots|)</SUBINDEX></INDEX>
   </TEXT>
   <TEXT>
     <INDEX>iterative process
     <SUBINDEX>implemented by procedure call|(</SUBINDEX></INDEX>
-    The <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> programs also
-    illustrate that the simple
+    The <SCHEMEINLINE>sqrt</SCHEMEINLINE> program also illustrates that the
+    simple
     <SPLITINLINE>
       <SCHEME>
 	procedural
@@ -427,12 +457,17 @@ NaN
     <INDEX>looping constructs</INDEX>
     (looping) constructs that direct the computer to do something over and over
     again.
-    The functions, <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>, on the other hand,
-    demonstrates how iteration can be accomplished using no
+    <SPLITINLINE>
+      <SCHEME>
+	<SCHEMEINLINE>Sqrt-iter</SCHEMEINLINE>,
+      </SCHEME>
+      <JAVASCRIPT>
+	The function <JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE>,
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    on the other hand, demonstrates how iteration can be accomplished using no
     special construct other than the ordinary ability to call a
-    <SPLITINLINE><SCHEME>procedure.</SCHEME><JAVASCRIPT>function.</JAVASCRIPT></SPLITINLINE>
-    <FOOTNOTE>Readers who are worried about the efficiency issues involved in using
+    <SPLITINLINE><SCHEME>procedure.</SCHEME><JAVASCRIPT>function.</JAVASCRIPT></SPLITINLINE><FOOTNOTE>Readers who are worried about the efficiency issues involved in using
     <SPLITINLINE>
       <SCHEME>
 	procedure
@@ -529,45 +564,46 @@ function conditional(predicate, then_clause, else_clause) {
         <SNIPPET>
           <REQUIRES>conditional</REQUIRES>
           <JAVASCRIPT>
-conditional(2 === 3, 1, 5);
+conditional(2 === 3, 0, 5);
 	  </JAVASCRIPT>
         </SNIPPET>
 	evaluates as expected to 5, and
         <SNIPPET>
           <REQUIRES>conditional</REQUIRES>
           <JAVASCRIPT>
-conditional(1 === 1, 1, 5);
+conditional(1 === 1, 0, 5);
 	  </JAVASCRIPT>
         </SNIPPET>
-	evaluates as expected to 1. Delighted, Alyssa uses
-	<SCHEMEINLINE>conditional</SCHEMEINLINE> to rewrite the divide program:
+	evaluates as expected to 0. Delighted, Alyssa uses
+	<SCHEMEINLINE>conditional</SCHEMEINLINE> to rewrite the square-root
+        program:
         <SNIPPET>
 	  <NAME>delighted</NAME>
           <REQUIRES>conditional</REQUIRES>
-          <REQUIRES>small_enough</REQUIRES>
-          <REQUIRES>next</REQUIRES>
-          <REQUIRES>inc</REQUIRES>
-          <EXAMPLE>divide_iter_example</EXAMPLE>
+          <REQUIRES>good_enough</REQUIRES>
+          <REQUIRES>improve</REQUIRES>
+          <EXAMPLE>sqrt_iter_example</EXAMPLE>
           <JAVASCRIPT>
-function divide_iter(x, y, counter) {
-    return conditional(small_enough(x, y),
-                       minus(counter, 1),
-                       divide_iter(next(x, y), y, inc(counter)));
+function sqrt_iter(guess, x) {
+    return conditional(good_enough(guess, x),
+                       guess,
+                       sqrt_iter(improve(guess, x),
+                                 x));
 }
 	  </JAVASCRIPT>
         </SNIPPET>
-        What happens when Alyssa attempts to use this to compute quotients?
+        What happens when Alyssa attempts to use this to compute square roots?
         Explain.
         <LABEL NAME="ex:new-if"/>
 	<SOLUTION>
-	  Any call of <JAVASCRIPTINLINE>division_iter</JAVASCRIPTINLINE>
+	  Any call of <JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE>
 	  leads immediately to an infinite loop. The reason for this is our
 	  applicative-order evaluation. The evaluation of the return expression
-	  of <JAVASCRIPTINLINE>divide_iter</JAVASCRIPTINLINE> needs to
-      evaluate its arguments first, including the recursive call of
-	  <JAVASCRIPTINLINE>divide_iter</JAVASCRIPTINLINE>, regardless
-      whether the predicate evaluates to <EM>true</EM> or <EM>false</EM>. The
-      same of course happens with the recursive call, and thus the function
+	  of <JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE> needs to evaluate
+	  its arguments first, including the recursive call of
+	  <JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE>, regardless whether the
+	  predicate evaluates to <EM>true</EM> or <EM>false</EM>. The same of
+	  course happens with the recursive call, and thus the function
 	  <JAVASCRIPTINLINE>conditional</JAVASCRIPTINLINE> never actually gets
 	  applied.
 	</SOLUTION>
@@ -575,7 +611,7 @@ function divide_iter(x, y, counter) {
     </SPLIT>
   </EXERCISE>
 
-<!--  <EXERCISE>
+  <EXERCISE>
     <LABEL NAME="ex:ex-sqrt-end-test"/>
     The
     <SPLITINLINE>
@@ -653,30 +689,20 @@ sqrt(3);
       <SCHEME>
       </SCHEME>
     </SNIPPET>
-  </EXERCISE> -->
+  </EXERCISE>
 
   <EXERCISE>
-    <LABEL NAME="ex:ceiling"/>
-    <INDEX>ceiling</INDEX>
-    Now that we have a method to divide numbers, we can also use these functions
-    as building blocks for other functions. In a situation where the Egyptians
-    gave out coins to their workers for the work they have done, if there were
-    26 coins and 5 workers, the fairest distribution would be for 5 workers to
-    get 5 coins and 1 worker will get 6 coins, since the coins are worthless if
-    they are not whole. If we want to find the maximum number of coins a worker
-    will get, we can define it with a ceiling function. The mathematical
-    definition of a ceiling function can be given by:
-        <LATEX>
-          \[
-          ceiling(\frac{x}{y}) = \left\{ \begin{array}{rl}
-          q   &amp; \mbox{if $r = 0$} \\
-          q + 1  &amp; \mbox{otherwise}
-          \end{array}
-          \right.
-          \text{where } x = qy + r
-          \]
-        </LATEX>
-    Use this formula to implement a ceiling
+    <LABEL NAME="ex:cube-root-newton"/>
+    <INDEX>cube root<SUBINDEX>Newton@by Newton<APOS/>s method</SUBINDEX></INDEX>
+    <INDEX>Newton<APOS/>s method<SUBINDEX>cube@for cube roots</SUBINDEX></INDEX>
+    Newton<APOS/>s method for cube roots is based on the fact that if
+    <LATEXINLINE>$y$</LATEXINLINE> is an
+    approximation to the cube root of <LATEXINLINE>$x$</LATEXINLINE>, then a better approximation is
+    given by the value
+    <LATEX>
+      \[ \frac{x/y^{2}+2y} {3} \]
+    </LATEX>
+    Use this formula to implement a cube-root
     <SPLITINLINE>
       <SCHEME>
 	procedure
@@ -685,27 +711,47 @@ sqrt(3);
 	function
       </JAVASCRIPT>
     </SPLITINLINE>
-    using the functions in this subsection. (Hint: isNaN can be used to test
-    for whether a value is 0)
+    analogous to the square-root
+    <SPLITINLINE>
+      <SCHEME>procedure.</SCHEME>
+      <JAVASCRIPT>function.</JAVASCRIPT>
+    </SPLITINLINE>
+    (In section<SPACE/><REF NAME="sec:proc-returned-values"/> we will see how to
+    implement Newton<APOS/>s method in general as an abstraction of these
+    square-root and cube-root
+    <SPLITINLINE>
+      <SCHEME>procedures.)</SCHEME>
+      <JAVASCRIPT>functions.)</JAVASCRIPT>
+    </SPLITINLINE>
     <SOLUTION>
       <SNIPPET>
-	<NAME>exercise_1.7</NAME>
-	<REQUIRES>modulo_definition</REQUIRES>
-	<REQUIRES>divide_definition</REQUIRES>
-    <EXPECTED>6</EXPECTED>
+	<EXAMPLE>example_1.9</EXAMPLE>
+	<REQUIRES>abs_definition</REQUIRES>
+	<REQUIRES>cube_definition</REQUIRES>
 	<JAVASCRIPT>
-function ceiling(x, y) {
-    return isNaN(modulo(x, y))
-        ? divide(x, y)
-        : 1 + divide(x, y);
+function good_enough(guess, x) {
+    return abs(cube(guess) - x) &lt; 0.001;
+}
+function div3(x, y) {
+     return (x + y) / 3;
+}
+function improve(guess, x) {
+    return div3(x / (guess * guess), 2 * guess);
+}
+function cube_root(guess, x) {
+    return good_enough(guess, x)
+               ? guess
+               : cube_root(improve(guess, x), x);
 }
 	</JAVASCRIPT>
+	<SCHEME>
+	</SCHEME>
       </SNIPPET>
     </SOLUTION>
     <SNIPPET HIDE="yes">
-      <NAME>example_1.7</NAME>
+      <NAME>example_1.9</NAME>
       <JAVASCRIPT>
-ceiling(26, 5);
+	cube_root(3, 27);
       </JAVASCRIPT>
     </SNIPPET>
   </EXERCISE>

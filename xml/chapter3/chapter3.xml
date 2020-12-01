@@ -57,6 +57,15 @@
 
   <CHAPTERCONTENT/>
 
+    <TEXT>
+        [<EM>
+This chapter talks about programming and designing systems by modelling real
+      world systems. This is called the environment model of computation where
+      objects can change and systems make decisions based on streams of
+      information received. There is now a timing element in the model.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     The preceding chapters introduced the basic elements from which
     programs are made.  We saw how primitive

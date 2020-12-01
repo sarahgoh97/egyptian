@@ -7,6 +7,23 @@
   <INDEX>sequence(s)<SUBINDEX>as conventional interface|(</SUBINDEX></INDEX>
   <INDEX>conventional interface<SUBINDEX>sequence as|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+        This subsection discusses how sequences which are structurally
+        different can be generalised by using abstract descriptions. With these
+        abstract descriptions, they can share similar functions that can be
+        used in both functions. To express the same idea, the examples of the
+        reverse greedy algorithm and pairing algorithm can be used to replace
+        the examples used. Instead of the exercises in SICPJS, the previous
+        algorithms introduced can also be expressed with the functions for
+        sequences found in this subsection.
+
+        There is also a section on nested mappings which is also related to
+        the continued fraction method introduced in the previous subsection.
+        This is because the value of the term is dependent on 2 counters.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     In working with compound data, we<APOS/>ve stressed how data abstraction
     permits us to design programs without becoming enmeshed in the details

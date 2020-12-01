@@ -10,7 +10,6 @@
       <SECTIONCONTENT/>
 
       <LABEL NAME="sec:higher-order-procedures"/>
-
         <TEXT>
             [<EM>
             In this section, it emphasises the importance of functions in
@@ -18,7 +17,6 @@
             other functions.
         </EM>]
         </TEXT>
-
       <TEXT>
         We have seen that
         <SPLITINLINE>
@@ -30,7 +28,30 @@
 	<SPLITINLINE>
 	  <JAVASCRIPT>declare</JAVASCRIPT>
 	</SPLITINLINE>
+
         <SNIPPET PAGE="56">
+          <NAME>mul_frac_definition</NAME>
+          <EXAMPLE>mul_frac_example</EXAMPLE>
+          <JAVASCRIPT>
+function mul_frac_num(a, b, c, d) {
+    return a * c;
+}
+function mul_frac_den(a, b, c, d) {
+    return b * d;
+}
+          </JAVASCRIPT>
+        </SNIPPET>
+
+        <SNIPPET PAGE="56" HIDE="yes">
+          <NAME>mul_frac_example</NAME>
+	  <EXPECTED>6</EXPECTED>
+          <REQUIRES>mul_frac_definition</REQUIRES>
+          <JAVASCRIPT>
+mul_frac_num(3, 4, 2, 5);
+          </JAVASCRIPT>
+        </SNIPPET>
+
+        <!--<SNIPPET PAGE="56">
           <NAME>cube_definition</NAME>
           <EXAMPLE>cube_example</EXAMPLE>
           <SCHEME>
@@ -53,34 +74,34 @@ function cube(x) {
           <JAVASCRIPT>
 cube(3);
           </JAVASCRIPT>
-        </SNIPPET>
+        </SNIPPET>-->
         <!-- \indcode*{cube} -->
-        we are not talking about the cube of a particular number, but rather
-        about a method for obtaining the cube of any number.  Of course we could
-	get along without ever 
+        we are not talking about the product of 2 particular fractions
+        <!--the cube of a particular number, -->
+        but rather about a method for obtaining the product of any 2 fractions.
+<!--          cube of any number. -->
+          Of course we could get along without ever
         <SPLITINLINE>
 	  <SCHEME>defining this procedure,</SCHEME>
-	  <JAVASCRIPT>declaring this function,</JAVASCRIPT>
+	  <JAVASCRIPT>declaring these functions,</JAVASCRIPT>
 	</SPLITINLINE>
 	by always writing expressions such as
         <SNIPPET EVAL="no">
-          <SCHEME>
-(* 3 3 3)
-(* x x x)
-(* y y y)        
-          </SCHEME>
           <JAVASCRIPT>
-3 * 3 * 3;
-x * x * x;
-y * y * y;
-        </JAVASCRIPT>
+3 * 3;
+5 * 14;
+x * y;
+          </JAVASCRIPT>
         </SNIPPET>
-        and never mentioning <SCHEMEINLINE>cube</SCHEMEINLINE> explicitly. This
+        and never mentioning <!--<SCHEMEINLINE>cube</SCHEMEINLINE> -->
+    <JAVASCRIPTINLINE>mul_frac_num</JAVASCRIPTINLINE> explicitly. This
 	would place us at a serious disadvantage, forcing us to work always at
 	the level of the particular operations that happen to be primitives in
 	the language (multiplication, in this case) rather than in terms of
-	higher-level operations.  Our programs would be able to compute cubes,
-	but our language would lack the ability to express the concept of cubing.
+	higher-level operations. Our programs would be able to compute
+    multiplication of fractions <!--cubes-->,
+	but our language would lack the ability to express the concept of
+         <!--cubing.--> multiplying fractions.
 	One of the things we should demand from a powerful programming language
 	is the ability to build abstractions by assigning names to common
         patterns and then to work in terms of the abstractions directly.

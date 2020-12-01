@@ -2,20 +2,33 @@
     <NAME>Application of Egyptian Fractions</NAME>
     <LABEL NAME="sec:application"/>
 
+    <TEXT>
+        [<EM>
+This section gives some examples of application of Egyptian Fractions in other
+        subjects.
+    </EM>]
+    </TEXT>
+
     <SECTIONCONTENT/>
 
     <TEXT>
-        Egyptian Fractions do not seem useful at first glance. However, there are
-        a few possible areas of application. For example, some computers do not do
-        division directly but uses multiplication with the reciprocal instead. In
-        that case, Egyptian Fractions may be applied such that reciprocals or unit
-        fractions can be useful for division computations.
+        <INDEX>Kosheleva, Olga</INDEX>
+        Egyptian Fractions may not seem useful at first glance. However, there
+        are a few areas of application. For example, Olga Kosheleva, Vladik
+        Kreinovich and Francisco Zapata (2009) have explored using unit
+        fractions in modern computers for division. This is because some
+        computers do not do division directly but uses multiplication with
+        the reciprocal instead. In these cases, Egyptian Fractions may be
+        applied such that reciprocals or unit fractions can be useful for
+        division computations.
     </TEXT>
 
     <TEXT>
-        Another potential application is looking at resistors placed in parallel in
-        a circuit. When resistors are placed in parallel, their total resistance is
-        the inverse of the sum of the reciprocals of the individual resistances, ie.
+        <INDEX>Schwartz, Jeffery</INDEX> <INDEX>Brown, Kevin</INDEX>
+        Another application found by Professor Jeffrey Schwartz (2018) is
+        looking at resistors placed in parallel in a circuit. When resistors
+        are placed in parallel, their total resistance is the inverse of the
+        sum of the reciprocals of the individual resistances, ie.
     </TEXT>
 
     <LATEX>
@@ -23,17 +36,31 @@
     </LATEX>
 
     <TEXT>
-        The right hand side has a similar representation as Egyptian Fractions. One
-        possible way to make use of this is to come up with resistance values to get
-        nicer round numbers for students that are learning about parallel
-        resistors. Another possibility is to use the standard values of resistors
-        and get the total resistance more easily instead of the usual tedious
-        method of cross-multiplying and flipping the fractions.
+        The right hand side has a similar representation as Egyptian Fractions.
+        One possible way to make use of this is to come up with resistance
+        values to get nicer round numbers for students that are learning about
+        parallel resistors. Another possibility is to use the standard values
+        of resistors and get the total resistance more easily instead of the
+        usual tedious method of cross-multiplying and flipping the fractions.
+        There is another similar problem called the 2 Ohm problem by Kevin
+        Brown (n.d.).
+    </TEXT>
+
+
+    <TEXT>
+        <INDEX>Torfs, Wim</INDEX>
+        Another area of application is in wireless sensor networks. Wim Torfs
+        and Chris Blondia (2010) found that Egyptian Fractions can be used for
+        representing fractions with binary trees in a Time Division Multiple
+        Access scheduling algorithm to create a flexible and stable
+        wireless sensor network. Egyptian Fractions allows the scheduling to be
+        periodic and also works as an approximation as only fractions have
+        denominators that are powers of 2 are used.
     </TEXT>
 
     <TEXT>
-        There may be other possible areas of application that have not yet been
-        explored.
+        These are just a few areas of application of Egyptian Fractions and
+        there could be more that have not yet been explored.
     </TEXT>
 
 </SECTION>

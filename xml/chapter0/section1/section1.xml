@@ -5,23 +5,33 @@
     <SECTIONCONTENT/>
 
     <TEXT>
-        Egyptians used hieroglyphs to represent their numbers. When they use
-        fractions, an eye above the number to represent the unit fractions.
-        There are also special fractions which are commonly used by the
-        Egyptians. These are seen in the pictures below.
+        [<EM>
+This section talks about the history of Egyptian Fractions that started from
+        Ancient Egypt.
+    </EM>]
+    </TEXT>
+
+
+    <TEXT>
+        Egyptians used hieroglyphs to represent their numbers (Knott 2020).
+        When they use fractions, an eye above the number to represent the unit
+        fractions. There are also special fractions which are commonly used by
+        the Egyptians. These are seen in the pictures below.
     </TEXT>
 
     <FIGURE>
         <FIGURE src="img_egypt/notation.png"></FIGURE>
         <LABEL NAME="fig:notation"/>
-        <CAPTION>Fractions in Egyptian Hieroglyphs
+        <CAPTION>Fractions in Egyptian Hieroglyphs. (Humenberger,
+            <EM>figure 1</EM>)
         </CAPTION>
     </FIGURE>
 
     <FIGURE>
         <FIGURE src="img_egypt/specialfractions.png"></FIGURE>
         <LABEL NAME="fig:special-fractions"/>
-        <CAPTION>Special Fractions Without 1 as Numerator
+        <CAPTION>Special Fractions Without 1 as Numerator (Bruaw,
+            <EM>Common Fractions</EM>)
         </CAPTION>
     </FIGURE>
 
@@ -30,15 +40,19 @@
         fractions but still needed a method of dividing wages among the workers.
         For example, when there are 5 sacks of rice as wages, the Egyptians used
         these fractions to split them among their 6 workers. In these cases, they
-        built a table of fractions to keep track of how to divide the wages. This
-        is evidenced by the Rhind Papyrus which came from about 1850BC. It contains
-        a table of Egyptian Fraction representations mainly for fractions for 2/n,
-        where the unit fractions used are distinct.
+        built a table of fractions to keep track of how to divide the wages.
+        This is evidenced by the Rhind Papyrus which came from about 1850BC
+        <INDEX>Brown, Kevin</INDEX> (Brown n.d.)
+        which is a table of Egyptian Fraction representations for fractions
+        of the form <LATEXINLINE>$\frac{2}{n}$</LATEXINLINE> as listed in
+        Richard Gilling's book in 1976 <INDEX>Gilling, Richard</INDEX>
+        <INDEX>Gong, Kevin</INDEX> (Gong 1992).
     </TEXT>
 
     <FIGURE src="img_egypt/SurreyAhmesPapyrus.png">
         <LABEL NAME="fig:rhind"/>
-        <CAPTION>Rhind Papyrus Table of Egyptian Fractions
+        <CAPTION>Rhind Papyrus Table of Egyptian Fractions (Knott,
+             <EM>Ahmes Papyrus</EM>)
         </CAPTION>
     </FIGURE>
 
@@ -80,5 +94,7 @@
         of Eratosthenes and practical numbers. This allows room for mathematical
         research in this area, which has been growing over the years.
     </TEXT>
+
+
 
 </SECTION>

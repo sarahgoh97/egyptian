@@ -6,6 +6,13 @@
   <LABEL NAME="sec:huffman"/>
   <INDEX>Huffman code|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection uses the example of Huffman Encoding Trees which involve
+        applying the concepts from previous sections and subsections.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     This section provides practice in the use of list structure and data
     abstraction to manipulate sets and trees.  The application is to

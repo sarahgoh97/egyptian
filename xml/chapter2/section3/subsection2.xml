@@ -8,6 +8,14 @@
   <INDEX>symbolic differentiation|(</INDEX>
   <INDEX>algebraic expression<SUBINDEX>differentiating|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection uses the example of symbolic differentiation to show more
+        data abstraction. It is similar to how data abstraction was used to
+        explain fractions.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     As an illustration of symbol manipulation and a further illustration
     of data abstraction, consider the design of a

@@ -7,6 +7,15 @@
   <INDEX>data-directed programming|(</INDEX>
   <INDEX>additivity|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about the disadvantages on dispatching on type which is
+        useful for modularizing in system design. However, this also results in
+        the system not being additive. To get around the problem, data-directed
+        programming is introduced with an operation-and-type table.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <INDEX>modularity<SUBINDEX>through dispatching on type</SUBINDEX></INDEX>
     The general strategy of checking the type of a datum and calling an

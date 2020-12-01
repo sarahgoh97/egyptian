@@ -4,6 +4,15 @@
   </NAME>
 
   <LABEL NAME="sec:abstraction-barriers"/>
+    <TEXT>
+        [<EM>
+This subsection discusses the implications and effects of data abstraction
+        introduced from the previous subsection. It also provides exercises to
+        help students practice implementing data abstraction. The project will
+        use other examples as exercises instead of the current ones which are
+        not linked clearly to Egyptian Fractions.
+    </EM>]
+    </TEXT>
 
   <TEXT>
     <INDEX>abstraction barriers|(</INDEX>

@@ -8,7 +8,31 @@
   <INDEX>hierarchical data structures|(</INDEX>
   <INDEX>tree<SUBINDEX>represented as pairs|(</SUBINDEX></INDEX>
   <INDEX>pair(s)<SUBINDEX>used to represent tree|(</SUBINDEX></INDEX>
-  <TEXT>
+
+    <TEXT>
+        [<EM>
+This subsection talks about hierarchical structure, where sequences in the
+        previous subsection can contain sequences as well. With this concept,
+        trees and nested structures can be built. This subsection looks at
+        how trees can be constructed and declaring useful functions for trees.
+
+        <INDEX>Egyptian Fraction Algorithms
+            <SUBINDEX>Continued Fraction</SUBINDEX></INDEX>
+        In place of the examples in this subsection, this can be an opportunity
+        to introduce the continued fractions algorithm. The continued fractions
+        algorithm requires sequences to keep track of the continued fraction
+        representation. Also, the convergent series that it forms also have to
+        be stored as sequences. Since the secondary convergent series can also
+        be recorded in a 2D array, a list of lists can be
+        used to represent it.
+
+        The visual representation of the splitting algorithm and the recursive
+        calls of the Stern-Brocot sequence can also be used
+        here to show the tree structure in the exercises.
+    </EM>]
+    </TEXT>
+
+    <TEXT>
     The representation of sequences in terms of lists generalizes naturally to
     represent sequences whose elements may themselves be sequences.  For
     example, we can regard the object

@@ -9,6 +9,15 @@
   <INDEX>mutable data objects<SUBINDEX>pairs|(</SUBINDEX></INDEX>
   <INDEX>pair(s)<SUBINDEX>mutable|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about how the box-and-pointer representation of pairs
+      can be used to change elements of a list, creating a mutable list
+      structure.
+    </EM>]
+    </TEXT>
+
+
   <TEXT>
     The basic operations on
     <SPLITINLINE>

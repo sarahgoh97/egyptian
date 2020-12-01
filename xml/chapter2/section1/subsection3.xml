@@ -5,6 +5,17 @@
 
   <LABEL NAME="sec:data?"/>
   <INDEX>data<SUBINDEX>meaning of|(</SUBINDEX></INDEX>
+
+    <TEXT>
+        [<EM>
+This subsection focuses on the definition of data and how pairs are compound
+      data defined by functions. The exercises in the chapter talk about
+      more abstract ideas of pairs and representing them with functions. One of
+      the exercises, 2.6, seems to have a similar idea to Peano Arithmetic
+      defined earlier.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We began the rational-number implementation in
     section<SPACE/><REF NAME="sec:rationals"/> by implementing the

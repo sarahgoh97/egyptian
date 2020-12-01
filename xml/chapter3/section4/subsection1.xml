@@ -6,6 +6,14 @@
   <LABEL NAME="sec:nature-of-time"/>
   <INDEX>time<SUBINDEX>concurrent@in concurrent systems|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection looks at concurrent programs and the variables shared between
+      the programs and how to ensure that the variables are properly
+      synchronised across all programs and throughout the system.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     On the surface, time seems straightforward.  It
     is an ordering imposed on events.<FOOTNOTE>To quote some graffiti seen

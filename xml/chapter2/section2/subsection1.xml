@@ -4,8 +4,38 @@
   </NAME>
 
   <LABEL NAME="sec:sequences"/>
-  <TEXT>
 
+    <TEXT>
+        [<EM>
+This subsection talks about using pairs to represent sequences with lists.
+        These lists also have operations that make using the lists easier, such
+        as finding the length of the list and mapping over lists. The original
+        examples used are unrelated to Egyptian Fractions. Instead, there are 2
+        new Egyptian Fraction algorithms that can be introduced here - the
+        binary algorithm and the binary remainder algorithm from
+        section<SPACE/><REF NAME="sec:ef-algorithms"/>. These 2
+        algorithms require mapping over lists to find the Egyptian Fraction
+        decomposition. Also, the exercises can include the previous sequences,
+        like the Stern-Brocot sequence with the iterative method and the
+        decomposition from the greedy algorithm which
+        can be represented with lists instead of the big number in Chapter 1.
+
+        <INDEX>Egyptian Fraction Algorithms <SUBINDEX>Binary</SUBINDEX></INDEX>
+        The binary algorithm requires creating a sequence to represent the
+        binary representation of the original fraction. This can be represented
+        by using a sequence of booleans instead of 1s and NaNs since 0 is not a
+        number in this project. Then, the sequence of 0s and 1s  can be mapped
+        back into an Egyptian Fraction decomposition.
+
+        <INDEX>Egyptian Fraction Algorithms
+            <SUBINDEX>Binary Remainder</SUBINDEX></INDEX>
+        For the binary remainder algorithm, it requires changing the numerator
+        of the remaining fraction into a sequence of powers of 2 to get the
+        Egyptian Fraction decomposition.
+    </EM>]
+    </TEXT>
+
+  <TEXT>
     <SPLIT>
       <SCHEME>
         <FIGURE>

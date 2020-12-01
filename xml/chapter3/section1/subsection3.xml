@@ -5,6 +5,12 @@
 
   <LABEL NAME="sec:costs-of-assignment"/>
   <INDEX>assignment<SUBINDEX>costs of|(</SUBINDEX></INDEX>
+    <TEXT>
+        [<EM>
+This subsection talks about the disadvantages of using assignment. It makes
+        programming more complicated when data can change.
+    </EM>]
+    </TEXT>
 
   <TEXT>
     As we have seen, the 

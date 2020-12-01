@@ -4,6 +4,15 @@
   <LABEL NAME="sec:exponentiation"/>
   <INDEX>exponentiation|(</INDEX>
 
+    <TEXT>
+      [<EM>
+        In this subsection, the original authors talked about exponentiation.
+        It is related to the idea for forming sequences in the previous 2
+        subsections and this provides a different way for students to do the
+        exponentiation. So it is linked without much changes.
+      </EM>]
+    </TEXT>
+
   <TEXT>
     Consider the problem of computing the exponential of a given number.
     We would like a
@@ -13,12 +22,16 @@
     </SPLITINLINE>
     that takes as arguments a base <LATEXINLINE>$b$</LATEXINLINE> and a positive
     integer exponent <LATEXINLINE>$n$</LATEXINLINE> and
-    computes<SPACE/><LATEXINLINE>$b^n$</LATEXINLINE>.  One way to do this is via
-    the recursive definition
+    computes<SPACE/><LATEXINLINE>$b^n$</LATEXINLINE>.
+    An example would be how we used
+    <JAVASCRIPTINLINE>power_of_ten</JAVASCRIPTINLINE> in the previous
+    subsections to find the Stern Brocot sequence and the list of denominators
+    in the splitting method.
+    One way to find the exponentiation is via the recursive definition
     <LATEX>
       \begin{eqnarray*}
       b^{n} &amp;=&amp; b\cdot b^{n-1}\\
-      b^{0} &amp;=&amp;1
+      b^{1} &amp;=&amp; b
       \end{eqnarray*}
     </LATEX>
     which translates readily into the
@@ -29,6 +42,7 @@
     <!-- \indcode*{expt}[linear recursive version] -->
     <SNIPPET PAGE="44">
       <NAME>expt_definition</NAME>
+      <REQUIRES>minus_definition</REQUIRES>
       <EXAMPLE>expt_example</EXAMPLE>
       <SCHEME>
 (define (expt b n)
@@ -38,15 +52,16 @@
       </SCHEME>
       <JAVASCRIPT>
 function expt(b,n) {
-    return n === 0
-           ? 1
-           : b * expt(b, n - 1);
+    return n === 1
+           ? b
+           : b * expt(b, minus(n, 1));
 }
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET PAGE="44" HIDE="yes">
       <NAME>expt_example</NAME>
       <REQUIRES>expt_definition</REQUIRES>
+      <REQUIRES>minus_definition</REQUIRES>
       <EXPECTED>81</EXPECTED>
       <SCHEME>
 (expt 3 4)
@@ -63,6 +78,7 @@ expt(3, 4);
     can readily formulate an equivalent linear iteration:
     <SNIPPET PAGE="45">
       <NAME>expt_linear_definition</NAME>
+      <REQUIRES>minus_definition</REQUIRES>
       <EXAMPLE>expt_example2</EXAMPLE>
       <EXPECTED>81</EXPECTED>
       <SCHEME>
@@ -81,10 +97,10 @@ function expt(b,n) {
     return expt_iter(b,n,1);
 }
 function expt_iter(b,counter,product) {
-    return counter === 0
-           ? product
+    return counter === 1
+           ? product * b
            : expt_iter(b,
-                       counter - 1, 
+                       minus(counter, 1),
                        b * product);
 } 
       </JAVASCRIPT>
@@ -129,8 +145,8 @@ expt(3, 4);
     <LATEX>
       \[
       \begin{array}{ll}
-      b^{n} =(b^{n/2})^{2}  &amp; \mbox{if <LATEXINLINE>$n$</LATEXINLINE> is even}\\
-      b^{n} =b\cdot b^{n-1} &amp; \mbox{if <LATEXINLINE>$n$</LATEXINLINE> is odd}\\
+      b^{n} =(b^{n/2})^{2}  &amp; \mbox{if $n$ is even}\\
+      b^{n} =b\cdot b^{n-1} &amp; \mbox{if $n$ is odd}\\
       \end{array}
       \]
     </LATEX>
@@ -144,6 +160,8 @@ expt(3, 4);
       <NAME>expt_log_definition</NAME>
       <REQUIRES>square_definition</REQUIRES>
       <REQUIRES>even_definition</REQUIRES>
+      <REQUIRES>minus_definition</REQUIRES>
+      <REQUIRES>divide_definition</REQUIRES>
       <EXAMPLE>fast_expt_example</EXAMPLE>
       <SCHEME>
 (define (fast-expt b n)
@@ -156,11 +174,11 @@ expt(3, 4);
       </SCHEME>
       <JAVASCRIPT>
 function fast_expt(b, n) {
-    return n === 0
-           ? 1
+    return n === 1
+           ? b
            : is_even(n)
-             ? square(fast_expt(b, n / 2))
-             : b * fast_expt(b, n - 1);
+             ? square(fast_expt(b, divide(n, 2)))
+             : b * fast_expt(b, minus(n, 1));
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -187,12 +205,15 @@ fast_expt(3, 4);
       </SCHEME>
       <JAVASCRIPT>
 	operator<SPACE/><JAVASCRIPTINLINE>%</JAVASCRIPTINLINE>,
-	which computes the remainder after integer division,
+	which computes the remainder after integer division, similar to our own
+    function <JAVASCRIPTINLINE>divide_remainder</JAVASCRIPTINLINE>,
       </JAVASCRIPT>
     </SPLITINLINE>
     by
     <SNIPPET PAGE="45">
       <NAME>even_definition</NAME>
+      <REQUIRES>modulo_definition</REQUIRES>
+      <REQUIRES>isNaN_definition</REQUIRES>
       <EXAMPLE>even_example</EXAMPLE>
       <SCHEME>
 (define (even? n)
@@ -200,7 +221,7 @@ fast_expt(3, 4);
       </SCHEME>
       <JAVASCRIPT>
 function is_even(n) {
-    return n % 2 === 0;
+    return isNaN(modulo(n, 2));
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -313,13 +334,15 @@ is_even(7);
 	<EXAMPLE>example_1.17</EXAMPLE>
 	<EXPECTED>8</EXPECTED>
 	<REQUIRES>even_definition</REQUIRES>
+    <REQUIRES>divide_definition</REQUIRES>
+    <REQUIRES>minus_definition</REQUIRES>
 	<JAVASCRIPT>
 function fast_expt_iter(a, b, n){
-    return n === 0
-           ? a
+    return n === 1
+           ? a * b
            : is_even(n)
-             ? fast_expt_iter(a, b * b, n / 2)
-             : fast_expt_iter(a * b, b, n - 1);
+             ? fast_expt_iter(a, b * b, divide(n, 2))
+             : fast_expt_iter(a * b, b, minus(n, 1));
 }
 function fast_expt(b, n){
     return fast_expt_iter(1, b, n);
@@ -354,6 +377,7 @@ fast_expt(2, 3);
       </SPLITINLINE>
       <SNIPPET PAGE="46">
         <NAME>times_definition</NAME>
+        <REQUIRES>minus_definition</REQUIRES>
         <EXAMPLE>times_example</EXAMPLE>
         <SCHEME>
 (define (* a b)
@@ -363,9 +387,9 @@ fast_expt(2, 3);
         </SCHEME>
         <JAVASCRIPT>
 function times(a,b) {
-    return b === 0
-           ? 0
-           : a + times(a, b - 1);
+    return b >= 1
+           ? a + times(a, minus(b, 1))
+           : NaN ;
 }
         </JAVASCRIPT>
       </SNIPPET>
@@ -403,6 +427,7 @@ times(3, 4);
 	  <NAME>example_1.18_definition</NAME>
 	  <EXAMPLE>example_1.18</EXAMPLE>
 	  <REQUIRES>even_definition</REQUIRES>
+      <REQUIRES>minus_definition</REQUIRES>
 	  <JAVASCRIPT>
 function double(x) {
     return x + x;
@@ -415,11 +440,11 @@ function halve(x) {
 function fast_times(a, b) { 
     return b === 1
            ? a
-           : a === 0 || b === 0
-             ? 0
-             : is_even(b)
+           : a >= 1 || b >= 1
+             ? is_even(b)
                ? double(fast_times(a, halve(b)))
-               : a + fast_times(a, b - 1);
+               : a + fast_times(a, minus(b, 1))
+             : NaN;
 }
 	  </JAVASCRIPT>
 	  <SCHEME>
@@ -464,6 +489,7 @@ fast_times(3, 4);
 	  <NAME>fast_times_iter</NAME>
           <EXAMPLE>example_1.19</EXAMPLE>
           <REQUIRES>even_definition</REQUIRES>
+          <REQUIRES>minus_definition</REQUIRES>
           <JAVASCRIPT>
 function double(x) {
     return x + x;
@@ -476,11 +502,11 @@ function half(x) {
 function fast_times_iter(total, a, b) {
     return b === 1
            ? total + a
-           : a === 0 || b===0
-             ? 0
-             : is_even(b)
+           : a >= 1 || b >= 1
+             ? is_even(b)
                ? fast_times_iter(total, double(a), half(b))
-               : fast_times_iter(total + a, a, b - 1);
+               : fast_times_iter(total + a, a, minus(b, 1))
+             : NaN;
 }
 
 function times(a, b) {
@@ -503,9 +529,10 @@ times(3, 4);
       </SNIPPET>
     </EXERCISE>
 
-    <EXERCISE>
+    <!--
+    <EXERCISE>-->
       <!-- \indcode{fib}[logarithmic version] -->
-      There is a clever algorithm for computing the Fibonacci numbers in a
+<!--      There is a clever algorithm for computing the Fibonacci numbers in a
       logarithmic number of steps. Recall the transformation of the state
       variables <LATEXINLINE>$a$</LATEXINLINE> and
       <LATEXINLINE>$b$</LATEXINLINE> in the
@@ -642,4 +669,6 @@ fib(5);
 	</SCHEME>
       </SNIPPET>
     </EXERCISE>
+-->
+
   </SUBSECTION>

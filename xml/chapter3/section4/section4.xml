@@ -6,6 +6,13 @@
   <LABEL NAME="sec:time-is-of-the-essence"/>
   <INDEX>concurrency|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This section talks about how processes run concurrently and how to manage the
+      complexities and optimise the running of processes.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We<APOS/>ve seen the power of computational objects with local state as
     tools for modeling.  Yet, as

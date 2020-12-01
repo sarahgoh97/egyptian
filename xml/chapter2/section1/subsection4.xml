@@ -6,6 +6,22 @@
   <LABEL NAME="sec:interval-arith"/>
   <INDEX>interval arithmetic|(</INDEX>
   <INDEX>arithmetic<SUBINDEX>on intervals|(</SUBINDEX></INDEX>
+
+    <TEXT>
+        [<EM>
+This subsection looks at using pairs for interval arithmetic and uses exercises
+        to explore and understand how it works and how to code it. Instead of
+        this, the project can introduce the harmonic variation of the greedy
+        method. The harmonic variation involves the Harmonic series where it
+        sums up fractions of increasing denominator. The pair then consists of
+        the smallest and biggest unit fractions' denominators. Then, the
+        function can find the sum of the series. The harmonic variation of
+        the greedy algorithm is useful to find the Egyptian Fraction
+        representation when the fraction is greater than 1. Hence, it is
+        relevant to the project.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     Alyssa P. Hacker is designing a system to help people solve
     engineering problems.  One feature she wants to provide in her system

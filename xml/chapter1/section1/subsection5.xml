@@ -14,6 +14,13 @@
     Application
   </NAME>
 
+    <TEXT>
+        [<EM>
+        In this subsection, the original authors talk about the how
+        interpreters work with the substitutional model. No changes were made.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <SPLIT>
       <SCHEME>

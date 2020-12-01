@@ -4,6 +4,12 @@
   <SECTIONCONTENT/>
 
   <LABEL NAME="sec:data-abstraction"/>
+        <TEXT>
+            [<EM>
+          This section introduces the concept of data abstraction that will be
+          elabaorated on within its subsections.
+        </EM>]
+        </TEXT>
 
   <TEXT>
     In section<SPACE/><REF NAME="sec:black-box"/>, we noted that a

@@ -8,7 +8,14 @@
   <SUBINDEX>represented as tagged data|(</SUBINDEX></INDEX>
   <INDEX>tagged data|(</INDEX>
   <INDEX>data<SUBINDEX>tagged|(</SUBINDEX></INDEX>
-
+    <TEXT>
+        [<EM>
+This subsection explores different principles used in representing complex
+        numbers from the previous subsection. It also tags the complex numbers
+        to separate the different mathematical representations that uses
+        different functions.
+    </EM>]
+    </TEXT>
   <TEXT>
     One way to view data abstraction is as an application of the
     <INDEX>principle of least commitment</INDEX>

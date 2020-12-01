@@ -5,40 +5,137 @@
     <SECTIONCONTENT/>
 
     <TEXT>
-        The Egyptians did not have a concept of numbers other than natural
-        numbers. Even in their fractions they were represented by integers
-        placed in a certain order. Likewise, when we deal with fractions we use
-        2 natural numbers placed vertically and a line between them to show
-        which is the numerator and the denominator. Hence, we will also limit
-        ourselves to using only natural numbesr as we get into the programming
-        with Egyptian Fractions. Though computers can represent other types of
-        numbers, like negative numbers of decimals, they are not relevant in
-        this context and we will not use them here.
+        [<EM>
+This section limits the scope of the book to using natural numbers using the
+        context of Egyptian Fractions as the rationale.
+    </EM>]
     </TEXT>
 
     <FIGURE>
         <FIGURE src="img_egypt/naturalnumbers.png"></FIGURE>
         <LABEL NAME="fig:natural-numbers"/>
-        <CAPTION>Numerals Used in Egyptian Hieroglyphs
+        <CAPTION>Numerals Used in Egyptian Hieroglyphs (O'Connor and Robertson,
+            <EM>Egyptian numeral hieroglyphs</EM>)
         </CAPTION>
     </FIGURE>
 
     <TEXT>
-        As we see again below, the numbers in the powers of 2 are special to the
-        Egyptians. Likewise, the binary system is also very relevant to computer
+        <INDEX>Bidny, Sophia</INDEX> <INDEX>Williams, Scoot</INDEX>
+        The Egyptians represented numbers with their hieroglyphs as shown above
+        in Figure<SPACE/><REF NAME="fig:natural-numbers"/>. With these
+        numerals, the Egyptians did not use zero like we do with
+        today's arabic numerals (Bidny 2014). However, they did have a special
+        symbol for zero called nfr (Williams 2008). This was the same
+        hieroglyph for beauty and completeness which is shown in
+        Figure<SPACE/><REF NAME="fig:nfr"/>.
+
+        <FIGURE>
+            <FIGURE src="img_egypt/nfr.png"></FIGURE>
+            <LABEL NAME="fig:nfr"/>
+            <CAPTION>Egyptian Zero: nfr (Williams, <EM>ZERO</EM>)
+            </CAPTION>
+        </FIGURE>
+
+        This was how Egyptians understood numbers - with natural numbers. In
+        their fractions, they represented then with a natural number above
+        another natural number. Likewise, we normally represent fractions with
+        2 integers placed vertically and a line between them to show
+        which is the numerator and the denominator. Hence, to be like the
+        Ancient Egyptians, we will use only natural numbers as we get into
+        programming with Egyptian Fractions<FOOTNOTE>Though computers can
+        represent other types of numbers, like negative numbers or decimals,
+        they are not relevant in this context and we will not use them
+        here.</FOOTNOTE>.
+    </TEXT>
+
+    <TEXT>
+        <INDEX>Groisser, David</INDEX>
+        However, to do that, we have to first know what natural numbers are. We
+        will follow David Groisser's (2001) Peano's Axioms and Natural Numbers.
+        He first  defines natural numbers as
+        <LATEXINLINE>$\mathbb{N} = {1, 2, 3, ...}$</LATEXINLINE> and the
+        <EM>Peano axioms</EM> below:
+    </TEXT>
+    <TEXT>
+        Axioms: There exists a set <LATEXINLINE>$\mathbb{N}$</LATEXINLINE> and
+        an injective function
+        <LATEXINLINE>$s : \mathbb{N} \rightarrow \mathbb{N}$</LATEXINLINE>
+        satisfying the properties below. For
+        <LATEXINLINE>$n \in \mathbb{N}$</LATEXINLINE>, we will call
+        <LATEXINLINE>$s(n)$</LATEXINLINE> the successor of
+        <LATEXINLINE>$n$</LATEXINLINE>.
+        <OL>
+            <LI>
+                There is an element ``1<APOS/><APOS/> that is not the
+                successor of any element.
+            </LI>
+            <LI>
+                Axiom of Induction: Let
+                <LATEXINLINE>$M \subset \mathbb{N}$</LATEXINLINE> be any
+                subset such that
+                <UL>
+                  <LI>
+                      if <LATEXINLINE>$1 \in M$</LATEXINLINE>, and
+                  </LI>
+                  <LI>
+                      if <LATEXINLINE>$n \in M$</LATEXINLINE>, then
+                      <LATEXINLINE>$s(n) \in M$</LATEXINLINE>.
+                  </LI>
+                </UL>
+                Then, <LATEXINLINE>$N = \mathbb{N}$</LATEXINLINE>
+            </LI>
+        </OL>
+        Here, <LATEXINLINE>$s(n) = n + 1$</LATEXINLINE>, ie. the successor of
+        a natural number is itself plus 1. From the second axiom, Groisser also
+        gives the second axiom in the equivalent form: Suppose a statement
+        is true when applied to 1, and for all
+        <LATEXINLINE>$n \in \mathbb{N}$</LATEXINLINE>, if the statement is true
+        for <LATEXINLINE>$n$</LATEXINLINE>, then it is true for
+        <LATEXINLINE>$s(n)$</LATEXINLINE>. Then, the statement is true for all
+        <LATEXINLINE>$n \in \mathbb{N}$</LATEXINLINE>.
+
+        As we look at this definition of natural numbers, we can see that there
+        are naturally 2 functions that we can use on any 2 natural numbers such
+        that it returns only natural numbers, as defined by Groisser:
+
+        <UL>
+            <LI>
+                <LATEXINLINE>$plus : \mathbb{N} \times \mathbb{N} \rightarrow
+                \mathbb{N}$</LATEXINLINE> denoted by <LATEXINLINE>$plus(m, n)
+                = m + n$</LATEXINLINE>
+            </LI>
+            <LI>
+                <LATEXINLINE>$times : \mathbb{N} \times \mathbb{N} \rightarrow
+                \mathbb{N}$</LATEXINLINE> denoted by <LATEXINLINE>$times(m, n)
+                = m \cdot n$</LATEXINLINE>
+            </LI>
+        </UL>
+
+        As we write programs, we will also stick to using the plus and times
+        functions on the natural numbers that we will be using. We will
+        elaborate more on how to use these functions later in the book. Though
+        JavaScript has other mathematical operations, we will not be using them
+        since we are restricting ourselves to the set of natural numbers in our
+        programs.
+    </TEXT>
+<!--
+    <TEXT>
+        For the Ancient Egyptians, the numbers in the powers of 2 were special
+        to them. Likewise, the binary system is also very relevant to computer
         science. When looking at the lower levels of a computer, we see that
         computers only understand 0s and 1s which are numbers with a base of 2,
-        instead of our usual base 10 in mathematics that we use. This is also known
-        as machine language. When we program, we use identifiers and syntax that we
-        can read and understand. As we compile, these programs are converted into
-        0s and and return the result.
+        instead of our usual base 10 in mathematics that we use. This is also
+        known as machine language. When we program, we use identifiers and
+        syntax that we can read and understand. As we compile, these programs
+        are converted into 0s and and return the result.
     </TEXT>
 
     <FIGURE>
         <FIGURE src="img_egypt/power2.png"></FIGURE>
         <LABEL NAME="fig:power2"/>
-        <CAPTION>Special Fractions with Powers of 2
+        <CAPTION>Special Fractions with Powers of 2 (Wikimedia Commons,
+            <EM>Oudjat</EM>)
         </CAPTION>
     </FIGURE>
-
+-->
 </SECTION>

@@ -3,6 +3,13 @@
     Example: Representing Sets
   </NAME>
 
+    <TEXT>
+        [<EM>
+This subsection uses sets as another example for abstraction. It looks at
+      different possible functional representations of sets.
+    </EM>]
+    </TEXT>
+
   <LABEL NAME="sec:representing-sets"/>
   <INDEX>set</INDEX>
   <TEXT>

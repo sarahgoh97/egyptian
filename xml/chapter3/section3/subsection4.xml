@@ -6,6 +6,14 @@
   <LABEL NAME="sec:circuit-simulator"/>
   <INDEX>digital-circuit simulation|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection moves onto digital circuits and event-driven simulation. It
+      touches on logical gates and wires and represent these ideas in programs.
+      This allows simulation of digital circuits.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     Designing complex digital systems, such as computers, is an important
     engineering activity.  Digital systems are constructed by

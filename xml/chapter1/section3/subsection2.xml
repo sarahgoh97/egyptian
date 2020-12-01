@@ -9,6 +9,18 @@
 
   <LABEL NAME="sec:lambda"/>
 
+    <TEXT>
+        [<EM>
+        This subsection introduces lambda expressions where they are functions
+        without naming, explaining the scope of constants in a function and
+        using these in conditional expressions. This is for trivial functions
+        where using it as an argument is easier than declaring a function. This
+        was also used in section<SPACE/><REF NAME="sec:tree-recursion"/> when
+        talking about the splitting algorithm and
+        can be used here to explain the use of lambda expressions.
+    </EM>]
+    </TEXT>
+
   <SPLIT>
     <SCHEME>
       <TEXT>

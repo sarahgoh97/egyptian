@@ -7,6 +7,12 @@
   <INDEX>abstraction barriers</INDEX>
   <INDEX>data abstraction</INDEX>
 
+    <TEXT>
+        [<EM>
+This section further uses data abstraction to build larger programming systems.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We have introduced data abstraction, a methodology for structuring systems
     in such a way that much of a program can be specified independent of the

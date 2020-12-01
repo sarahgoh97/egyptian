@@ -4,6 +4,19 @@
   </NAME>
   <LABEL NAME="sec:conditionals"/>
 
+    <TEXT>
+        [<EM>
+        In this subsection, the original authors used the absolute function to
+        explain the concepts of conditional expressions and predicates. Since
+        the normal subtraction operation is not allowed with Egyptian
+        Fractions, the subtraction function is used here to explain predicates,
+        where NaN is used when a number is 0 and smaller. The exercises provide
+        examples for students to trace the logic of the if-else statements.
+        Instead of using a, b and c, adding in stories of Egyptians give
+        greater meaning to the exercises in relation to Egyptian Fractions.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     The expressive power of the class of
     <SPLITINLINE>
@@ -108,7 +121,26 @@
 	  enforces the emphasis on conditional expressions. Conditional
 	  statements are introduced in 1.3.2.
 	</COMMENT>
-        For instance, we cannot declare a function that computes the 
+        For instance, we cannot declare a function that checks whether
+        subtraction is valid for a natural number and taking different actions
+        in each case according to the rule
+        <LATEX>
+          \[
+          minus(a, b) = \left\{ \begin{array}{rl}
+          a - b   &amp; \mbox{if $a &gt; b$} \\
+          NaN  &amp; \mbox{otherwise}
+          \end{array}
+          \right.
+          \]
+        </LATEX>
+        Here, NaN stands for "Not a Number". Since we are only using natural
+        numbers, it means that it is not a natural number whenever there is
+        a NaN. Just as how the Egyptians had a special symbol for 0 called nfr
+        mentioned in <REF NAME="sec:natural-numbers"/>, NaN is
+        also a special symbol for numbers that are not natural numbers, like
+        0,-1,-2 and so on.
+          <!--
+        For instance, we cannot declare a function that computes the
         <INDEX>absolute value</INDEX>
         absolute value of a number by testing whether the number is positive or
 	not, and taking different actions in each case according to the rule
@@ -120,7 +152,7 @@
           \end{array}
           \right.
           \]
-        </LATEX>
+        </LATEX>-->
 	<COMMENT>
 	  We simplify the example so that we can get away with a single
 	  conditional expression.
@@ -128,23 +160,43 @@
         This construct is a <EM>case analysis</EM> and can be expressed
 	in JavaScript using a <EM>conditional expression</EM> as follows:
         <SNIPPET>
-          <NAME>abs_definition</NAME>
-          <EXAMPLE>abs_example</EXAMPLE>
+          <NAME>minus_definition</NAME>
+          <EXAMPLE>minus_example</EXAMPLE>
           <!--\indcode*{abs} -->
           <JAVASCRIPT>
-function abs(x) {
-    return x &gt;= 0 ? x : -x;
+function minus(a, b) {
+    return a > b ? a - b : NaN;
 }
           </JAVASCRIPT>
         </SNIPPET>
         <SNIPPET HIDE="yes">
-          <NAME>abs_example</NAME>
-	  <REQUIRES>abs_definition</REQUIRES>
+          <NAME>minus_example</NAME>
+	  <REQUIRES>minus_definition</REQUIRES>
 	  <EXPECTED>5</EXPECTED>
           <JAVASCRIPT>
-abs(-5);
+minus(10,5);
           </JAVASCRIPT>
         </SNIPPET>
+
+<!--         <SNIPPET>
+          <NAME>abs_definition</NAME>
+          <EXAMPLE>abs_example</EXAMPLE> -->
+          <!--\indcode*{abs} -->
+<!--          <JAVASCRIPT>
+              function abs(x) {
+              return x &gt;= 0 ? x : -x;
+              }
+          </JAVASCRIPT>
+      </SNIPPET>
+          <SNIPPET HIDE="yes">
+              <NAME>abs_example</NAME>
+              <REQUIRES>abs_definition</REQUIRES>
+              <EXPECTED>5</EXPECTED>
+              <JAVASCRIPT>
+                  abs(-5);
+              </JAVASCRIPT>
+          </SNIPPET>
+          -->
         The general form of a conditional expression is
         <SNIPPET EVAL="no" LATEX="yes">
           <JAVASCRIPT>
@@ -262,8 +314,9 @@ $predicate$ ? $consequent$-$expression$ : $alternative$-$expression$
         <INDEX>predicate</INDEX>
         The word <EM>predicate</EM> is used for operators and functions that
 	return true or false, as well as for expressions that
-	evaluate to true or false. The absolute-value function
-	<JAVASCRIPTINLINE>abs</JAVASCRIPTINLINE> makes use of the 
+	evaluate to true or false.
+    The minus function <JAVASCRIPTINLINE>minus</JAVASCRIPTINLINE> makes use of
+
         <!-- \indcodeplus*{&gt;}{(primitive numeric comparison predicate)}
              \indcodeplus*{&lt;}{(primitive numeric comparison predicate)}
              \indcodeplus*{=}{(primitive numeric equality predicate)} 
@@ -279,9 +332,9 @@ $predicate$ ? $consequent$-$expression$ : $alternative$-$expression$
         <INDEX>number(s)<SUBINDEX>comparison of</SUBINDEX></INDEX>
         <INDEX>number(s)<SUBINDEX>equality of</SUBINDEX></INDEX>
         <INDEX>equality<SUBINDEX>numbers@of numbers</SUBINDEX></INDEX>
-        primitive predicate <JAVASCRIPTINLINE>&gt;=</JAVASCRIPTINLINE>,
+    the primitive predicate <JAVASCRIPTINLINE>&gt;</JAVASCRIPTINLINE>,
 	an operator that takes two numbers as operands and tests whether the
-	first number is greater than or equal to the second number, returning
+	first number is greater than the second number, returning
 	true or false accordingly.
       </TEXT>
     </JAVASCRIPT>
@@ -482,11 +535,11 @@ $predicate$ ? $consequent$-$expression$ : $alternative$-$expression$
     <JAVASCRIPT>
       <TEXT>
         In addition to primitive predicates such as
-        <JAVASCRIPTINLINE>&gt;=</JAVASCRIPTINLINE>, 
-        <JAVASCRIPTINLINE>&gt;</JAVASCRIPTINLINE>, 
+        <JAVASCRIPTINLINE>&gt;</JAVASCRIPTINLINE>,
+        <JAVASCRIPTINLINE>===</JAVASCRIPTINLINE>,
         <JAVASCRIPTINLINE>&lt;</JAVASCRIPTINLINE>, 
-        <JAVASCRIPTINLINE>&lt;=</JAVASCRIPTINLINE>, 
-        <JAVASCRIPTINLINE>===</JAVASCRIPTINLINE>, and
+        <JAVASCRIPTINLINE>&gt;=</JAVASCRIPTINLINE>,
+        <JAVASCRIPTINLINE>&lt;=</JAVASCRIPTINLINE>, and
         <JAVASCRIPTINLINE>!==</JAVASCRIPTINLINE> that are applied to
 	numbers,<FOOTNOTE>For now, we restrict these operators to number
 	arguments. In sections<SPACE/><REF NAME="sec:strings"/>
@@ -574,11 +627,12 @@ $predicate$ ? $consequent$-$expression$ : $alternative$-$expression$
 	encountered so far
 	are <EM>binary</EM>, taking two arguments. The operator
         <JAVASCRIPTINLINE>!</JAVASCRIPTINLINE> precedes its argument;
-	we call it a <EM>prefix operator</EM>. Another prefix operator is
+	we call it a <EM>prefix operator</EM>.
+          <!--Another prefix operator is
 	the unary <QUOTE>minus</QUOTE> operator, an example of
 	which is the expression <JAVASCRIPTINLINE>-x</JAVASCRIPTINLINE>
 	of the function <JAVASCRIPTINLINE>abs</JAVASCRIPTINLINE>
-	in the beginning of this section.
+	in the beginning of this section.-->
       </TEXT>
     </JAVASCRIPT>
   </SPLIT>
@@ -715,22 +769,23 @@ greater_or_equal(7, 4);
     </SNIPPET>
     <SNIPPET>
       <NAME>nine_minus_one</NAME>
+      <REQUIRES>minus_definition</REQUIRES>
       <EXPECTED>8</EXPECTED>
       <SCHEME>
 (- 9 1)
       </SCHEME>
       <JAVASCRIPT>
-9 - 1;
+minus(9, 1);
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET>
-      <NAME>six_over_two</NAME>
+      <NAME>six_times_two</NAME>
       <EXPECTED>3</EXPECTED>
       <SCHEME>
 (/ 6 2)
       </SCHEME>
       <JAVASCRIPT>
-6 / 2;
+6 * 2;
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET>
@@ -740,20 +795,43 @@ greater_or_equal(7, 4);
 (+ (* 2 4) (- 4 6))
       </SCHEME>
       <JAVASCRIPT>
-2 * 4 + (4 - 6);
+2 * 4 + (4 + 6);
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET>
+      <NAME>define_fields</NAME>
+      <EXPECTED>undefined</EXPECTED>
+      <JAVASCRIPT>
+const fields = 14;
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET>
       <NAME>definea</NAME>
       <EXPECTED>undefined</EXPECTED>
       <SCHEME>
 (define a 3)
       </SCHEME>
+
       <JAVASCRIPT>
 const a = 3;
       </JAVASCRIPT>
+    </SNIPPET>-->
+    <SNIPPET>
+      <NAME>define_workers</NAME>
+      <EXPECTED>undefined</EXPECTED>
+      <JAVASCRIPT>
+const workers_per_field = 30;
+      </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET>
+      <NAME>define_target</NAME>
+      <REQUIRES>define_fields</REQUIRES>
+      <EXPECTED>undefined</EXPECTED>
+      <JAVASCRIPT>
+const target = fields * 100;
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET>
       <NAME>defineb</NAME>
       <REQUIRES>definea</REQUIRES>
       <EXPECTED>undefined</EXPECTED>
@@ -763,8 +841,8 @@ const a = 3;
       <JAVASCRIPT>
 const b = a + 1;
       </JAVASCRIPT>
-    </SNIPPET>
-    <SNIPPET>
+    </SNIPPET>-->
+<!--    <SNIPPET>
       <NAME>a_plus_b_etc</NAME>
       <REQUIRES>defineb</REQUIRES>
       <EXPECTED>19</EXPECTED>
@@ -774,7 +852,18 @@ const b = a + 1;
       <JAVASCRIPT>
 a + b + a * b;
       </JAVASCRIPT>
+    </SNIPPET> -->
+    <SNIPPET>
+      <NAME>target_eq_rice</NAME>
+      <REQUIRES>define_fields</REQUIRES>
+      <REQUIRES>define_workers</REQUIRES>
+      <REQUIRES>define_target</REQUIRES>
+      <EXPECTED>false</EXPECTED>
+      <JAVASCRIPT>
+fields * workers_per_field === target;
+      </JAVASCRIPT>
     </SNIPPET>
+<!--
     <SNIPPET>
       <NAME>a_equal_b</NAME>
       <REQUIRES>defineb</REQUIRES>
@@ -786,7 +875,22 @@ a + b + a * b;
 a === b;
       </JAVASCRIPT>
     </SNIPPET>
+    -->
+    There is a lack of rice to meet the target mentioned above. If there is not
+    enough workers, the function will return the number of people to hire to
+    reach the target, otherwise it will return the current number of people
+    which is sufficient
     <SNIPPET>
+      <NAME>enough_workers_field</NAME>
+      <REQUIRES>define_target</REQUIRES>
+      <REQUIRES>define_workers</REQUIRES>
+      <EXPECTED>70</EXPECTED>
+      <JAVASCRIPT>
+target &gt; fields * workers_per_field &amp;&amp; workers_per_field &lt; 100
+   ? 100 - workers_per_field : workers_per_field;
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET>
       <NAME>b_gt_a_etc</NAME>
       <REQUIRES>defineb</REQUIRES>
       <EXPECTED>4</EXPECTED>
@@ -799,8 +903,19 @@ a === b;
 b &gt; a &amp;&amp; b &lt; a * b 
    ? b : a;
       </JAVASCRIPT>
-    </SNIPPET>
+    </SNIPPET>-->
+
     <SNIPPET>
+      <NAME>choose_fields_or_workers</NAME>
+      <REQUIRES>define_target</REQUIRES>
+      <REQUIRES>define_workers</REQUIRES>
+      <EXPECTED>70</EXPECTED>
+      <JAVASCRIPT>
+target &gt;= fields * workers_per_field ? 0 : fields &lt; workers_per_field
+    ? fields: workers_per_field;
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET>
       <NAME>a_equal_four_etc</NAME>
       <REQUIRES>defineb</REQUIRES>
       <EXPECTED>16</EXPECTED>
@@ -843,35 +958,59 @@ a === 4 ? 6 : b === 4 ? 6 + 7 + a : 25;
 *
 (a + 1);
       </JAVASCRIPT>
-    </SNIPPET>
+    </SNIPPET> -->
     <SPLIT>
       <SCHEME>
       </SCHEME>
       <JAVASCRIPT>
         Note that the statement
-        <SNIPPET>
+     <!--   <SNIPPET>
 	  <NAME>a_equals_4_etc_2</NAME>
           <REQUIRES>defineb</REQUIRES>
 	  <EXPECTED>16</EXPECTED>
           <JAVASCRIPT>
 a === 4 ? 6 : b === 4 ? 6 + 7 + a : 25;
           </JAVASCRIPT>
-        </SNIPPET>
-        consists of two conditional expressions, where the second one forms the
+        </SNIPPET> -->
+    <SNIPPET>
+      <NAME>fields_or_workers</NAME>
+      <REQUIRES>define_target</REQUIRES>
+      <REQUIRES>define_workers</REQUIRES>
+      <EXPECTED>14</EXPECTED>
+      <JAVASCRIPT>
+target &gt;= fields * workers_per_field ? 0 : fields &lt; workers_per_field
+    ? fields: workers_per_field;
+      </JAVASCRIPT>
+    </SNIPPET>
+    consists of two conditional expressions, where the second one forms the
 	alternative of the first one. To make that clear, we often indent the
 	lines like this:
-        <SNIPPET>
+    <SNIPPET>
+      <NAME>choose_indented</NAME>
+      <REQUIRES>define_target</REQUIRES>
+      <REQUIRES>define_workers</REQUIRES>
+      <EXPECTED>14</EXPECTED>
+      <JAVASCRIPT>
+target &gt;= fields * workers_per_field
+  ? 0
+  : fields &lt; workers_per_field
+    ? fields
+    : workers_per_field;
+      </JAVASCRIPT>
+    </SNIPPET>
+
+<!--        <SNIPPET>
 	  <NAME>a_equals_4_indented</NAME>
           <REQUIRES>defineb</REQUIRES>
 	  <EXPECTED>16</EXPECTED>
           <JAVASCRIPT>
 a === 4
 ? 6
-: b === 4 
+: b === 4
   ? 6 + 7 + a
   : 25;
           </JAVASCRIPT>
-        </SNIPPET>
+        </SNIPPET> -->
 	<COMMENT>
 	  This syntactic issue is peculiar to the JavaScript version and
 	  is handled informally here, without mention of the implied
@@ -881,8 +1020,8 @@ a === 4
     </SPLIT>
   </EXERCISE>
 
-  <EXERCISE>
-    Translate the following expression into 
+<!--  <EXERCISE>
+    Translate the following expression into
     <SPLITINLINE>
       <SCHEME>
         prefix form
@@ -896,17 +1035,51 @@ a === 4
       \frac{5+4+\left(2-\left(3-(6+\frac{4}{5})\right)\right)}{3 (6-2) (2-7)}
       \]
     </LATEX>
-    <SOLUTION>   
+    <SOLUTION>
       <SNIPPET>
 	<JAVASCRIPT>
-(5 + 4 + (2 - (3 - (6 + 4 / 5)))) 
+(5 + 4 + (2 - (3 - (6 + 4 / 5))))
 /
 (3 * (6 - 2) * (2 - 7));
 	</JAVASCRIPT>
       </SNIPPET>
     </SOLUTION>
-  </EXERCISE>
+  </EXERCISE> -->
   <EXERCISE>
+    Declare a function that checks whether a fraction is a unit fraction, ie.
+    a fraction with numerator 1. If it is, return the denominator. Otherwise,
+    return NaN to show that is in an invalid denominator.
+       <LATEX>
+          \[
+          f(x, y) = \left\{ \begin{array}{rl}
+          y  &amp; \mbox{if $x = 1$ and $y \in \mathbb{N}$} \\
+          \text{NaN}  &amp; \mbox{otherwise}
+          \end{array}
+          \right.
+          \]
+        </LATEX>
+    <SOLUTION>
+        <SNIPPET>
+          <NAME>unit_fraction_denominator</NAME>
+          <EXAMPLE>unit_fraction_denominator_example</EXAMPLE>
+          <JAVASCRIPT>
+function unit_fraction_den(x, y) {
+    return x === 1 ? y : NaN;
+}
+          </JAVASCRIPT>
+        </SNIPPET>
+        <SNIPPET HIDE="yes">
+          <NAME>unit_fraction_denominator_example</NAME>
+	  <REQUIRES>unit_fraction_denominator</REQUIRES>
+	  <EXPECTED>5</EXPECTED>
+          <JAVASCRIPT>
+unit_fraction_den(1,5);
+          </JAVASCRIPT>
+        </SNIPPET>
+    </SOLUTION>
+  </EXERCISE>
+
+<!--  <EXERCISE>
     <SPLITINLINE>
       <SCHEME>
         Define a procedure
@@ -944,10 +1117,89 @@ function f(x, y, z) {
 f(4, 7, 2);
       </JAVASCRIPT>
     </SNIPPET>
+  </EXERCISE> -->
+  <EXERCISE>
+    <SPLITINLINE>
+      <SCHEME>
+        Define a procedure
+      </SCHEME>
+      <JAVASCRIPT>
+	Declare a function <JAVASCRIPTINLINE>compare_frac</JAVASCRIPTINLINE>
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    that compares 2 fractions <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> and
+    <LATEXINLINE>$\frac{c}{d}$</LATEXINLINE>, which returns true if
+    <LATEXINLINE>$\frac{a}{b} &gt;= \frac{c}{d}$</LATEXINLINE> and false
+    otherwise.
+    <SOLUTION>
+      <SNIPPET>
+        <NAME>compare_frac_definition</NAME>
+        <EXAMPLE>compare_frac_example</EXAMPLE>
+        <JAVASCRIPT>
+function compare_frac(a, b, c, d) {
+   return a * d &gt;= b * c;
+}
+        </JAVASCRIPT>
+      </SNIPPET>
+    </SOLUTION>
+    <SNIPPET HIDE="yes">
+      <NAME>compare_frac_example</NAME>
+      <JAVASCRIPT>
+compare_frac(4, 7, 1, 2);
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET HIDE="yes">
+      <NAME>larger_two_square_example</NAME>
+      <SCHEME>
+(f 4 7 2)
+      </SCHEME>
+      <JAVASCRIPT>
+f(4, 7, 2);
+      </JAVASCRIPT>
+    </SNIPPET>-->
+  </EXERCISE>
+  <EXERCISE>
+    <SPLITINLINE>
+      <SCHEME>
+        Define a procedure
+      </SCHEME>
+      <JAVASCRIPT>
+	Declare a function
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    that takes in 2 natural numbers as arguments, the numerator and denominator
+    and returns true if it is a proper fraction (ie. numerator &lt;=
+    denominator) and false otherwise.
+    <SOLUTION>
+      <SNIPPET>
+        <EXAMPLE>proper_fraction_ex</EXAMPLE>
+        <JAVASCRIPT>
+function proper_fraction(num, den) {
+   return num &lt;= den ? true : false;
+}
+        </JAVASCRIPT>
+      </SNIPPET>
+    </SOLUTION>
+    <SNIPPET HIDE="yes">
+      <NAME>proper_fraction_ex</NAME>
+      <JAVASCRIPT>
+proper_fraction(4, 7);
+      </JAVASCRIPT>
+    </SNIPPET>
+<!--    <SNIPPET HIDE="yes">
+      <NAME>larger_two_square_example</NAME>
+      <SCHEME>
+(f 4 7 2)
+      </SCHEME>
+      <JAVASCRIPT>
+f(4, 7, 2);
+      </JAVASCRIPT>
+    </SNIPPET>-->
   </EXERCISE>
 
   <EXERCISE>
-    <LABEL NAME="ex:a-plus-abs-b"/>
+<!--    <LABEL NAME="ex:a-plus-abs-b"/> -->
+    <LABEL NAME="ex:a-divide-b-remainder"/>
     <SPLIT>
       <SCHEME>
 	<INDEX>combination
@@ -977,6 +1229,16 @@ f(4, 7, 2);
 	whose function expressions are compound expressions. Use this observation
 	to describe the behavior of the following function:
 	<SNIPPET>
+          <EXAMPLE>a_divide_b_remainder_ex</EXAMPLE>
+          <JAVASCRIPT>
+function minus(a, b) { return a &gt; b ? a - b : NaN; }
+  function stop(a, b) { return a; }
+  function a_divide_b_remainder(a, b) {
+    return (a >= b ? minus : stop)(a, b);
+}
+          </JAVASCRIPT>
+	</SNIPPET>
+<!--	<SNIPPET>
           <EXAMPLE>plusminusexample</EXAMPLE>
           <JAVASCRIPT>
 function plus(a, b) { return a + b; }
@@ -985,13 +1247,19 @@ function a_plus_abs_b(a, b) {
     return (b >= 0 ? plus : minus)(a, b);
 }
           </JAVASCRIPT>
-	</SNIPPET>
+	</SNIPPET>-->
 	<SNIPPET HIDE="yes">
+          <NAME>a_divide_b_remainder_ex</NAME>
+          <JAVASCRIPT>
+a_divide_b_remainder(5, 4);
+          </JAVASCRIPT>
+	</SNIPPET>
+	<!--<SNIPPET HIDE="yes">
           <NAME>plusminusexample</NAME>
           <JAVASCRIPT>
 a_plus_abs_b(5, -4);
           </JAVASCRIPT>
-	</SNIPPET>
+	</SNIPPET> -->
 	<COMMENT>
 	  Note that in conditional expressions in JavaScript, we cannot directly
 	  use the operators <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE> and
@@ -1004,16 +1272,28 @@ a_plus_abs_b(5, -4);
 	<SOLUTION>
 	  According to section <REF NAME="sec:substitution-model"/>, evaluation
 	  of an application proceeds as follows:
-	  <OL>
-	    <LI>Evaluate the subexpressions of the application.
-	    </LI>
-            <LI>Evaluate the return expression of the result of
-	    the function expression with each
-	    parameter replaced by the corresponding result of the respective
-	    argument expression.
-            </LI>
-	  </OL>
-	  Thus the evaluation of the application 
+	  Thus the evaluation of the application
+	  <JAVASCRIPTINLINE>a_divide_b_remainder(5, 4)</JAVASCRIPTINLINE>
+	  (1) evaluates <JAVASCRIPTINLINE>a_divide_b_remainder</JAVASCRIPTINLINE>,
+	  resulting in the function given above, and the arguments are
+	  already values. So we need to evaluate (2) the return expression
+	  of the function, with the parameters replaced by the arguments, thus:
+	  <JAVASCRIPTINLINE>(5 >= 4 ? minus : stop)(5, 4)</JAVASCRIPTINLINE>.
+	  With the same rules, we need to (1) evaluate the function expression,
+	  which in this case is the conditional expression
+	  <JAVASCRIPTINLINE>5 >= 4 ? minus : stop</JAVASCRIPTINLINE>. Since
+	  the predicate evaluates to true, the function expression
+	  evaluates to <JAVASCRIPTINLINE>minus</JAVASCRIPTINLINE>. The arguments,
+	  again (1) are already values. Thus we end up evaluating (2) the body of
+	  <JAVASCRIPTINLINE>minus</JAVASCRIPTINLINE> with the parameters
+	  <JAVASCRIPTINLINE>a</JAVASCRIPTINLINE> and
+	  <JAVASCRIPTINLINE>b</JAVASCRIPTINLINE> replaced by 5 and 4,
+	  respectively, resulting in
+	  <JAVASCRIPTINLINE>5 - 4</JAVASCRIPTINLINE>, which will finally
+	  evaluate to 1. Though this is one step, we can see that if this is
+      repeated for bigger numbers we can use this method to get a remainder of
+      2 numbers dividing each other.
+        <!--	  Thus the evaluation of the application
 	  <JAVASCRIPTINLINE>a_plus_abs_b(5, -4)</JAVASCRIPTINLINE>
 	  (1) evaluates <JAVASCRIPTINLINE>a_plus_abs_b</JAVASCRIPTINLINE>,
 	  resulting in the function given above, and the arguments are
@@ -1031,7 +1311,7 @@ a_plus_abs_b(5, -4);
 	  <JAVASCRIPTINLINE>b</JAVASCRIPTINLINE> replaced by 5 and -4,
 	  respectively, resulting in
 	  <JAVASCRIPTINLINE>5 - (-4)</JAVASCRIPTINLINE>, which will finally
-	  evaluate to 9.
+	  evaluate to 9. -->
 	</SOLUTION>
       </JAVASCRIPT>
     </SPLIT>
@@ -1070,7 +1350,7 @@ function p() {
 }
 
 function test(x, y) {
-    return x === 0 ? 0 : y;
+    return x === 1 ? 1 : y;
 }
 	</JAVASCRIPT>
       </SNIPPET>
@@ -1085,7 +1365,7 @@ function test(x, y) {
 (test 0 (p))
 	</SCHEME>
 	<JAVASCRIPT>
-test(0, p());
+test(1, p());
 	</JAVASCRIPT>
       </SNIPPET>
       What behavior will Ben observe with an interpreter that uses
@@ -1110,7 +1390,7 @@ test(0, p());
 	<SPLIT>
 	  <JAVASCRIPT>
 	    In applicative-order evaluation of
-	    <JAVASCRIPTINLINE>test(0, p())</JAVASCRIPTINLINE>,
+	    <JAVASCRIPTINLINE>test(1, p())</JAVASCRIPTINLINE>,
 	    we need to evaluate the argument expressions before we can evaluate
 	    the return expression of the function
 	    <JAVASCRIPTINLINE>test</JAVASCRIPTINLINE>.
@@ -1119,24 +1399,24 @@ test(0, p());
 	    will not terminate, however: It will keep evaluating application
 	    expressions of the form 
 	    <JAVASCRIPTINLINE>p()</JAVASCRIPTINLINE>, and thus the evaluation of
-            <JAVASCRIPTINLINE>test(0, p())</JAVASCRIPTINLINE> will not produce a
+            <JAVASCRIPTINLINE>test(1, p())</JAVASCRIPTINLINE> will not produce a
 	    legitimate value. In normal-order evaluation, on the other hand,
 	    the function application
-	    <JAVASCRIPTINLINE>test(0, p())</JAVASCRIPTINLINE>
+	    <JAVASCRIPTINLINE>test(1, p())</JAVASCRIPTINLINE>
 	    would immediately evaluate the return expression of the function
 	    <JAVASCRIPTINLINE>test</JAVASCRIPTINLINE>,
-	    <JAVASCRIPTINLINE>x === 0 ? 0 : y</JAVASCRIPTINLINE>
+	    <JAVASCRIPTINLINE>x === 1 ? 1 : y</JAVASCRIPTINLINE>
 	    after replacing the parameter
 	    <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE> with
-	    <JAVASCRIPTINLINE>0</JAVASCRIPTINLINE> and
+	    <JAVASCRIPTINLINE>1</JAVASCRIPTINLINE> and
 	    <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE> with
 	    <JAVASCRIPTINLINE>p()</JAVASCRIPTINLINE>.
 	    The result of the replacing would be
-	    <JAVASCRIPTINLINE>0 === 0 ? 0 : p()</JAVASCRIPTINLINE>.
+	    <JAVASCRIPTINLINE>1 === 1 ? 1 : p()</JAVASCRIPTINLINE>.
 	    The evaluation of the predicate
-	    <JAVASCRIPTINLINE>0 === 0</JAVASCRIPTINLINE>
+	    <JAVASCRIPTINLINE>1 === 1</JAVASCRIPTINLINE>
 	    results in true and thus the conditional
-	    expression evaluates to 0, without any need to
+	    expression evaluates to 1, without any need to
 	    evaluate <JAVASCRIPTINLINE>p()</JAVASCRIPTINLINE>.
 	  </JAVASCRIPT>
 	</SPLIT>

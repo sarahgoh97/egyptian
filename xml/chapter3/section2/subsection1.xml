@@ -7,6 +7,13 @@
   <INDEX>environment model of evaluation
   <SUBINDEX>rules for evaluation|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection discusses the logic and rules in the new model of evaluation.
+    </EM>]
+    </TEXT>
+
+
   <TEXT>
     <SPLIT>
       <SCHEME>

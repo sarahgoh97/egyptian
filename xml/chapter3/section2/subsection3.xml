@@ -10,6 +10,13 @@
   <INDEX>environment model of evaluation
   <SUBINDEX>local state|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about using functions and assignment can be used to
+      represent local states of objects.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <!-- \indcode{make-withdraw}[environment@in environment model|(] -->
     We can turn to the environment model to see how

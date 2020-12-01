@@ -6,6 +6,14 @@
   <LABEL NAME="sec:queues"/>
   <INDEX>queue|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about queues and using lists and the concepts covered in
+        earlier sections to implement the queue data structure.
+    </EM>]
+    </TEXT>
+
+
   <TEXT>
     The mutators
     <SPLITINLINE>

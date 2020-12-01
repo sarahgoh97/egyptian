@@ -16,6 +16,14 @@
   <JAVASCRIPT>function</JAVASCRIPT></SPLITINLINE>
   application<SUBINDEX>environment model of|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection analyses program environments created by simple function calls
+      according to the environment model.
+    </EM>]
+    </TEXT>
+
+
   <TEXT>
     <!-- \indcode{sum-of-squares}[environment@in environment model|(] -->
     When we introduced the substitution model in

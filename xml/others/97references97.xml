@@ -397,4 +397,298 @@
   <REFERENCE>Zippel, Richard.  1993.  <EM>Effective Polynomial Computation.</EM>
     Boston, MA: Kluwer Academic Publishers.</REFERENCE>
 
+  <SUBHEADING>
+    <NAME>Added References</NAME>
+  </SUBHEADING>
+
+  <REFERENCE>Beeckmans, Laurel. 1993. ``The splitting algorithm for egyptian
+    fractions<APOS/><APOS/>. <EM>Journal of Number Theory</EM> 43, no. 2 (April
+    1993): 173-185. Accessed February 12, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Bello-Hernández, Manuel, Manuel Benito, and Emilio Fernández. 2012.
+    ``On Egyptian Fractions<APOS/><APOS/>. arXiv:1010.2035v2 [math.NT].
+    April 30 2012. Accessed May 4, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Bidny, Sophia. 2014. ``The History of Zero<APOS/><APOS/>
+    Accessed October 4, 2020.
+    http://kobotis.net/math/MathematicalWorlds/Fall2014/131/Presentations/pdf/BidnyS_p1.pdf .
+  </REFERENCE>
+
+  <REFERENCE>Black, Paul E. 1998. ``greedy algorithm<APOS/><APOS/>.
+    <EM>Dictionary of Algorithms and Data Structures</EM>. Accessed October 8,
+    2020. https://xlinux.nist.gov/dads/HTML/greedyalgo.html
+  </REFERENCE>
+
+  <REFERENCE>Bleicher, M.N. 1972. ``A New Algorithm for the Expansion of Egyptian
+    Fractions<APOS/><APOS/>. <EM>Journal of Number Theory</EM> 4 (1972):
+    342-382. Accessed February 24, 2020. doi:
+    https://doi.org/10.1016/0022-314X(72)90069-8.
+  </REFERENCE>
+
+  <REFERENCE>Brown, Kevin. n.d. ``Reverse Greed for Unit Fractions
+    <APOS/><APOS/>. mathpages.com. Accessed April 5, 2020.
+    https://www.mathpages.com/home/kmath150/kmath150.htm.
+  </REFERENCE>
+
+  <REFERENCE>Brown, Kevin. n.d. ``Egyptian Unit Fractions<APOS/><APOS/>.
+    mathpages.com. Accessed April 5, 2020.
+    https://www.mathpages.com/home/kmath340/kmath340.htm.
+  </REFERENCE>
+
+  <REFERENCE>Brown, Kevin. n.d. ``The 2 Ohm Problem
+    <APOS/><APOS/>. mathpages.com. Accessed April 4, 2020.
+    https://www.mathpages.com/home/kmath319.htm.
+  </REFERENCE>
+
+  <REFERENCE>Bruaw, Scot. 2016. ``Common Fractions<APOS/><APOS/>.
+    <EM>GreatScott.com</EM>. Accessed May 4, 2020.
+    https://www.greatscott.com/lessons/fractions/.
+  </REFERENCE>
+
+  <REFERENCE>Croot, Ernest S. 1999. ``On some questions of
+    Erd<LATEXINLINE>\"{o}</LATEXINLINE>s and Graham about Egyptian fractions
+    <APOS/><APOS/>. <EM>Mathematika</EM> 46, no. 2 (December 1999): 359-372.
+    Accessed May 12, 2020. doi: 10.1112/S0025579300007828.
+  </REFERENCE>
+
+  <REFERENCE> Croot, Ernest S., David E Dobbs, John B Friedlander, Andrew J
+    Hetzel, and Francesco Pappalardi. 2000. ``Binary Egyptian
+    Fractions<APOS/><APOS/>. <EM>Journal of Number Theory</EM>
+    84, no. 1 (2000): 63-79. Accessed February 14, 2020.
+    doi: https://doi.org/10.1006/jnth.2000.2508.
+  </REFERENCE>
+
+  <REFERENCE>Eppstein, David. (n.d.) ``Algorithms for Egyptian Fractions -
+    Introduction<APOS/><APOS/>. Accessed January 16, 2020.
+    https://www.ics.uci.edu/~eppstein/numth/egypt/intro.html
+  </REFERENCE>
+
+  <REFERENCE>Eppstein, David. (n.d.) ``Algorithms for Egyptian Fractions -
+    Methods Based on the Binary Number System<APOS/><APOS/>. Accessed January
+    16, 2020.
+    https://www.ics.uci.edu/\textasciitilde eppstein/numth/egypt/binary.html
+  </REFERENCE>
+
+  <REFERENCE>Eppstein, David. (n.d.) ``Algorithms for Egyptian Fractions -
+    Reverse Greedy Methods<APOS/><APOS/>. Accessed March 25, 2020.
+    https://www.ics.uci.edu/\textasciitilde eppstein/numth/egypt/greed.html
+  </REFERENCE>
+
+  <REFERENCE>Eppstein, David. (n.d.) ``Algorithms for Egyptian Fractions -
+    Brute Force Methods<APOS/><APOS/>. Accessed April 28, 2020.
+    https://www.ics.uci.edu/\textasciitilde eppstein/numth/egypt/force.html
+  </REFERENCE>
+
+  <REFERENCE>Erd<LATEXINLINE>\"{o}</LATEXINLINE>s, Paul, and M.N. Bleicher.
+    1976. ``Denominators of Egyptian Fractions<APOS/><APOS/>.
+    <EM>Journal of Number Theory</EM> 8 (December 1976): 157-168.
+  </REFERENCE>
+
+  <REFERENCE>Friedman, Charles N. 1993. ``Sums of Divisors and Egyptian
+    Fractions<APOS/><APOS/>. <EM>Journal of Number Theory</EM> 44, no. 3 (1993):
+    328-339. Accessed May 4, 2020. doi: https://doi.org/10.1006/jnth.1993.1057 .
+  </REFERENCE>
+
+  <REFERENCE> Gillings, Richard J. 1972. <EM>Mathematics in Time of the
+    Pharoahs</EM> (MIT Press, 1972).
+  </REFERENCE>
+
+  <REFERENCE>Goldmakher, Leo. ``A short(er) proof of the divergence of the
+    harmonic series<APOS/><APOS/>. (n.d.) <EM>Department of Mathematics,
+    University of Toronto</EM>. Accessed October 8, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Golomb, Solomon W. 1962. ``An Algebraic Algorithm for the
+    Representation Problems of the Ahmes Papyrus. <APOS/><APOS/> <EM>The
+    American Mathematical Monthly</EM> 69, no. 8 (1962): 785-86. Accessed July
+    8, 2020. doi:10.2307/2310781.
+  </REFERENCE>
+
+  <REFERENCE> Gong, Kevin. 1992. ``Egyptian Fractions<APOS/><APOS/>. Honors
+    thesis, University of California, Berkeley, 1992. Accessed February 12, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Groisser, David. 2001. ``Peano Axioms for the Natural
+    Numbers<APOS/><APOS/>. Accessed October 9, 2020.
+    https://people.clas.ufl.edu/groisser/files/peano_axioms.pdf.
+  </REFERENCE>
+
+  <REFERENCE>Guy, Richard. 1980. ``Egyptian Fractions<APOS/><APOS/> in
+    <EM>Unsolved Problems in Number Theory, Section D11</EM> Springer-Verlag.
+  </REFERENCE>
+
+  <REFERENCE>Gyimesi, Eszter, and Gábor Nyul. 2013. ``A note on Golomb<APOS/>s
+    method and the continued fraction method for Egyptian fractions.<APOS/>
+    <APOS/>. <EM>Annales Mathematicae et Informaticae</EM> 42, (2013): 129-134.
+    Accessed October 8, 2020.
+    http://publikacio.uni-eszterhazy.hu/2921/1/AMI_42_from129to134.pdf
+  </REFERENCE>
+
+  <REFERENCE>Hagedorn, Thomas R. 2000. ``A proof of a conjecture on Egyptian
+    fractions<APOS/><APOS/>. <EM>The American Mathematical Monthly</EM> 107,
+    no. 1 (January 2000): 62-63. Updated November 8, 2017.
+  </REFERENCE>
+
+  <REFERENCE>Huang, Jingjing, and Robert C. Vaughan. 2011. `` Mean value
+    theorems for binary Egyptian fractions<APOS/><APOS/>. <EM>Journal of Number
+    Theory</EM> 131, no. 9 (2011): 1641-1656. Accessed April 24, 2020.
+    doi: https://doi.org/10.1016/j.jnt.2011.04.001 .
+  </REFERENCE>
+
+  <REFERENCE> Humenberger, Hans. 2014. ``Egyptian Fractions - representations
+    as sums of unit fractions<APOS/><APOS/>. <EM>Mathematics and Computer
+    Education</EM> 48, 3 (2014): 268, figure 1. Accessed May 4, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Knott, Ron. 2020. ``Egyptian Fractions<APOS/><APOS/>.
+    maths.surrey.ac.uk. Updated February 21, 2020.
+    http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fractions/egyptian.html.
+  </REFERENCE>
+
+  <REFERENCE>Knott, Ron. 2020. ``Ahmes Papyrus<APOS/><APOS/>.
+    <EM>maths.surrey.ac.uk</EM>. Accessed March 17, 2020.
+    http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fractions/egyptian.html.
+  </REFERENCE>
+
+  <REFERENCE>Kosheleva, Olga, Vladik Kreinovich. 2009.
+    ``Egyptian Fractions Revisited<APOS/><APOS/>. <EM>Informatics Educ.</EM>
+    8 (April 2009): 35-48. Accessed February 12, 2020.
+    doi: 10.26907/1562-5419-2019-22-6-763-768 .
+  </REFERENCE>
+
+  <REFERENCE>Koretskyi, Max. 2016.``The simple math behind decimal-binary
+    conversion algorithms<APOS/><APOS/>. Accessed October 8, 2020.
+    https://indepth.dev/the-simple-math-behind-decimal-binary-conversion-algorithms/.
+  </REFERENCE>
+
+  <REFERENCE>Krishnan, Abhijeet, Anton Älgmyr, and Jakob Kogler. 2019.
+    ``The Stern-Brocot tree and Farey sequences<APOS/><APOS/>.
+    Updated December 1, 2019.
+    https://cp-algorithms.com/others/stern_brocot_tree_farey_sequences.html
+  </REFERENCE>
+
+<!--  <REFERENCE>Kumar, N. Mohan. 2011. ``Peano's Axioms and Natural
+    Numbers<APOS/><APOS/> in <EM>Construction of Number Systems</EM>: pp. 1-8.
+    Accessed October 9, 2020.
+    https://www.math.wustl.edu/~kumar/courses/310-2011/Peano.pdf
+  </REFERENCE>-->
+
+  <REFERENCE>Martin, Greg. 1998. ``Denser Egyptian Fractions<APOS/><APOS/>.
+    arXiv:math/9811112 [math.NT]. Accessed March 17, 2020.
+  </REFERENCE>
+
+  <REFERENCE>Martin, Greg. 1999. ``Dense Egyptian Fractions<APOS/><APOS/>. <EM>
+    American Mathematical Society</EM> 351, no.9 (March 1999): 3641-3657.
+    Accessed March 17, 2020.
+  </REFERENCE>
+
+  <REFERENCE>MDN Web Docs. 2020. ``Number.MAX_SAFE_INTEGER - JavaScript |
+    MDN<APOS/><APOS/>. Updated August 13, 2020.
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER.
+  </REFERENCE>
+
+  <REFERENCE>Ministry of Education Singapore Curriculum Planning and
+    Development Division. 2012. <EM>Mathematics Syllabus Primary One to Six</EM>
+    (Singapore: 2012). Accessed January 27, 2020.
+    https://www.moe.gov.sg/docs/default-source/document/education/syllabuses/sciences/files/mathematics_syllabus_primary_1_to_6.pdf.
+  </REFERENCE>
+
+  <REFERENCE>Negash, Dagnachew Jenber. 2018. ``Solutions to Diophantine
+    equation of Erd<LATEXINLINE>\"{o}</LATEXINLINE>s-Straus Conjecture<APOS/>
+    <APOS/>. arXiv:1812.05684 [math.HO]. December 31, 2018. Accessed October 7,
+    2020.
+  </REFERENCE>
+
+  <REFERENCE> O'Connor, J J., and E F Robertson. 2000. ``Egyptian
+    numeral hieroglyphs<APOS/><APOS/>. <EM>mathshistory.st-andrews.ac.uk</EM>.
+    Accessed April 4, 2020.
+    https://mathshistory.st-andrews.ac.uk/HistTopics/Egyptian_numerals/.
+  </REFERENCE>
+
+  <REFERENCE>Pappalardi, Francesco. 2018. ``Egyptian fractions: from Rhind
+    Mathematical Papyrus to Erd<LATEXINLINE>\"{o}</LATEXINLINE>s and Tao<APOS/>
+    <APOS/> Updated October 10, 2018.
+    http://www.mat.uniroma3.it/users/pappa/missions/slides/Egyptian_presentation.pdf
+  </REFERENCE>
+
+  <REFERENCE>Regan, Rick. 2012. ``Converting a Bicimal to a Fraction (Series
+    Method)<APOS/><APOS/>. Accessed October 8, 2020.
+    https://www.exploringbinary.com/converting-a-bicimal-to-a-fraction-series-method/
+  </REFERENCE>
+
+  <REFERENCE>Schwartz,Jeffery L. 2018. ``Application of Egyptian Fractions to
+    Parallel Resistors<APOS/><APOS/>. <EM>2018 ASEE Mid-Atlantic Section
+    Spring Conference</EM>. Washington, District of Columbia. Accessed April 4,
+    2020. https://jee.org/29455.
+  </REFERENCE>
+
+  <REFERENCE>Sigler, Laurence E. 2002. ``Fibonacci's Liber Abaci<APOS/><APOS/>
+    (trans.), Springer-Verlag. ISBN 0-387-95419-8.
+  </REFERENCE>
+
+  <REFERENCE>Stella, Benoît. 2007. ``Oudjat.SVG<APOS/><APOS/>. Wikimedia
+    Commons, March 20, 2007. Retrieved October 9, 2020.
+    https://commons.wikimedia.org/wiki/File:Oudjat.svg.
+  </REFERENCE>
+
+  <REFERENCE>Sylvester, J. J. 1880. ``On a point in the theory of vulgar
+    fractions<APOS/><APOS/>. <EM>American Journal of Mathematics</EM> 3, no. 4
+    (1880): 332–335.
+  </REFERENCE>
+
+  <REFERENCE>Stewart, B.M. 1954. ``Sums of distinct divisors<APO/><APOS/>. <EM>
+    American Journal of Mathematics</EM> 76, no. 4 (1954): 779-85. Accessed
+    October 7, 2020. doi:10.2307/2372651.
+  </REFERENCE>
+
+  <REFERENCE>Stewart, B.M. 1964. ``Egyptian Fractions<APO/><APOS/> In <EM>
+    Theory of Numbers</EM> pp. 198-207. The Macmillan Company, 1964.
+  </REFERENCE>
+
+  <REFERENCE>Torfs, W., and Blondia, C. 2010. ``Binary TDMA scheduler by means
+    of egyptian fractions for real-time WSNs on TMotes<APOS/><APOS/>. <EM>
+    2010 The 9th IFIP Annual Mediterranean Ad Hoc Networking Workshop
+    Med-Hoc-Net)</EM>: pp. 1-8 Juna-les-Pins, France. Accessed October 7, 2020.
+    doi: 10.1109/MEDHOCNET.2010.5546849.
+  </REFERENCE>
+
+  <REFERENCE>Wagon, Stan. 1999. <EM>Mathematica in Action Second Edition</EM>.
+    Springer-Verlag New York, 1999.
+  </REFERENCE>
+
+  <REFERENCE>Weisstein, Eric W. (n.d.) ``Simple Continued Fraction<APOS/><APOS/>.
+    <EM>MathWorld</EM>. Accessed October 8, 2020.
+    https://mathworld.wolfram.com/SimpleContinuedFraction.html
+  </REFERENCE>
+
+  <REFERENCE> Williams, Scoot W. 2008. ``ZERO<APOS/><APOS/>.
+    <EM>math.buffalo.edu</EM>. Accessed October 4, 2020.
+    http://www.math.buffalo.edu/mad/Ancient-Africa/mad_ancient_egypt_zero.html.
+  </REFERENCE>
+
+  <REFERENCE> Williams, Scoot W. 2008. ``ON THE EGYPTIAN ZERO - Mathematicians
+    of the African Diaspora<APOS/><APOS/>.
+    <EM>math.buffalo.edu</EM>. Accessed October 4, 2020.
+    http://www.math.buffalo.edu/mad/Ancient-Africa/mad_ancient_egypt_zero.html.
+  </REFERENCE>
+
+  <REFERENCE> Yokota, Hisashi. 1986. ``On a Conjecture of M. N. Bleicher and P.
+    Erd<LATEXINLINE>\"{o}</LATEXINLINE>s<APOS/><APOS/>. <EM>Journal of Number
+    Theory</EM> 24, no. 1 (1986): 89-94. Accessed April 2, 2020. doi:
+    https://doi.org/10.1016/0022-314X(86)90060-0.
+  </REFERENCE>
+
+  <REFERENCE> Yokota, Hisashi. 1988. ``Denominators of Egyptian fractions<APOS/>
+    <APOS/>. <EM>Journal of Number Theory</EM> 28, no. 3 (1988): 258-271.
+    Accessed April 2, 2020. doi: https://doi.org/10.1016/0022-314X(88)90041-8 .
+  </REFERENCE>
+
+  <REFERENCE>Zanardo, Alberto. 2018. ``Egyptian Fractions<APOS/><APOS/>.
+    <EM>mathenjeans.fr</EM>, 2017-2018. Accessed January 27, 2020.
+    https://www.mathenjeans.fr/sites/default/files/comptes-rendus/egyptian_fractions_isiss_20172018.pdf
+  </REFERENCE>
+
+
 </REFERENCES>

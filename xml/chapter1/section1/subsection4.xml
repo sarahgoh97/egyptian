@@ -6,6 +6,17 @@
   </NAME>
 
   <TEXT>
+    [<EM>
+      In this subsection, the original authors talk about how to use functions
+      in a basic way, where a function only has a return statement. This is to
+      build on the idea of abstraction as they did earlier with constants. Like
+      the previous subsection, the examples were loosely linked to the story
+      of Ancient Egyptians.
+    </EM>]
+  </TEXT>
+
+
+  <TEXT>
     We have identified in 
     <SPLITINLINE>
       <SCHEME>Lisp</SCHEME>
@@ -50,7 +61,11 @@
     a much more powerful abstraction technique by which a compound
     operation can be given a name and then referred to as a unit.
   </TEXT>
+   <COMMENT>
+     To give a reason for using the square stuff
+   </COMMENT>
   <TEXT>
+    Imagine finding the total rice planted by Egyptians in a square field.
     We begin by examining how to express the idea of
     <QUOTE>squaring.</QUOTE>
     We might say,
@@ -66,7 +81,7 @@
       The Scheme and JavaScript phrases differ a bit here, in order to better
       match infix notation in JavaScript.
     </COMMENT>
-    This is expressed in our language as 
+    This is expressed in our language as
     <INDEX>
       <JAVASCRIPTINLINE>square</JAVASCRIPTINLINE>
       <ORDER>square</ORDER>
@@ -115,7 +130,7 @@ function square(    x   ) { return x    *     x; }
 	</JAVASCRIPT>
       </SNIPPET>
       <LATEX>
-	    \vspace{-4mm}	
+	    \vspace{-4mm}
 	    \hspace{6mm} $\Big\uparrow$ \hspace{13mm} $\Big\uparrow$ \hspace{14mm} $\Big\uparrow$ \hspace{18mm} $\Big\uparrow$ \hspace{6mm} $\Big\uparrow$ \hspace{6mm} $\Big\uparrow$ \hspace{9mm} $\Big\uparrow$
 
 	    \vspace{-2mm}
@@ -148,7 +163,7 @@ $\;\;\;\;$ To    square something,   take it  times itself.
       <JAVASCRIPT>function</JAVASCRIPT>
     </SPLITINLINE>
     represents the operation of multiplying something by itself. The thing to
-    be multiplied is given a local name, <SCHEMEINLINE>x</SCHEMEINLINE>, 
+    be multiplied is given a local name, <SCHEMEINLINE>x</SCHEMEINLINE>,
     which plays the same role that a pronoun plays in natural language.
     <SPLIT>
       <SCHEME>
@@ -184,7 +199,7 @@ $\;\;\;\;$ To    square something,   take it  times itself.
 	function
       </JAVASCRIPT>
     </SPLITINLINE>
-    and associates it with the name 
+    and associates it with the name
     <SCHEMEINLINE>square</SCHEMEINLINE>.<FOOTNOTE>Observe that there are two
     different operations being combined here: we are creating the
     <SPLITINLINE>
@@ -218,8 +233,8 @@ $\;\;\;\;$ To    square something,   take it  times itself.
     that have already been created. We will see how to do this in
     section <REF NAME="sec:lambda"/>.</FOOTNOTE>
 
-    <!-- \indsf*{define}[procedures@for procedures] 
-         \ind*{special forms (those marked <EM>ns</EM> are not in the IEEE 
+    <!-- \indsf*{define}[procedures@for procedures]
+         \ind*{special forms (those marked <EM>ns</EM> are not in the IEEE
 	 Scheme standard)}[define@{\tt define}]
     -->
   </TEXT>
@@ -279,7 +294,7 @@ function $name$( $parameters$ ) { return $expression$; }
 	<LATEXINLINE>$\textit{name}$</LATEXINLINE><EMDASH/>to
       </JAVASCRIPT>
     </SPLITINLINE>
-    denote the <QUOTE>slots</QUOTE> in the expression to be filled in 
+    denote the <QUOTE>slots</QUOTE> in the expression to be filled in
     when such an expression is actually used.</FOOTNOTE>
     The
     <SPLITINLINE>
@@ -340,7 +355,7 @@ function $name$( $parameters$ ) { return $expression$; }
         value of the procedure application.</FOOTNOTE>
 	The <LATEXINLINE>$\langle \textit{name} \rangle$</LATEXINLINE>
 	and the
-	<LATEXINLINE>$\langle \textit{formal parameters} \rangle$</LATEXINLINE> 
+	<LATEXINLINE>$\langle \textit{formal parameters} \rangle$</LATEXINLINE>
 	are grouped within
 	<INDEX>parentheses<SUBINDEX><ORDER>procedure</ORDER>in procedure
 	definition</SUBINDEX></INDEX>
@@ -356,14 +371,14 @@ function $name$( $parameters$ ) { return $expression$; }
 	declaration</SUBINDEX></INDEX>
 	parentheses, as they will be in an application of the function
 	being declared.
-	In the simplest form, the 
+	In the simplest form, the
         <INDEX>function<SUBINDEX>body of</SUBINDEX></INDEX>
         <INDEX>body of a function</INDEX>
 	<EM>body</EM> of a function declaration is a single
 	<EM>return</EM>
 	statement, which consists of the keyword
 	<JAVASCRIPTINLINE>return</JAVASCRIPTINLINE>
-	followed by the return 
+	followed by the return
 	<LATEXINLINE>$\textit{expression}$</LATEXINLINE>
 	that will yield the value of the function application, when the formal
 	parameters are replaced by the actual arguments to which the function
@@ -382,7 +397,7 @@ function $name$( $parameters$ ) { return $expression$; }
   <TEXT>
     <SPLIT>
       <SCHEME>
-        Having defined <SCHEMEINLINE>square</SCHEMEINLINE>, 
+        Having defined <SCHEMEINLINE>square</SCHEMEINLINE>,
         we can now use it:
       </SCHEME>
       <JAVASCRIPT>
@@ -398,7 +413,7 @@ function $name$( $parameters$ ) { return $expression$; }
 (square 21)
       </SCHEME>
       <SCHEMEOUTPUT>
-441		
+441
       </SCHEMEOUTPUT>
       <JAVASCRIPT>
 square(21);
@@ -463,13 +478,18 @@ $function$-$expression$( $argument$-$expressions$ )
 square(2 + 5);
       </JAVASCRIPT>
       <JAVASCRIPT_OUTPUT>
-49		  
+49
       </JAVASCRIPT_OUTPUT>
     </SNIPPET>
     <SPLIT>
       <JAVASCRIPT>
 	Here, the argument expression is itself a compound expression,
 	the operator combination <JAVASCRIPTINLINE>2 + 5</JAVASCRIPTINLINE>.
+    In the context of Egyptian Fractions, this would be useful for owners of the
+    land to calculate the total land that they have and the rice they have
+    when they expand their land. For example, if they have a field of length 5m
+    and they decided to expand it by 2m in both directions, this can help them
+    calculate the total rice they can produce with the expanded land.
       </JAVASCRIPT>
     </SPLIT>
     <SNIPPET>
@@ -495,7 +515,7 @@ square(square(3));
     </JAVASCRIPT>
     </SPLIT>
   </TEXT>
-  
+
   <TEXT>
     We can also use <SCHEMEINLINE>square</SCHEMEINLINE>
     as a building block in defining other
@@ -507,6 +527,9 @@ square(square(3));
 	functions.
       </JAVASCRIPT>
     </SPLITINLINE>
+    In the case where the land owners in Egypt have multiple properties, this
+    would be useful in helping them keep track of the total amount of rice
+    that they are producing in total.
     For example, <LATEXINLINE>$x^2 +y^2$</LATEXINLINE> can be expressed as
     <SNIPPET EVAL="no">
       <SCHEME>
@@ -643,17 +666,19 @@ f(5);
 	  so we chose <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE> as an
 	  example for a primitive function. 
 	</COMMENT>
-	In addition to compound functions, our JavaScript environment
-	provides a number of
-	<EM>primitive functions</EM> that are built into the interpreter. An
-	example is the function <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE>
-	that computes the natural logarithm of its argument.<FOOTNOTE>Our
-	JavaScript environment includes all functions and constants of
+
+    <FOOTNOTE>The original authors had their JavaScript environment that
+	provides a number of <EM>primitive functions</EM> that are built into the
+    interpreter. However, these functions use numbers other than natural
+    numbers. An example is the function
+    <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE> that computes the natural
+    logarithm of its argument.
+    Their JavaScript environment includes all functions and constants of
 	ECMAScript's 
 	<LINK address="https://www.ecma-international.org/ecma-262/9.0/index.html#sec-math-object">Math library</LINK>
 	with the names <JAVASCRIPTINLINE>math_</JAVASCRIPTINLINE><LATEXINLINE>$\ldots$</LATEXINLINE>.
 	For example, ECMAScript's <JAVASCRIPTINLINE>Math.log</JAVASCRIPTINLINE>
-        is available as <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE>.</FOOTNOTE>
+    is available as <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE>.
 	Primitive functions are used in exactly the same way as	compound
 	functions; evaluating the application
 	<JAVASCRIPTINLINE>math_log(1)</JAVASCRIPTINLINE> results in the	number 0.
@@ -662,7 +687,9 @@ f(5);
 	<JAVASCRIPTINLINE>square</JAVASCRIPTINLINE> was built into the
 	interpreter, like <JAVASCRIPTINLINE>math_log</JAVASCRIPTINLINE>, or
 	defined as a compound function.
+    </FOOTNOTE>
       </JAVASCRIPT>
+
     </SPLIT>
   </TEXT>
 </SUBSECTION>

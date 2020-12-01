@@ -37,10 +37,18 @@
     <CHAPTERCONTENT/>
 
     <TEXT>
+        [<EM>
+This chapter was added to the book to introduce Egyptian Fractions to students.
+    </EM>]
+    </TEXT>
+
+
+    <TEXT>
         Egyptian fractions are a unique way of representing and using fractions.
         This is because the Ancient Egyptians only used unit fractions which are
-        fractions that have a numerator of 1. In other words, they only used
-        reciprocals as fractions. For example,
+        fractions that have a numerator of 1 <INDEX>Knott, Ron</INDEX>
+        (Knott 2020). In other words,
+        they only used reciprocals as fractions. For example,
         <LATEX>
             $\frac{1}{3}, \frac{1}{14}, 2^{-1}$
         </LATEX>
@@ -49,9 +57,10 @@
             $\frac{5}{6}, \frac{2}{14}$
         </LATEX>
         are not because their numerators are not 1. Hence, a different method is
-        required to represent these fractions that have a numerator greater than 1.
-        The Egyptians represented their fractions with positive, distinct unit
-        fractions. Looking at the first example fraction,
+        needed to represent these fractions that have a numerator greater than
+        1. The Egyptians represented their fractions with positive, distinct
+        unit fractions <INDEX>Knott, Ron</INDEX> (Knott 2020). Looking at the
+        first example fraction,
         <LATEX>
             \[\frac{5}{6} = \frac{1}{2} + \frac{1}{3}\]
         </LATEX>
@@ -69,44 +78,41 @@
         <LATEX>
             \[\frac{5}{6} = \frac{1}{1} - \frac{1}{6}\]
         </LATEX>
-        This would also be wrong because the second unit fraction used is negative.
+        This would also be wrong because the second unit fraction used is
+        negative.
     </TEXT>
 
     <TEXT>
         Though Egyptian Fractions may seem vastly different from programming, it
         can help to explain the rationale of various essential concepts in
-        programming to beginner students. Fractions are something basic that
-        students have learnt at a young age and this could be useful in helping
-        them to understand computing concepts which may be too abstract to grasp
-        initially. This makes programming easier to grasp for new students. At the
-        same time, the mathematical complexity behind Egyptian Fractions can
-        engage students that can grasp the programming concepts easily. Egyptian
-        Fractions can also provide context for the programs implemented.
+        programming to beginner students.
+        <INDEX>Singapore Ministry of Education</INDEX> <INDEX>Kosheleva</INDEX>
+        In Singapore, the syllabus released by the Ministry of Education in 2012
+        introduces fractions to Primary 2 students, who would be around 7 to 8
+        years old. Since fractions is a concept that many students are familiar
+        with, using Egyptian Fractions could help them understand abstract
+        computing concepts better. Over the decade, more teachers have been
+        teaching the concept of Egyptian Fractions as seen in videos available
+        online. Also, in Kosheleva's, Kreinovich's and Zapata's (2019) paper,
+        they state that Egyptian Fractions is a topic that also helps young
+        students understand fractions and be interested in learning fractions.
+        Hence, Egyptian Fractions can make programming easier to grasp for new
+        students as well as add a unique context to learning programming. At
+        the same time, the mathematical complexity behind Egyptian Fractions
+        discovered by previous mathematicians, like Paul
+        Erd<LATEXINLINE>\"{o}</LATEXINLINE>s, can engage advanced students in a
+        more challenging way.
     </TEXT>
 
     <TEXT>
-        This is adapted from Martin Henz's book called ``Structure and
-        Interpretation of Computer Programs - JavaScript Adaptation" which can be
-        found online at (https://source-academy.github.io/sicp/). This will cover
-        the same concepts and will also be teaching JavaScript with the online
-        environment developed by Henz (https://sourceacademy.nus.edu.sg/playground).
+        This is adapted from Martin Henz's and Tobias Wrigstad's book called
+        ``Structure and Interpretation of Computer Programs - JavaScript
+        Adaptation<APOS/><APOS/> which can be found online at
+        (<LATEXINLINE>\url{https://source-academy.github.io/sicp/}</LATEXINLINE>).
+        This will cover the same concepts and will also be teaching JavaScript
+        with the online environment developed by Henz (https://sourceacademy.nus.edu.sg/playground).
         This provides a platform for students to learn programming with
         JavaScript in a more accessible manner.
-    </TEXT>
-
-    <TEXT>
-        (Just to test whether I can type in something here and be able to
-        display on the internet)
-        <SNIPPET>
-            <JAVASCRIPT>
-                const egyptians = 4;
-                egyptians;
-            </JAVASCRIPT>
-        </SNIPPET>
-        by clicking it, it will respond by creating a separate
-        browser tab where the statement is shown, with the option
-        to evaluate the statement by pressing a <QUOTE>Run</QUOTE> button.
-        Click on the primitive expression statement, and see what happens!
     </TEXT>
 
     <CHAPTERCONTENT/>

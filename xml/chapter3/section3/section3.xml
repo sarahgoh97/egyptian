@@ -4,6 +4,11 @@
   <INDEX>mutable data objects|(</INDEX>
 
   <SECTIONCONTENT/>
+    <TEXT>
+        [<EM>
+This chapter talks about modelling data that can change.
+    </EM>]
+    </TEXT>
 
   <TEXT>
     Chapter<SPACE/>2 dealt with compound data as a means for constructing

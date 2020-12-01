@@ -7,6 +7,13 @@
   <INDEX>propagation of constraints|(</INDEX>
   <INDEX>constraint(s)<SUBINDEX>propagation of|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about designing languages that work in terms of relations
+      themselves. This is done by using constraints that show the
+      relations between quantities.
+    </EM>]
+    </TEXT>
 
   <TEXT>
     Computer programs are traditionally organized as

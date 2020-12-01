@@ -4,7 +4,18 @@
   </NAME>
 
   <LABEL NAME="sec:rationals"/>
-
+        <TEXT>
+            [<EM>
+            This subsection introduces data abstraction with rational numbers,
+            which are like fractions in the project. However, the project will
+            further constrain the numerator and denominator to only be natural
+            numbers greater than 0. This subsection explains how mathematical
+            operations on fractions can be written as functions and introduces
+            the pair data structure to represent fractions. This subsection
+            also focuses on how data abstraction can be observed with the
+            example of fractions.
+        </EM>]
+        </TEXT>
   <TEXT>
     <INDEX>arithmetic<SUBINDEX>on rational numbers|(</SUBINDEX></INDEX>
     <INDEX>rational number(s)

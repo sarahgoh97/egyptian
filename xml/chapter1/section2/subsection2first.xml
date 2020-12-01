@@ -1,0 +1,935 @@
+<SUBSECTION>
+  <NAME>Tree Recursion</NAME>
+
+  <LABEL NAME="sec:tree-recursion"/>
+  <INDEX>tree-recursive process|(</INDEX>
+  <INDEX>process<SUBINDEX>tree-recursive|(</SUBINDEX></INDEX>
+  <INDEX>recursive process<SUBINDEX>tree|(</SUBINDEX></INDEX>
+
+  <TEXT>
+    Another common pattern of computation is called <EM>tree recursion</EM>.
+    As an example, consider an Egyptian Fraction algorithm called the Splitting
+    Method. This method finds an Egyptian Fraction decomposition based on this
+    equation:
+    <LATEX>
+      \[ \frac{1}{x} = \frac{1}{x+1} + \frac{1}{x(x+1)}\]
+    </LATEX>
+    As mentioned earlier in Chapter 0, an Egyptian Fraction decomposition
+    represents a fraction in terms of distinct unit fractions (ie. fractions
+    with 1 as their numerator).
+  </TEXT>
+  <TEXT>
+    With this equation, we can compute the decomposition of any fraction
+    <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> into <LATEXINLINE>a</LATEXINLINE>
+    pieces of <LATEXINLINE>$\frac{1}{b}$</LATEXINLINE>. Since the decomposition
+    has to be unique, each <LATEXINLINE>$\frac{1}{b}$</LATEXINLINE> have to be
+    decomposed in different ways. With the equation above, we can repeatedly
+    find decompositions until we have <LATEXINLINE>a</LATEXINLINE> variations of
+    <LATEXINLINE>$\frac{1}{b}$</LATEXINLINE>. For example, looking at the
+    fraction <LATEXINLINE>$\frac{3}{5}$</LATEXINLINE>:
+
+    <FIGURE>
+      <FIGURE src="img_egypt/ch1-Z-G-13.svg">
+        <LABEL NAME="splitting-tree"/>
+        <CAPTION>Tree formed from splitting algorithm to find Egyptian
+        Fraction decomposition</CAPTION>
+      </FIGURE>
+    </FIGURE>
+  </TEXT>
+  <TEXT>
+    As seen from the figure, it shows how the tree structure helps to find the
+    Egyptian Fraction decomposition of <LATEXINLINE>$\frac{3}{5}$</LATEXINLINE>.
+    At each level, the fraction is split into 2 fractions based on the equation
+    above. As we look at the trees, we can observe that the leaves of the trees
+    (the last row of each <LATEXINLINE>$\frac{1}{5}$</LATEXINLINE> tree) are all
+    in the decomposition as each <LATEXINLINE>$\frac{1}{5}$</LATEXINLINE> is
+    represented with different unit fractions.
+  </TEXT>
+
+  <TEXT>
+    We could compute each tree individually and include all of the leaves at the
+     end. We can do this by iterating over each tree.  However, we are currently
+     limited because our functions only return one number and can only represent
+     the sequence of denominators of the unit fractions as a big integer.
+    <FOOTNOTE>
+      However, do be careful as you represent these numbers. The safest maximum
+      integer is 9007199254740991 in Javascript. When this number is exceeded,
+      the value returned by the compiler will no longer be able to give the
+      correct exact value of the integer. This is due to the way JavaScript
+      stores and processes numbers.
+    </FOOTNOTE>
+  </TEXT>
+
+  <TEXT>
+    Now that we have decided to represent the denominators as a big integer (by
+    using the fact that we can change places of the digits by multiplying with
+    powers of 10), we can immediately translate this into an iterative function
+    with some helper functions:
+  </TEXT>
+
+    <SNIPPET PAGE="37" HIDE="yes">
+    <NAME>splitting_helper_definition</NAME>
+    <JAVASCRIPT>
+function split_first(x) {
+    return x + 1;
+}
+function split_second(x) {
+    return x * (x + 1);
+}
+function power_of_ten(x) {
+    function power_of_ten_iter(x, power) {
+        return power > x
+            ? power
+            : power_of_ten_iter(x, power * 10);
+    }
+    return power_of_ten_iter(x, 1);
+}
+function combine_split(first, second) {
+    return first * power_of_ten(second) + second;
+}
+    </JAVASCRIPT>
+  </SNIPPET>
+
+
+  <SNIPPET PAGE="37">
+    <NAME>splitting_slow_definition</NAME>
+    <REQUIRES>splitting_helper_defintion</REQUIRES>
+    <EXAMPLE>splitting_slow_example</EXAMPLE>
+    <JAVASCRIPT>
+function split_ef(a, b) {
+    function iter(a, b, level) {
+        return a === level
+            ? b
+            : combine_split( iter(a, split_first(b), level + 1),
+                iter(a, split_second(b), level + 1) );
+    }
+    function go_thru_tree(a, b, tree_ht) {
+        return (tree_ht === a)
+            ? iter(tree_ht, b, 1)
+            : combine_split( iter(tree_ht, b, 1),
+            go_thru_tree(a, b, tree_ht + 1) );
+    }
+    return go_thru_tree(a, b, 1);
+}
+    </JAVASCRIPT>
+  </SNIPPET>
+
+    <SNIPPET PAGE="37" HIDE="yes">
+      <NAME>splitting_slow_example</NAME>
+      <REQUIRES>splitting_slow_definition</REQUIRES>
+      <EXPECTED>563074231930</EXPECTED>
+      <JAVASCRIPT>
+split_ef(3,5);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+  <TEXT>
+    For each tree, we use the function <JAVASCRIPTINLINE>iter</JAVASCRIPTINLINE>
+    to get the leaves (bottom level of tree). Initially, we will start at level
+    1, represented by <JAVASCRIPTINLINE>level</JAVASCRIPTINLINE>. At every step,
+     we check if the current level is the bottom level. If it is, the
+    denominator is a leaf and we return it. Otherwise, we will go to the next
+    level of the tree by incrementing <JAVASCRIPTINLINE>level</JAVASCRIPTINLINE>
+     and change the denominator using the helper functions which are based on
+    the equation earlier on. With each leaf found, we use another helper
+    function to combine the leaves together.
+
+    Now that we have found how to get each tree, we need to go through every
+    tree that is formed. As we can see from figure
+    <SPACE/><REF NAME="splitting-tree"/>, the number of trees is equal to the
+    numerator of the fraction. We use increasing tree heights as according to
+    the figure to iterate through the trees. Once the tree's height is the same
+    as <JAVASCRIPTINLINE>a</JAVASCRIPTINLINE>, it indicates that it is the last
+    tree. Otherwise, we add the leaves found behind the current tree that has
+    number of levels according to <JAVASCRIPTINLINE>tree_ht</JAVASCRIPTINLINE>.
+    We can observe that the trees in figure <SPACE/><REF NAME="splitting-tree"/>
+    helps us to visualise the code to get the results that we want.
+  </TEXT>
+
+    <SNIPPET PAGE="37">
+    <NAME>splitting_helper</NAME>
+    <JAVASCRIPT>
+function split_first(x) {
+    return x + 1;
+}
+function split_second(x) {
+    return x * (x + 1);
+}
+function power_of_ten(x) {
+    function power_of_ten_iter(x, power) {
+        return power > x
+            ? power
+            : power_of_ten_iter(x, power * 10);
+    }
+    return power_of_ten_iter(x, 1);
+}
+function combine_split(first, second) {
+    return first * power_of_ten(second) + second;
+}
+    </JAVASCRIPT>
+  </SNIPPET>
+
+  <TEXT>
+    In our method, we use helper functions that helps us to visualise how the
+    Egyptian Fractions can be found. For the 2 helper functions
+    <JAVASCRIPTINLINE>split_first</JAVASCRIPTINLINE> and
+    <JAVASCRIPTINLINE>split_second</JAVASCRIPTINLINE>, they find the first
+    and second denominators that can be used to represent the original unit
+    fraction. Also, <JAVASCRIPTINLINE>power_of_ten</JAVASCRIPTINLINE>
+    calculates the power of 10 that the digits have to be moved to combine them
+    in <JAVASCRIPTINLINE>combine_split</JAVASCRIPTINLINE>. Once we hit the last
+    level of the tree (represented by counter = a), we want to include the
+    denominator into the sequence. Looking at the individual trees, we also want
+     to add all the leaves together and can use
+    <JAVASCRIPTINLINE>combine_split</JAVASCRIPTINLINE> to combine the leaves in
+    the same way.
+  </TEXT>
+
+  <TEXT>
+    When getting the output, we see that it gives a big number with all the
+    denominators shown side by side. However, this is not ideal as it is hard to
+    tell the denominators apart and there is a maximum number of digits that we
+    can use due to the limitation of integers in JavaScript. We will introduce
+    an alternative method to represent this sequence of numbers.
+  </TEXT>
+
+  <TEXT>
+    However, this current method results in some redundant computation because
+    we see that each new tree would have to recreate the same levels of the
+    previous tree. For example, we have already found in the second tree
+    <LATEXINLINE>$\frac{1}{6}$</LATEXINLINE> and
+    <LATEXINLINE>$\frac{1}{30}$</LATEXINLINE> but we have to look at them a
+    second time in the third tree. If the numerator was bigger, there would be
+     more redundancy in the computation.
+
+    Taking another look at the last tree on the right, we observe that all the
+    values on it are part of the decomposition since each row is a different
+    way of representing <LATEXINLINE>$\frac{1}{5}$</LATEXINLINE> and the number
+    of rows is equal to the number of <LATEXINLINE>$\frac{1}{5}$</LATEXINLINE>
+    in <LATEXINLINE>$\frac{3}{5}$</LATEXINLINE>, ie. 3. If we go through the
+    entire tree, we can find all the unit fractions in the decomposition.
+  </TEXT>
+
+  <SNIPPET PAGE="37">
+    <NAME>splitting_definition</NAME>
+    <REQUIRES>splitting_helper_defintion</REQUIRES>
+    <EXAMPLE>splitting_example</EXAMPLE>
+    <JAVASCRIPT>
+function split_ef(a, b) {
+    return a === 1
+        ? b
+        : combine_split(b,
+            combine_split(split_ef(a - 1, split_first(b)),
+                split_ef(a - 1, split_second(b)) )
+          );
+}
+    </JAVASCRIPT>
+  </SNIPPET>
+
+    <SNIPPET PAGE="37" HIDE="yes">
+      <NAME>splitting_example</NAME>
+      <REQUIRES>splitting_definition</REQUIRES>
+      <EXPECTED>567423031930</EXPECTED>
+      <JAVASCRIPT>
+split_ef(3,5);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+
+  <FIGURE>
+      <JAVASCRIPT>
+        <FIGURE src="img_egypt/ch1-Z-G-14.svg"></FIGURE>
+      </JAVASCRIPT>
+    <LABEL NAME="fig:splitting-tree-order"/>
+    <CAPTION>The tree-recursive process generated in computing the Egyptian
+      Fraction decomposition of <LATEXINLINE>$\frac{3}{5}$</LATEXINLINE>
+    </CAPTION>
+  </FIGURE>
+
+  <TEXT>
+    Consider the pattern of the computation of a tree. To compute
+    <JAVASCRIPTINLINE>split_ef(3, 5)</JAVASCRIPTINLINE>
+    we compute
+    <JAVASCRIPTINLINE>split_ef(2, 6)</JAVASCRIPTINLINE> and
+    <JAVASCRIPTINLINE>split_ef(2, 30)</JAVASCRIPTINLINE>
+    To compute
+    <JAVASCRIPTINLINE>split_ef(2, 6)</JAVASCRIPTINLINE>
+    we compute
+    <JAVASCRIPTINLINE>split_ef(1, 7)</JAVASCRIPTINLINE> and
+    <JAVASCRIPTINLINE>split_ef(1, 42)</JAVASCRIPTINLINE>.
+    In general, the evolved process looks like a tree, as shown in
+    figure<SPACE/><REF NAME="fig:splitting-tree-order"/>. Notice that the
+    branches split into two at each level (except at the bottom); this reflects
+    the fact that the <JAVASCRIPTINLINE>split_ef</JAVASCRIPTINLINE> function
+    calls itself twice each time it is invoked.
+  </TEXT>
+  <TEXT>
+    As we see each value splitting into 2, we can show that the value of
+    <JAVASCRIPTINLINE>split_ef(a, b)</JAVASCRIPTINLINE>
+    <INDEX>exponential growth<SUBINDEX>tree-recursive@of tree-recursive
+    Splitting EF</SUBINDEX></INDEX>
+    grows exponentially with <LATEXINLINE>$a$</LATEXINLINE>. The number of
+    denominators in the answer is given by <LATEXINLINE>$2^a$</LATEXINLINE>
+    since it mutiplies by 2 at each level and there are
+    <LATEXINLINE>$a$</LATEXINLINE> levels.
+
+    Thus, the process uses a number of steps that grows exponentially with the
+    input.  On the other hand, the space required grows only linearly with the
+    input, because we need keep track only of which nodes are above us in the
+    tree at any point in the computation.  In general, the number of steps
+    required by a tree-recursive process will be proportional to the number of
+    nodes in the tree, while the space required will be proportional to the
+    maximum depth of the tree.
+
+    In both methods, tree recursion is used to visualise the algorithm. However,
+    we can see that the first method goes through more steps in an iterative
+    manner by looking at the levels one by one before finding the leaves.
+    In the second one however, we go through a branch first until we reach the
+    leaf before going through the rest of the tree and including the
+    denominators found along the path. This results in different results as the
+    order of the denominators found has changed.
+  </TEXT>
+
+
+  <SUBHEADING>
+    <NAME>Example: Stern-Brocot Sequence (aka Farey Sequence)</NAME>
+  </SUBHEADING>
+
+
+  <TEXT>
+    In some cases for tree recursion, we can also formulate an iterative process,
+    especially when the lower levels have repeated values. There are no specific
+    examples for Egyptian Fractions currently but you can search up Fibonacci
+    numbers to find out more about solving it with tree recursion or with an
+    iterative process. Sometimes, a well-designed iterative process grows
+    linearly, which is much more space-efficient and time-efficient than a tree
+    recursion process which grows exponentially.
+    <!--The idea is to use a pair of integers <LATEXINLINE>$a$</LATEXINLINE>
+    and <LATEXINLINE>$b$</LATEXINLINE>, initialized to
+    <LATEXINLINE>$\textrm{Fib}(1)=1$</LATEXINLINE> and
+    <LATEXINLINE>$\textrm{Fib}(0)=0$</LATEXINLINE>, and to repeatedly apply the
+    simultaneous transformations
+    <LATEX>
+      \begin{eqnarray*}
+      a &amp; \leftarrow &amp; a+b \\
+      b &amp; \leftarrow &amp; a
+      \end{eqnarray*}
+    </LATEX>
+    It is not hard to show that, after applying this transformation
+    <LATEXINLINE>$n$</LATEXINLINE> times, <LATEXINLINE>$a$</LATEXINLINE> and
+    <LATEXINLINE>$b$</LATEXINLINE> will be equal, respectively, to
+    <LATEXINLINE>$\textrm{Fib}(n+1)$</LATEXINLINE> and
+    <LATEXINLINE>$\textrm{Fib}(n)$</LATEXINLINE>.  Thus, we can compute
+    Fibonacci numbers iteratively using the
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>-->
+    <!-- \indcode*{fib}[linear iterative version] -->
+<!--    <SNIPPET PAGE="39">
+      <EXAMPLE>fib_example</EXAMPLE>
+      <EXPECTED>8</EXPECTED>
+      <SCHEME>
+(define (fib n)
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))
+      </SCHEME>
+      <JAVASCRIPT>
+function fib(n) {
+    return fib_iter(1, 0, n);
+}
+function fib_iter(a, b, count) {
+    return count === 0
+           ? b
+           : fib_iter(a + b, a, count - 1);
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+    This second method for computing <LATEXINLINE>$\textrm{Fib}(n)$</LATEXINLINE>
+    is a linear iteration. The difference in number of steps required by the two
+    methods<EMDASH/>one linear in <LATEXINLINE>$n$</LATEXINLINE>, one growing as
+    fast as <LATEXINLINE>$\textrm{Fib}(n)$</LATEXINLINE> itself<EMDASH/>is
+    enormous, even for small inputs.-->
+  </TEXT>
+
+  <TEXT>
+    One should not conclude from this that tree-recursive processes are useless.
+    When we consider processes that operate on hierarchically structured data
+    rather than numbers, we will find that tree recursion is a natural and
+    powerful tool.<FOOTNOTE>An example of this was hinted at in
+    section<SPACE/><REF NAME="sec:evaluating-combinations"/>: The interpreter
+    itself evaluates expressions using a tree-recursive process.</FOOTNOTE> But
+    even in numerical operations, tree-recursive processes can be useful in
+    helping us to understand and design programs as seen in the splitting method.
+    <!--For instance, although the
+    first
+    <SCHEMEINLINE>fib</SCHEMEINLINE>
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    is much less efficient than the second one, it is more straightforward,
+    being little more than a translation into
+    <SPLITINLINE>
+      <SCHEME>
+        Lisp
+      </SCHEME>
+      <JAVASCRIPT>
+        JavaScript
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    of the definition of the Fibonacci sequence.  To formulate the iterative
+    algorithm required noticing that the computation could be recast as an
+    iteration with three state variables.-->
+  </TEXT>
+<!--
+  <SUBHEADING>
+    <NAME>Example: Counting change</NAME>
+  </SUBHEADING>
+  <INDEX>counting change|(</INDEX>
+
+  <TEXT>
+    It takes only a bit of cleverness to come up with the iterative Fibonacci
+    algorithm.  In contrast, consider the following problem: How many different
+    ways can we make change of <LATEXINLINE>$\$ 1.00$</LATEXINLINE>, given
+    half-dollars, quarters, dimes, nickels, and pennies?  More generally, can
+    we write a
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    to compute the number of ways to change any given amount of money?
+  </TEXT>
+
+  <TEXT>
+    This problem has a simple solution as a recursive
+    <SPLITINLINE>
+      <SCHEME>procedure.</SCHEME>
+      <JAVASCRIPT>function.</JAVASCRIPT>
+    </SPLITINLINE>
+    Suppose we think of the types of coins available as arranged in some order.
+    Then the following relation holds:
+    <P/>
+    The number of ways to change amount <LATEXINLINE>$a$</LATEXINLINE> using
+    <LATEXINLINE>$n$</LATEXINLINE> kinds of coins equals
+    <UL>
+      <LI>
+        the number of ways to change amount <LATEXINLINE>$a$</LATEXINLINE>
+	using all but the first kind of coin, plus
+      </LI>
+      <LI>
+        the number of ways to change amount <LATEXINLINE>$a-d$</LATEXINLINE>
+	using all <LATEXINLINE>$n$</LATEXINLINE> kinds of coins, where
+	<LATEXINLINE>$d$</LATEXINLINE> is the denomination of the first kind
+	of coin.
+      </LI>
+    </UL>
+  </TEXT>
+
+  <TEXT>
+    To see why this is true, observe that the ways to make change can be divided
+    into two groups: those that do not use any of the first kind of coin, and
+    those that do.  Therefore, the total number of ways to make change for some
+    amount is equal to the number of ways to make change for the amount without
+    using any of the first kind of coin, plus the number of ways to make change
+    assuming that we do use the first kind of coin.  But the latter number is
+    equal to the number of ways to make change for the amount that remains after
+    using a coin of the first kind.
+  </TEXT>
+
+  <TEXT>
+    Thus, we can recursively reduce the problem of changing a given amount to
+    problems of changing smaller amounts or using fewer kinds of coins. Consider
+    this reduction rule carefully, and convince yourself that we can use it to
+    describe an algorithm if we specify the following degenerate
+    cases:<FOOTNOTE>For example, work through in detail how the reduction rule
+    applies to the problem of making change for 10 cents using pennies and
+    nickels.</FOOTNOTE>
+
+    <UL>
+      <LI>
+        If <LATEXINLINE>$a$</LATEXINLINE> is exactly 0, we should count that
+	as 1 way to make change.
+      </LI>
+      <LI>
+        If <LATEXINLINE>$a$</LATEXINLINE> is less than 0, we should count
+	that as 0 ways to make change.
+      </LI>
+      <LI> If <LATEXINLINE>$n$</LATEXINLINE> is 0, we should count that
+      as 0 ways to make change.
+      </LI>
+    </UL>
+  </TEXT>
+
+  <TEXT>
+    We can easily translate this description into a recursive
+    <SPLITINLINE>
+      <SCHEME>procedure:</SCHEME>
+      <JAVASCRIPT>function:</JAVASCRIPT>
+    </SPLITINLINE>
+
+    <SNIPPET PAGE="40-41">
+      <NAME>count_change_definition</NAME>
+      <EXAMPLE>count_change_example</EXAMPLE>
+      <SCHEME>
+(define (count-change amount)
+  (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (&lt; amount 0)
+             (= kinds-of-coins 0)) 0)
+        (else (+ (cc amount
+                     (- kinds-of-coins 1))
+                 (cc (- amount
+                        (first-denomination
+                         kinds-of-coins))
+                     kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+      </SCHEME>
+      <JAVASCRIPT>
+function count_change(amount) {
+    return cc(amount, 5);
+}
+function cc(amount, kinds_of_coins) {
+    return amount === 0
+           ? 1
+           : amount &lt; 0 ||
+             kinds_of_coins === 0
+             ? 0
+             : cc(amount, kinds_of_coins - 1)
+               +
+               cc(amount - first_denomination(
+                               kinds_of_coins),
+                  kinds_of_coins);
+}
+function first_denomination(kinds_of_coins) {
+    return kinds_of_coins === 1 ? 1 :
+           kinds_of_coins === 2 ? 5 :
+           kinds_of_coins === 3 ? 10 :
+           kinds_of_coins === 4 ? 25 :
+           kinds_of_coins === 5 ? 50 : 0;
+}
+      </JAVASCRIPT>
+    </SNIPPET>-->
+    <!-- \indcode*{count-change} -->
+<!--  </TEXT>
+
+  <TEXT>
+    (The
+    <SPLITINLINE>
+      <SCHEME>
+	<SCHEMEINLINE>first-denomination</SCHEMEINLINE> procedure
+      </SCHEME>
+      <JAVASCRIPT>
+	<JAVASCRIPTINLINE>first_denomination</JAVASCRIPTINLINE> function
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    takes as input the number of kinds of coins available and returns the
+    denomination of the first kind.  Here we are thinking of the coins as
+    arranged in order from largest to smallest, but any order would do as well.)
+    We can now answer our original question about changing a dollar:
+
+    <SNIPPET PAGE="41">
+      <NAME>count_change_example</NAME>
+      <REQUIRES>count_change_definition</REQUIRES>
+      <EXPECTED>292</EXPECTED>
+      <SCHEME>
+(count-change 100)
+      </SCHEME>
+      <SCHEMEOUTPUT>
+292	    
+      </SCHEMEOUTPUT>
+      <JAVASCRIPT>
+count_change(100);
+      </JAVASCRIPT>
+      <JAVASCRIPT_OUTPUT>
+292	    
+      </JAVASCRIPT_OUTPUT>
+    </SNIPPET>
+  </TEXT>
+
+  <TEXT>
+    <SPLITINLINE>
+      <SCHEME><SCHEMEINLINE>Count-change</SCHEMEINLINE></SCHEME>
+      <JAVASCRIPT>
+	The function <JAVASCRIPTINLINE>count_change</JAVASCRIPTINLINE>
+      </JAVASCRIPT>
+    </SPLITINLINE>
+    generates a tree-recursive process with redundancies similar to those in
+    our first implementation of <SCHEMEINLINE>fib</SCHEMEINLINE>. (It will take
+    quite a while for that 292 to be computed.)  -->
+  <TEXT>
+    When solving problems with tree recursion and redundancies, there is
+    usually an iterative process that grows linearly instead. However, it is not
+     always obvious how to design a better algorithm for computing the result.
+    The observation that a
+    <INDEX>efficiency<SUBINDEX>tree@of tree-recursive process</SUBINDEX></INDEX>
+    tree-recursive process may be highly inefficient but often easy to specify
+    and understand has led people to propose that one could get the best of both
+    worlds by designing a <QUOTE>smart compiler</QUOTE> that could transform
+    tree-recursive
+    <SPLITINLINE>
+      <SCHEME>procedures</SCHEME>
+      <JAVASCRIPT>functions</JAVASCRIPT>
+    </SPLITINLINE>
+    into more efficient
+    <SPLITINLINE>
+      <SCHEME>procedures</SCHEME>
+      <JAVASCRIPT>functions</JAVASCRIPT>
+    </SPLITINLINE>
+    that compute the same result.<FOOTNOTE>One approach to coping with redundant
+    computations is to arrange matters so that we automatically construct a
+    table of values as they are computed.  Each time we are asked to apply the
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    to some argument, we first look to see if the value is already stored in the
+    table, in which case we avoid performing the redundant computation. This
+    strategy, known as
+    <INDEX>tabulation</INDEX><INDEX>memoization</INDEX>
+    <EM>tabulation</EM> or <EM>memoization</EM>, can be implemented in a
+    straightforward way.  Tabulation can sometimes be used to transform processes
+    that require an exponential number of steps into processes whose space and
+    time requirements grow linearly with the input.
+    </TEXT>
+  <!--See exercise<SPACE/><REF NAME="ex:memoization"/>.</FOOTNOTE>
+    <INDEX>tree-recursive process|)</INDEX>
+    <INDEX>process<SUBINDEX>tree-recursive|)</SUBINDEX></INDEX>
+    <INDEX>recursive process<SUBINDEX>tree|)</SUBINDEX></INDEX>
+    <INDEX>counting change|)</INDEX>
+  </TEXT>-->
+<!--
+  <TEXT>
+    Here is an example of a function that can be written both recursively and
+    iteratively. In Egypt, cats were believed to be magical creatures. Assuming
+    that you start with 1 pair of cats and cats give birth to a litter of 6
+    kittens (3 pairs) a year, and every pair of cats can give birth after a
+    year, we can use this function to express the total number of kittens,
+    <LATEXINLINE>$f$</LATEXINLINE>, which is defined by the rule:
+    <LATEX>
+      \begin{eqnarray*}
+      \textrm{f}(n) &amp; = &amp; \left\{ \begin{array}{ll}
+      1   &amp;  \mbox{if $n=1$}\\
+      \textrm{f}(n-1)+3\textrm{f}(n-2) &amp; \mbox{otherwise}
+      \end{array}
+      \right.
+      \end{eqnarray*}
+    </LATEX>
+    We can this translate this definition into a recursive function for
+    computing the number of cats:
+
+    <SNIPPET PAGE="37">
+      <NAME>cats_definition</NAME>
+      <EXAMPLE>cats_example</EXAMPLE>
+      <JAVASCRIPT>
+function cats(n) {
+    return n === 1
+             ? 1
+             : fib(n - 1) + 3 * fib(n - 2);
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    <SNIPPET PAGE="37" HIDE="yes">
+      <NAME>fib_example</NAME>
+      <REQUIRES>fib_definition</REQUIRES>
+      <EXPECTED>8</EXPECTED>
+      <SCHEME>
+(fib 6)
+      </SCHEME>
+      <JAVASCRIPT>
+fib(6);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>JavaScript function</JAVASCRIPT>
+    </SPLITINLINE>
+    that computes <LATEXINLINE>$f$</LATEXINLINE> by means of a recursive process.
+    Write a
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    that computes <LATEXINLINE>$f$</LATEXINLINE> by means of an iterative
+    process. (Hint: start from the smallest case where n = 0, 1 and 2 and work
+    from there)
+    <SOLUTION>
+      <SNIPPET>
+	<EXAMPLE>example_1.12_1</EXAMPLE>
+	<EXPECTED>25</EXPECTED>
+	<JAVASCRIPT>
+// iterative function
+function f_iterative(n) {
+    return n &lt; 3
+           ? n
+           : f_iterative_impl(2, 1, 0, n - 2);
+}
+function f_iterative_impl(a, b, c, count) {
+    return count === 0
+           ? a
+           : f_iterative_impl(a + 2 * b + 3 * c, a, b, count - 1);
+}
+	</JAVASCRIPT>
+      </SNIPPET>
+
+      <SNIPPET>
+	<EXAMPLE>example_1.12_2</EXAMPLE>
+	<EXPECTED>25</EXPECTED>
+	<JAVASCRIPT>
+//recursive function
+function f_recursive(n) {
+    return n &lt; 3
+           ? n
+           : f_recursive(n - 1) +
+	     2 * f_recursive(n - 2) +
+	     3 * f_recursive(n - 3);
+}
+	</JAVASCRIPT>
+      </SNIPPET>
+    </SOLUTION>
+    <SNIPPET HIDE="yes">
+      <NAME>example_1.12_1</NAME>
+      <JAVASCRIPT>
+f_iterative(5);
+      </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET HIDE="yes">
+      <NAME>example_1.12_2</NAME>
+      <JAVASCRIPT>
+f_recursive(5);
+      </JAVASCRIPT>
+    </SNIPPET>
+  </TEXT>
+-->
+<!--trying to do pairing but will have issues with duplicates
+a/b
+if a is even
+  if b is even: return a/2 pieces of 1/(b/2)
+  if b is odd: return a/2 pieces of 1/(b+1)/2 and a/2 pieces of 1/(b*b+1)/2
+if a is odd
+  return 1/b and a - 1 pieces of b
+PROBLEM: DOESNT CHECK FOR REPEATS!!!!
+  <EXERCISE>
+    Another alternative for finding the Egyptian Fraction decomposition of a
+    fraction is the pairing method where it does not grow the denominators in
+    an exponential manner. This is based on the equation we mentioned earlier
+    but written differently:
+    <LATEX>
+      \[ \frac{1}{b}+ \frac{1}{b} = \frac{2}{b+1)} + \frac{2}{b(b+1)}\]
+    </LATEX>
+    <LATEX>
+      \[
+      \frac{1}{b} + \frac{1}{b} = \left\{ \begin{array}{rl}
+      \frac{1}{\frac{b+1}{2}} + \frac{1}{\frac{b(b+1)}{2}} &amp; \mbox{if $b$ is odd} \\
+      \frac{1}{\frac{b}{2}}  &amp; \mbox{if $b$ is even}
+      \end{array}
+      \right.
+      \]
+    </LATEX>
+    Here, we can see that the denominators
+    <LATEXINLINE>$\frac{b+1}{2}$</LATEXINLINE> and
+    <LATEXINLINE>$\frac{b(b+1)}{2}$</LATEXINLINE> are natural numbers because
+    <LATEXINLINE>$b+1$</LATEXINLINE> is even in both fractions. At the same time,
+    when <LATEXINLINE>$b$</LATEXINLINE> is even, we can just divide the fraction
+     in 2.
+    With these equations, write a JavaScript function that computes the
+    Egyptian Fraction decomposition using a tree-recursive process. (Hint: think
+    about the cases where a is even or odd and cases where b is even or odd)
+    <SOLUTION>
+      <SNIPPET>
+	<EXAMPLE>example_1.12_1</EXAMPLE>
+	<EXPECTED>25</EXPECTED>
+	<JAVASCRIPT>
+// iterative function
+function f_iterative(n) {
+    return n &lt; 3
+           ? n
+           : f_iterative_impl(2, 1, 0, n - 2);
+}
+function f_iterative_impl(a, b, c, count) {
+    return count === 0
+           ? a
+           : f_iterative_impl(a + 2 * b + 3 * c, a, b, count - 1);
+}
+	</JAVASCRIPT>
+      </SNIPPET>
+
+      <SNIPPET>
+	<EXAMPLE>example_1.12_2</EXAMPLE>
+	<EXPECTED>25</EXPECTED>
+	<JAVASCRIPT>
+//recursive function
+function f_recursive(n) {
+    return n &lt; 3
+           ? n
+           : f_recursive(n - 1) +
+	     2 * f_recursive(n - 2) +
+	     3 * f_recursive(n - 3);
+}
+	</JAVASCRIPT>
+      </SNIPPET>
+    </SOLUTION>      
+    <SNIPPET HIDE="yes">
+      <NAME>example_1.12_1</NAME>
+      <JAVASCRIPT>
+f_iterative(5);
+      </JAVASCRIPT>
+    </SNIPPET>
+    <SNIPPET HIDE="yes">
+      <NAME>example_1.12_2</NAME>
+      <JAVASCRIPT>
+f_recursive(5);
+      </JAVASCRIPT>
+    </SNIPPET>
+  </EXERCISE>
+
+  <EXERCISE>
+    <INDEX>Pascal<APOS/>s triangle</INDEX>
+    The following pattern of numbers is called <EM>Pascal<APOS/>s triangle</EM>.
+    <LATEX>
+      \[
+      {
+      \begin{array}{rrrrrrrrr}
+      &amp;   &amp;   &amp;   &amp; 1 &amp;   &amp;   &amp;   &amp;     \\
+      &amp;   &amp;   &amp;1  &amp;   &amp;1  &amp;   &amp;   &amp;     \\
+      &amp;   &amp;1  &amp;   &amp; 2 &amp;   &amp;1  &amp;   &amp;     \\
+      &amp;1  &amp;   &amp;3  &amp;   &amp;3  &amp;   &amp;1  &amp;     \\
+      1  &amp;   &amp; 4 &amp;   &amp; 6 &amp;   &amp; 4 &amp;   &amp; 1   \\
+      &amp;   &amp;   &amp;   &amp; \ldots &amp; &amp; &amp; &amp; 
+      \end{array}}
+      \]
+    </LATEX>
+    The numbers at the edge of the triangle are all 1, and each number inside
+    the triangle is the sum of the two numbers above it.<FOOTNOTE>The elements
+    of Pascal<APOS/>s triangle are called the <EM>binomial coefficients</EM>,
+    because the <LATEXINLINE>$n$</LATEXINLINE>th row consists of
+    <INDEX>binomial coefficients</INDEX>
+    the coefficients of the terms in the expansion of
+    <LATEXINLINE>$(x+y)^n$</LATEXINLINE>.  This pattern for computing the
+    coefficients
+    <INDEX>Pascal@Pascal, Blaise</INDEX>
+    appeared in Blaise Pascal<APOS/>s 1653 seminal work on probability theory,
+    <EM>Trait<EACUTE_LOWER/> du triangle arithm<EACUTE_LOWER/>tique</EM>.
+    According to
+    <INDEX>Knuth, Donald E.</INDEX>
+    Knuth (1973), the same pattern appears in the <EM>Szu-yuen
+    Y<UUML_LOWER/>-chien</EM> (<QUOTE>The Precious Mirror of the Four
+    Elements</QUOTE>), published
+    <INDEX>Khayyam, Omar</INDEX>
+    <INDEX><AACUTE_UPPER/>ch<AACUTE_LOWER/>rya, Bh<AACUTE_LOWER/>scara
+    <ORDER>Acharya</ORDER>
+    </INDEX>
+    <INDEX>Chu Shih-chieh</INDEX>
+    by the Chinese mathematician Chu Shih-chieh in 1303, in the works of the
+    twelfth-century Persian poet and mathematician Omar Khayyam, and in the
+    works of the twelfth-century Hindu mathematician Bh<AACUTE_LOWER/>scara
+    <AACUTE_UPPER/>ch<AACUTE_LOWER/>rya.</FOOTNOTE>
+    Write a
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    that computes elements of Pascal<APOS/>s triangle by means of a recursive
+    process.
+    <SOLUTION>                
+      <SNIPPET>
+	<NAME>pascal_triangle</NAME>
+        <EXAMPLE>example_1.13</EXAMPLE>
+        <JAVASCRIPT>
+function pascal_triangle(row, index) {
+    return index &gt; row
+           ? false
+           : index === 1 || index===row
+             ? 1
+             : pascal_triangle(row - 1, index - 1)
+	       +
+	       pascal_triangle(row - 1, index);
+}
+        </JAVASCRIPT>
+        <SCHEME>
+        </SCHEME>
+      </SNIPPET>
+    </SOLUTION>
+    <SNIPPET HIDE="yes">
+      <NAME>example_1.13</NAME>
+      <REQUIRES>pascal_triangle</REQUIRES>
+      <EXPECTED>4</EXPECTED>
+      <JAVASCRIPT>
+pascal_triangle(5,4);
+      </JAVASCRIPT>
+      <SCHEME>
+      </SCHEME>
+    </SNIPPET>
+  </EXERCISE>
+-->
+<!--  <EXERCISE>
+    Prove that <LATEXINLINE>$\textrm{Fib}(n)$</LATEXINLINE> is the closest
+    integer to <LATEXINLINE>$\phi^n/\sqrt{5}$</LATEXINLINE>, where
+    <LATEXINLINE>$\phi= (1+\sqrt{5})/2$</LATEXINLINE>.  Hint: Let
+    <LATEXINLINE>$\psi= (1-\sqrt{5})/2$</LATEXINLINE>.  Use induction and the
+    definition of the Fibonacci numbers (see
+    section<SPACE/><REF NAME="sec:tree-recursion"/>) to prove that
+    <LATEXINLINE>$\textrm{Fib}(n)=(\phi^n-\psi^n)/\sqrt{5}$</LATEXINLINE>.
+    <LABEL NAME="ex:fib-proof"/>
+    <SOLUTION>
+      First, we show that
+      <LATEXINLINE>$\textrm{Fib}(n) =
+      \dfrac{\phi^n-\psi^n}{\sqrt{5}}$</LATEXINLINE>,
+      where
+      <LATEXINLINE>$\psi = \dfrac{1-\sqrt{5}}{2}$</LATEXINLINE>
+      using strong induction.
+      <BR/>
+      <LATEXINLINE>$\textrm{Fib}(0) = 0$</LATEXINLINE>
+      and
+      <LATEXINLINE>$\dfrac{\phi^0-\psi^0}{\sqrt{5}} = 0$</LATEXINLINE>
+      <BR/>
+      <LATEXINLINE>$\textrm{Fib}(1) = 1$</LATEXINLINE>
+      and
+      <LATEXINLINE>$\dfrac{\phi^1-\psi^1}{\sqrt{5}} =
+      \dfrac{\dfrac{1}{2}\left(1+\sqrt{5} - 1 + \sqrt{5}\right)}{\sqrt{5}} = 1$
+      </LATEXINLINE>
+      <BR/>
+      So the statement is true for <LATEXINLINE>$n=0,1$</LATEXINLINE>.
+      Given <LATEXINLINE>$n \geq 1$</LATEXINLINE>, assume the proposition
+      to be true for <LATEXINLINE>$0, 1, \dots , n$</LATEXINLINE>.
+      <BR/>
+      <LATEXINLINE>$\textrm{Fib}(n+1) =
+      \textrm{Fib}(n) + \textrm{Fib}(n-1) =
+      \dfrac{\phi^n-\psi^n + \phi^{n-1} - \psi^{n-1}}{\sqrt{5}}$</LATEXINLINE>
+      <BR/>
+      <LATEXINLINE>$= \dfrac{\phi^{n-1}(\phi + 1) -
+      \psi^{n-1}(\psi + 1)}{\sqrt{5}}$
+      </LATEXINLINE>
+      <BR/>
+      <LATEXINLINE>$=\dfrac{\phi^{n-1}(\phi^2) - \psi^{n-1}(\psi^2)}{\sqrt{5}}
+      = \dfrac{\phi^{n+1} - \psi^{n+1}}{\sqrt{5}}$</LATEXINLINE>,
+      so the statement is true.
+      <BR/>
+      Notice that since <LATEXINLINE>$|\psi| &lt; 1$</LATEXINLINE> and
+      <LATEXINLINE>$\sqrt{5} &gt; 2$</LATEXINLINE>, one has
+      <LATEXINLINE>$\left|\dfrac{\psi^n}{\sqrt{5}}\right| &lt;
+      \dfrac{1}{2}$</LATEXINLINE>
+      <BR/>
+      Then the integer closest to
+      <LATEXINLINE>$\textrm{Fib}(n) + \dfrac{\psi^n}{\sqrt{5}} =
+      \dfrac{\phi^n}{\sqrt{5}}$</LATEXINLINE> is
+      <LATEXINLINE>$\textrm{Fib}(n)$</LATEXINLINE>.
+    </SOLUTION>
+  </EXERCISE>-->
+
+</SUBSECTION>

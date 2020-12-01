@@ -1,6 +1,12 @@
 <!ENTITY about SYSTEM "others/about.xml">
 <!ENTITY webpreface SYSTEM "others/webpreface.xml">
 
+<!ENTITY chapter0 SYSTEM "chapter0/chapter0.xml">
+	<!ENTITY section0.1 SYSTEM "chapter0/section1/section1.xml">
+	<!ENTITY section0.2 SYSTEM "chapter0/section2/section2.xml">
+	<!ENTITY section0.1 SYSTEM "chapter0/section3/section3.xml">
+	<!ENTITY section0.2 SYSTEM "chapter0/section4/section4.xml">
+
 <!ENTITY chapter1 SYSTEM "chapter1/chapter1.xml">
 	<!ENTITY section1.1 SYSTEM "chapter1/section1/section1.xml">
 		<!ENTITY subsection1.1.1 SYSTEM "chapter1/section1/subsection1.xml">
@@ -14,16 +20,16 @@
 	<!ENTITY section1.2 SYSTEM "chapter1/section2/section2.xml">
 		<!ENTITY subsection1.2.1 SYSTEM "chapter1/section2/subsection1.xml">
 		<!ENTITY subsection1.2.2 SYSTEM "chapter1/section2/subsection2.xml">
-		<!ENTITY subsection1.2.3 SYSTEM "chapter1/section2/subsection3.xml">
 		<!ENTITY subsection1.2.4 SYSTEM "chapter1/section2/subsection4.xml">
+		<!ENTITY subsection1.2.3 SYSTEM "chapter1/section2/subsection3.xml">
 		<!ENTITY subsection1.2.5 SYSTEM "chapter1/section2/subsection5.xml">
-		<!ENTITY subsection1.2.6 SYSTEM "chapter1/section2/subsection6.xml">
+	<!--<!ENTITY subsection1.2.6 SYSTEM "chapter1/section2/subsection6.xml">-->
 	<!ENTITY section1.3 SYSTEM "chapter1/section3/section3.xml">
 		<!ENTITY subsection1.3.1 SYSTEM "chapter1/section3/subsection1.xml">
 		<!ENTITY subsection1.3.2 SYSTEM "chapter1/section3/subsection2.xml">
 		<!ENTITY subsection1.3.3 SYSTEM "chapter1/section3/subsection3.xml">
 		<!ENTITY subsection1.3.4 SYSTEM "chapter1/section3/subsection4.xml">
-
+<!--
 <!ENTITY chapter2 SYSTEM "chapter2/chapter2.xml">
 	<!ENTITY section2.1 SYSTEM "chapter2/section1/section1.xml">
 		<!ENTITY subsection2.1.1 SYSTEM "chapter2/section1/subsection1.xml">
@@ -126,5 +132,5 @@
         <!ENTITY subsection5.5.5 SYSTEM "chapter5/section5/subsection5.xml">
         <!ENTITY subsection5.5.6 SYSTEM "chapter5/section5/subsection6.xml">
         <!ENTITY subsection5.5.7 SYSTEM "chapter5/section5/subsection7.xml">
-
+-->
 <!ENTITY references SYSTEM "others/references.xml">

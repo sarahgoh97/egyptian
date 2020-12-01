@@ -14,6 +14,22 @@
   </SPLITINLINE> as general method|(</SUBINDEX></INDEX>
   <INDEX><SPLITINLINE><SCHEME>procedure</SCHEME><JAVASCRIPT>function</JAVASCRIPT></SPLITINLINE><SUBINDEX>general@as general method|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+        This subsection looks at expressing functions as general method
+        computations which are independent of particular functions. Here, the
+        binary algorithm can be introduced. In the binary algorithm, it
+        converts the base 10 fraction into a binary fraction. Then, with the 1s,
+        it converts back into base 10 unit fractions. In both, they share the
+        same idea of converting between number systems which can be abstracted
+        out. Hence, it would fit into this subsection to talk about general
+        method computations. For converting to binary numbers, it would usually
+        be in 0s and 1s. However, we are not using 0s since only natural
+        numbers starting from 1 are used. Thus, true and false will be used to
+        represent the binary fraction.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We introduced compound
     <SPLITINLINE>

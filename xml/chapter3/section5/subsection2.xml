@@ -5,6 +5,14 @@
 
   <LABEL NAME="sec:infinite-streams"/>
   <INDEX>infinite stream(s)|(</INDEX>
+
+    <TEXT>
+        [<EM>
+This subsection makes use of delayed evaluation to show infinite streams as
+        streams can stop before it reaches the end of the stream.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We have seen how to support the illusion of manipulating streams
     as complete entities even though, in actuality, we compute only

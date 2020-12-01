@@ -3,13 +3,24 @@
   <LABEL NAME="sec:expressions"></LABEL>
 
   <TEXT>
+    [<EM>
+      In this subsection, the original authors talk about primitive expressions
+      and introduces the online environment to students. Originally, all
+      normal mathematical operations are used, including subtraction and
+      division. However, since we want to use only natural numbers, the
+      operations have all changed such that there are only addition and
+      multiplication operations.
+    </EM>]
+  </TEXT>
+
+  <TEXT>
     One easy way to get started at programming is to examine some typical
     interactions with an interpreter for the
     <SPLITINLINE>
       <SCHEME>Scheme dialect of Lisp.</SCHEME>
       <JAVASCRIPT>JavaScript language.</JAVASCRIPT>
     </SPLITINLINE>
-    Imagine that you are sitting at a computer terminal.  You type 
+    Imagine that you are sitting at a computer terminal.  You type
     <SPLITINLINE>
       <SCHEME><EM>an expression</EM>,</SCHEME>
       <JAVASCRIPT><EM>a program</EM>,</JAVASCRIPT>
@@ -27,7 +38,7 @@
     <JAVASCRIPT>
       <TEXT>
 	<WEB_ONLY>
-	  The mouse click on JavaScript statements in this edition is 
+	  The mouse click on JavaScript statements in this edition is
 	  programmed in such a way that a JavaScript interpreter is
 	  displayed, which can <EM>evaluate</EM> the
 	  statement and display the resulting value.
@@ -45,12 +56,12 @@
       <TEXT>
         <INDEX>number(s)<SUBINDEX>in Lisp<ORDER>lisp</ORDER></SUBINDEX></INDEX>
         <INDEX>primitive expression<SUBINDEX>number</SUBINDEX></INDEX>
-        One kind of primitive expression you might type is a number.  
+        One kind of primitive expression you might type is a number.
       </TEXT>
     </SCHEME>
     <JAVASCRIPT>
       <TEXT>
-        One kind of statement is an 
+        One kind of statement is an
         expression statement, which consists of an
         <EM>expression</EM>, followed by a semicolon.
 	A simple kind of an expression is a number.
@@ -72,7 +83,7 @@
       </SCHEME>
       <JAVASCRIPT>
 486;
-      </JAVASCRIPT>  
+      </JAVASCRIPT>
     </SNIPPET>
     the interpreter will respond by printing<FOOTNOTE>Throughout this book,
     <INDEX>notation in this book<SUBINDEX>slanted characters for interpreter
@@ -91,7 +102,7 @@
     <SNIPPET>
       <JAVASCRIPT>
 486;
-      </JAVASCRIPT>  
+      </JAVASCRIPT>
     </SNIPPET>
     by clicking it, it will respond by creating a separate
     browser tab where the statement is shown, with the option
@@ -103,7 +114,7 @@
       <TEXT>
         <INDEX>compound expression</INDEX>
         <INDEX>combination</INDEX>
-        Expressions representing numbers may be combined with an 
+        Expressions representing numbers may be combined with an
         <INDEX>primitive expression
 	<SUBINDEX>name of primitive procedure</SUBINDEX></INDEX>
         expression representing a
@@ -116,7 +127,7 @@
         -->
         <CODEINDEX>*
 	<EXPLANATION>primitive multiplication procedure</EXPLANATION></CODEINDEX>
-        primitive procedure (such as 
+        primitive procedure (such as
         <SCHEMEINLINE>+</SCHEMEINLINE> or <SCHEMEINLINE>*</SCHEMEINLINE>) to
 	form a compound expression that represents the application of the
 	procedure to those numbers.  For example,
@@ -130,9 +141,8 @@
         </SNIPPET>
         <CODEINDEX>-
 	<EXPLANATION>primitive subtraction procedure</EXPLANATION></CODEINDEX>
-        <!--\ind*{primitive procedures (those marked <EM>ns</EM> are not in the IEEE Scheme standard)}[-@{\tt -}]
-        -->
-        <SNIPPET>
+        <!--\ind*{primitive procedures (those marked <EM>ns</EM> are not in the IEEE Scheme standard)}[-@{\tt -}]-->
+ <SNIPPET>
           <SCHEME>
 (- 1000 334)
           </SCHEME>
@@ -152,15 +162,16 @@
         <!--
             \ind*{primitive procedures (those marked <EM>ns</EM> are not in the IEEE Scheme standard)}[/@{\tt /}]
         -->
-        <CODEINDEX>/<EXPLANATION>primitive division procedure</EXPLANATION></CODEINDEX>
+      <CODEINDEX>/<EXPLANATION>primitive division procedure</EXPLANATION></CODEINDEX>
         <SNIPPET>
           <SCHEME>
-(/ 10 5)
+(/ 10 4)
           </SCHEME>
           <SCHEMEOUTPUT>
 2
           </SCHEMEOUTPUT>
         </SNIPPET>
+
         <SNIPPET>
           <SCHEME>
 (+ 2.7 10)
@@ -169,6 +180,7 @@
 12.7
           </SCHEMEOUTPUT>
         </SNIPPET>
+
       </TEXT>
     </SCHEME>
     <JAVASCRIPT>
@@ -176,8 +188,8 @@
         <INDEX>compound expression</INDEX>
         <INDEX>combination</INDEX>
         Expressions representing numbers may be combined with operators
-        (such as 
-        <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE> or 
+        (such as
+        <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE> or
         <JAVASCRIPTINLINE>*</JAVASCRIPTINLINE>) to form a
         compound expression that represents the
         application of a corresponding primitive
@@ -192,48 +204,50 @@
 137 + 349;
         </JAVASCRIPT>
 	<JAVASCRIPT_OUTPUT>
-486	  
+486
 	</JAVASCRIPT_OUTPUT>
       </SNIPPET>
-      <SNIPPET>
+<!--      <SNIPPET>
         <JAVASCRIPT>
 1000 - 334;
         </JAVASCRIPT>
 	<JAVASCRIPT_OUTPUT>
-666	    
+666
 	</JAVASCRIPT_OUTPUT>
-      </SNIPPET>
+      </SNIPPET>-->
       <SNIPPET>
         <JAVASCRIPT>
 5 * 99;
         </JAVASCRIPT>
 	<JAVASCRIPT_OUTPUT>
-495	  
+495
 	</JAVASCRIPT_OUTPUT>
       </SNIPPET>
-      <SNIPPET>
+<!--      <SNIPPET>
         <JAVASCRIPT>
-10 / 5;
-        </JAVASCRIPT>  
+10 / 4;
+        </JAVASCRIPT>
 	<JAVASCRIPT_OUTPUT>
-2	  
+2.5
 	</JAVASCRIPT_OUTPUT>
-      </SNIPPET>
+      </SNIPPET>-->
+          <!--
       <SNIPPET>
         <JAVASCRIPT>
 2.7 + 10;
-        </JAVASCRIPT>  
+        </JAVASCRIPT>
 	<JAVASCRIPT_OUTPUT>
-12.7	  
+12.7
 	</JAVASCRIPT_OUTPUT>
       </SNIPPET>
+      -->
       </TEXT>
     </JAVASCRIPT>
   </SPLIT>
   <SPLIT>
     <SCHEME>
       <TEXT>
-        Expressions such as these, formed by 
+        Expressions such as these, formed by
         <INDEX>parentheses<SUBINDEX>delimiting combination</SUBINDEX></INDEX>
         delimiting a list of expressions
         within parentheses in order to denote
@@ -241,10 +255,10 @@
 	<SUBINDEX>combination denoting</SUBINDEX></INDEX>
         procedure application,
         are called <EM>combinations</EM>.  The leftmost
-        element in the list is called the 
+        element in the list is called the
         <INDEX>operator of a combination</INDEX>
         <EM>operator</EM>, and the other
-        elements are called 
+        elements are called
         <INDEX>operands of a combination</INDEX>
         <EM>operands</EM>.  The
         <INDEX>value
@@ -260,12 +274,12 @@
         Expressions such as these, which contain other expressions
         as components, are called <EM>combinations</EM>.
         <INDEX>combination</INDEX>
-        Combinations that are formed by an 
+        Combinations that are formed by an
         <INDEX>operator</INDEX>
         <EM>operator</EM> symbol in the middle, and
         <INDEX>operands</INDEX>
-        <EM>operand</EM> expressions to the left and right of it, 
-        are called 
+        <EM>operand</EM> expressions to the left and right of it,
+        are called
         <EM>operator combinations</EM>.
         The value of an operator combination is
         obtained by applying the function specified by the operator to the
@@ -278,12 +292,12 @@
     <SCHEME>
       <TEXT>
         The convention of placing the operator to the left of the operands is
-        known as 
+        known as
         <INDEX>prefix notation</INDEX>
         <EM>prefix notation</EM>, and it may be somewhat confusing at
         first because it departs significantly from the customary mathematical
         convention.  Prefix notation has several advantages, however.  One of
-        them is that it can accommodate 
+        them is that it can accommodate
         <INDEX>procedure
 	<SUBINDEX>arbitrary number of arguments</SUBINDEX></INDEX>
         <INDEX>argument(s)<SUBINDEX>arbitrary number of</SUBINDEX></INDEX>
@@ -306,14 +320,14 @@
 1200
           </SCHEMEOUTPUT>
         </SNIPPET>
-        No ambiguity can arise, because the operator is always the leftmost 
+        No ambiguity can arise, because the operator is always the leftmost
         element and the entire combination is delimited by the
         parentheses.
       </TEXT>
       <TEXT>
         <INDEX>nested combinations</INDEX>
         A second advantage of prefix notation is that it extends in a
-        straightforward way to allow combinations to be <EM>nested</EM>, 
+        straightforward way to allow combinations to be <EM>nested</EM>,
         that is,
         to have combinations whose elements are themselves
         combinations:
@@ -330,58 +344,95 @@
     <JAVASCRIPT>
       <TEXT>
         The convention of placing the operator between the operands is
-        known as 
+        known as
         <INDEX>infix notation</INDEX>
         <EM>infix notation</EM>. It follows the mathematical notation that the
-	reader is most likely familiar with from school and everyday life.  
+	reader is most likely familiar with from school and everyday life.
         As in mathematics, operator combinations can be <EM>nested</EM>, that
-	is, they can have operands that themselves are operator combinations:
+	is, they can have operands that themselves are operator combinations. So to
+    find how much grain stalks he had, he would need to find:
         <SNIPPET>
           <JAVASCRIPT>
+(3 * 5) + (10 + 6);
+          </JAVASCRIPT>
+          <!--<JAVASCRIPT>
 (3 * 5) + (10 - 6);
           </JAVASCRIPT>
-	  <JAVASCRIPT_OUTPUT>
+     <JAVASCRIPT_OUTPUT>
 19
+	  </JAVASCRIPT_OUTPUT>-->
+	  <JAVASCRIPT_OUTPUT>
+31
 	  </JAVASCRIPT_OUTPUT>
         </SNIPPET>
         As usual, parentheses are used to group operator combinations in order
 	to avoid ambiguities. JavaScript also follows the usual conventions
-	when parentheses are omitted; multiplication and division bind stronger
-	than addition and subtraction. For example,
+	when parentheses are omitted; multiplication <!--and division--> binds
+    stronger than addition <!--and subtraction--><FOOTNOTE>In normal
+    JavaScript, both multiplication and division bind stronger than addition
+    and subtraction. However, we will not be using the primitive subtraction
+    and division operations that are inside JavaScript since we are looking at
+    Egyptian Fractions. The comparisons between multiplication and addition
+    operations largely apply to the division and subtraction operations as
+    well. </FOOTNOTE>. For example,
         <SNIPPET>
+          <JAVASCRIPT>
+3 * 5 + 10 * 2;
+          </JAVASCRIPT>
+        </SNIPPET>
+        stands for
+        <SNIPPET>
+          <JAVASCRIPT>
+(3 * 5) + (10 * 2);
+          </JAVASCRIPT>
+        </SNIPPET>
+      <!--  <SNIPPET>
           <JAVASCRIPT>
 3 * 5 + 10 / 2;
           </JAVASCRIPT>
         </SNIPPET>
-        stands for 
+        stands for
         <SNIPPET>
           <JAVASCRIPT>
 (3 * 5) + (10 / 2);
           </JAVASCRIPT>
-        </SNIPPET>
+        </SNIPPET>-->
         We say that <JAVASCRIPTINLINE>*</JAVASCRIPTINLINE> and
-	<JAVASCRIPTINLINE>/</JAVASCRIPTINLINE> have <EM>higher precedence</EM>
-	than <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE> and
-	<JAVASCRIPTINLINE>-</JAVASCRIPTINLINE>. Sequences of additions and
-	subtractions are read from left to right, as are sequences of
-	multiplications and divisions. Thus,
+	<!--<JAVASCRIPTINLINE>/</JAVASCRIPTINLINE> have--> has
+    <EM>higher precedence</EM> than <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE>
+          <!--and <JAVASCRIPTINLINE>-</JAVASCRIPTINLINE>. -->
+	Sequences of additions <!--and
+	subtractions --> are read from left to right, as are sequences of
+	multiplications <!--and divisions-->. Thus,
         <SNIPPET>
+	  <EXPECTED>44</EXPECTED>
+          <JAVASCRIPT>
+1 + 5 * 2 * 4 + 3;
+          </JAVASCRIPT>
+        </SNIPPET>
+        stands for
+        <SNIPPET>
+          <JAVASCRIPT>
+(1 + ((5 * 2) * 4)) + 3;
+          </JAVASCRIPT>
+        </SNIPPET>
+<!--        <SNIPPET>
 	  <EXPECTED>-6</EXPECTED>
           <JAVASCRIPT>
 1 - 5 / 2 * 4 + 3;
           </JAVASCRIPT>
         </SNIPPET>
-        stands for 
+        stands for
         <SNIPPET>
           <JAVASCRIPT>
 (1 - ((5 / 2) * 4)) + 3;
           </JAVASCRIPT>
-        </SNIPPET>
+        </SNIPPET>-->
         We say that the operators
-        <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE>,
-        <JAVASCRIPTINLINE>-</JAVASCRIPTINLINE>,
-        <JAVASCRIPTINLINE>*</JAVASCRIPTINLINE> and
-        <JAVASCRIPTINLINE>/</JAVASCRIPTINLINE> are 
+        <JAVASCRIPTINLINE>+</JAVASCRIPTINLINE> and
+<!--       , <JAVASCRIPTINLINE>-</JAVASCRIPTINLINE>,-->
+        <JAVASCRIPTINLINE>*</JAVASCRIPTINLINE> <!--and
+        <JAVASCRIPTINLINE>/</JAVASCRIPTINLINE> --> are
         <EM>left-associative</EM>.
       </TEXT>
     </JAVASCRIPT>
@@ -409,7 +460,7 @@
       6))
           </SCHEME>
         </SNIPPET>
-        following a formatting convention known as  
+        following a formatting convention known as
         <INDEX>pretty-printing</INDEX>
         <EM>pretty-printing</EM>, in which each long combination is written so
 	that the operands are aligned vertically.  The resulting indentations
@@ -433,20 +484,33 @@
 	can evaluate. It is we humans who might get confused by still relatively
         simple expressions such as
         <SNIPPET>
-	  <EXPECTED>57</EXPECTED>
+	  <EXPECTED>1638</EXPECTED>
           <JAVASCRIPT>
-3 * 2 * (4 + (3 - 5)) + 10 * (27 / 6);
+3 * 2 * (3 + 5 + 4) + 27 * 6 * 10;
           </JAVASCRIPT>
         </SNIPPET>
+<!--        <SNIPPET>
+	  <EXPECTED>57</EXPECTED>
+          <JAVASCRIPT>
+3 * 2 * (3 - 5 + 4) + 27 / 6 * 10;
+          </JAVASCRIPT>
+        </SNIPPET>-->
         which the interpreter would readily evaluate to be 57.  We can help
         ourselves by writing such an expression in the form
         <SNIPPET>
           <JAVASCRIPT>
-3 * 2 * (4 + (3 - 5)) 
-+ 
-10 * (27 / 6);
+3 * 2 * (3 + 5 + 4)
++
+27 * 6 * 10;
           </JAVASCRIPT>
         </SNIPPET>
+     <!--   <SNIPPET>
+          <JAVASCRIPT>
+3 * 2 * (3 - 5 + 4)
++
+27 / 6 * 10;
+          </JAVASCRIPT>
+        </SNIPPET>-->
         to visually separate the major components of the expression.
       </TEXT>
     </JAVASCRIPT>
@@ -458,14 +522,14 @@
       <SCHEME>an expression</SCHEME>
       <JAVASCRIPT>a statement</JAVASCRIPT>
     </SPLITINLINE>
-    from the terminal, 
+    from the terminal,
     evaluates the
     <SPLITINLINE>
       <SCHEME>expression,</SCHEME>
       <JAVASCRIPT>statement,</JAVASCRIPT>
     </SPLITINLINE>
     and prints the result. This mode of operation is often expressed by saying
-    that the interpreter runs in a 
+    that the interpreter runs in a
     <INDEX>read-eval-print loop</INDEX>
     <INDEX>interpreter<SUBINDEX>read-eval-print loop</SUBINDEX></INDEX>
     <EM>read-eval-print loop</EM>.

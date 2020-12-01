@@ -19,6 +19,19 @@
   <SUBINDEX>general@as general method|)</SUBINDEX></INDEX>
 
   <TEXT>
+    [<EM>
+    This subsection shows how functions can also return functions and how it
+    is useful in abstraction and expressing ideas. In the greedy algorithm,
+    there is more than one way of finding the biggest unit fraction to remove.
+    One way is slower to go through all the unit fractions from the biggest to
+    smallest until the unit fraction fits. Another way is to follow Fibonacci's
+    and Sylvester's method of finding the ceiling of the flipped fraction. Then,
+    a function can be used to specify which function to use to find the
+    Egyptian Fraction decomposition of the greedy algorithm.
+  </EM>]
+  </TEXT>
+
+  <TEXT>
     The above examples demonstrate how the ability to pass
     <SPLITINLINE>
       <SCHEME>procedures</SCHEME>

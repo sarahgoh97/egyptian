@@ -6,6 +6,18 @@
     </SPLITINLINE>
     as Arguments
   </NAME>
+    <TEXT>
+        [<EM>
+        In this subsection, the book shows how functions can have different
+        purposes but have an underlying similarity between them (different kind
+        of sums). With this similarity, the book teaches how to abstract the
+        concept out into another function so that the other functions can be
+        simplified while using the new sbtracted function inside. Similarly
+        the algorithms used in the previous sections can also share a
+        function that presents the Egyptian Fraction decomposition in similar
+        ways.
+    </EM>]
+    </TEXT>
 
   <LABEL NAME="sec:procedures-as-parameters"/>
   <INDEX>higher-order

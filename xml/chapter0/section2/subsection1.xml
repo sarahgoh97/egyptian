@@ -1,0 +1,847 @@
+<SUBSECTION>
+  <NAME>Algorithms for Egyptian Fractions</NAME>
+  <LABEL NAME="sec:ef-algorithms"></LABEL>
+
+    <TEXT>
+        [<EM>
+This subsection goes through the algorithms' intuition with an example for
+      students to understand the steps taken.
+    </EM>]
+    </TEXT>
+
+
+  These are the main algorithms in finding Egyptian Fractions from the oldest
+  to youngest:
+  <UL>
+    <LI>
+      Greedy Algorithm (also known as Fibonacci-Sylvester Algorithm), by
+      Fibonacci in 1202 (Sigler 2002) and proven by Sylvester in 1880
+      <INDEX>Sigler, Laurence</INDEX> <INDEX>Sylvester, James</INDEX>
+    </LI>
+    <LI>
+      Pairing Algorithm, by Takenouchi in 1921 (Pappalardi 2018)
+      <INDEX>Pappalardi, Francesco</INDEX>
+    </LI>
+    <LI>
+      Binary Remainder Algorithm, by B.M. Sterwart in 1954
+      <INDEX>Stewart, B.M.</INDEX>
+    </LI>
+    <LI>
+      Splitting Algorithm, by Ronald Lewis Graham and Jewett in 1964 (Wagon
+      1999)
+      <INDEX>Wagon, Stan</INDEX>
+    </LI>
+    <LI>
+      Continued Fraction Algorithm (also known as Farey or Golomb's Algorithm)
+      by M.N. Bleicher in 1972 and Solomon Golomb in 1962.
+      <FOOTNOTE>Both Bleicher and Golomb found separate algorithms but they use
+      the same concepts and always give the same decomposition.
+      (Gyimesi and Nyul 2013)</FOOTNOTE>
+      <INDEX>Bleicher, M.N.</INDEX>
+    </LI>
+    <LI>
+      Binary Algorithm by David Eppstein (n.d.)
+      <INDEX>Eppstein, David</INDEX>
+    </LI>
+    <LI>
+      Reverse Greedy Algorithm by Kevin Brown (n.d.) with variations
+      by David Eppstein (n.d.)
+      <INDEX>Eppstein, David</INDEX> <INDEX>Brown, Kevin</INDEX>
+    </LI>
+  </UL>
+
+  <TEXT>
+    Each of these algorithms is unique and uses different mathematical
+    properties to find the Egyptian Fraction decompositions. We will focus more
+    on the programming element of these algorithms. However, students are
+    encouraged to read up more on each of the algorithms to understand the
+    algorithms better using the references or through other means.
+  </TEXT>
+
+
+  <SUBHEADING>
+    <NAME>Greedy Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Greedy</SUBINDEX></INDEX>
+  <TEXT>
+    According to the Dictionary of Algorithms and Data Structures (1998), a
+    greedy algorithm is defined as an algorithm that always takes the best
+    immediate, or local solution while finding an answer. In the context of
+    Egyptian Fractions, the best immediate solution to breaking a fraction into
+    its decomposition is to find the largest unit fraction possible and subtract
+    it from the original fraction. The remaining fraction must be positive.
+    This continues until the remaining fraction is also a unit fraction. This
+    would be the last unit fraction in the decomposition.
+  </TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Find the biggest unit fraction.
+      </LI>
+      <LI>
+        Remove the biggest unit fraction from the current fraction.
+      </LI>
+      <LI>
+        Repeat steps 1 and 2 until a unit fraction is reached.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        The biggest unit fraction that is smaller than
+        <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE> is
+        <LATEXINLINE>$\frac{1}{6}$</LATEXINLINE><FOOTNOTE>This can be
+        found in different ways by starting from the biggest unit fraction
+        (<LATEXINLINE>$\frac{1}{2}$</LATEXINLINE>) or using Fibonacci's
+        original formula of
+        <LATEXINLINE>$\left \lceil{\frac{den}{num}}\right \rceil$</LATEXINLINE>.
+        </FOOTNOTE>
+      </LI>
+      <LI>
+        <LATEXINLINE>$\frac{4}{21}-\frac{1}{6}=\frac{1}{42}$ </LATEXINLINE>
+      </LI>
+      <LI>
+        The remaining fraction is a unit fraction:
+        <LATEXINLINE>$\frac{1}{42}$</LATEXINLINE>
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21}=\frac{1}{6} + \frac{1}{42}$</LATEXINLINE>.
+  </TEXT>
+  <TEXT>
+    <INDEX>Stewart, B.M.</INDEX> <INDEX>Goldmakher, Leo</INDEX>
+    There are variations of the greedy algorithm. For example, one of them
+    starts with using the harmonic series which is the sum of the sequence of
+    unit fractions whose denominators are increasing by 1. This is useful for
+    fractions that are greater than 1 (Steward 1964) because the harmonic
+    series is divergent (Goldmakher n.d.).
+
+    <INDEX>Zanardo, Alberto</INDEX> <INDEX>Guy, Richard</INDEX>
+    Another variation is to only use unit fractions with odd denominators.
+    (This would only apply to fractions with odd denominators.) While the
+    original greedy algorithm has been proven to terminate (Zanardo 2018), the
+    odd greedy expansion has not been proven to always terminate (Guy 1980).
+  </TEXT>
+
+  <SUBHEADING>
+    <NAME>Pairing Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Pairing</SUBINDEX></INDEX>
+  <TEXT>
+    In this algorithm, the intuition is to start from breaking the original
+    fraction into individual unit fractions with the same denominator. For
+    every pair with the same denominator, convert the pair into 1 or 2 separate
+    unit fractions given this formula:
+
+    <LATEX>
+      \[ \frac{1}{b}+ \frac{1}{b} = \frac{2}{b+1} + \frac{2}{b(b+1)}\]
+    </LATEX>
+    <LATEX>
+      \[
+      \frac{2}{b} = \left\{ \begin{array}{rl}
+      \frac{1}{\frac{b}{2}}  &amp; \mbox{if $b$ is even} \\
+      \frac{1}{\frac{b+1}{2}} + \frac{1}{\frac{b(b+1)}{2}} &amp; \mbox{otherwise}
+      \end{array}
+      \right.
+      \]
+    </LATEX>
+
+    Convert all pairs of unit fractions with the same denominator until all the
+    unit fractions found are distinct from one another. All the unit fractions
+    found will be in the decomposition.
+  </TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Break the fraction <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> into
+        <LATEXINLINE>$a$</LATEXINLINE> pieces of
+        <LATEXINLINE>$\frac{1}{b}$</LATEXINLINE>
+      </LI>
+      <LI>
+        For any pair of duplicate unit fractions
+        <LATEXINLINE>$\frac{1}{y}$</LATEXINLINE>, remove them and:
+        <UL>
+          <LI>
+            If <LATEXINLINE>$y$</LATEXINLINE> is even, add
+            <LATEXINLINE>$\frac{1}{\frac{y}{2}}$ </LATEXINLINE>.
+          </LI>
+          <LI>
+            Otherwise, <LATEXINLINE>$y$</LATEXINLINE> is odd, add
+            <LATEXINLINE>$\frac{1}{\frac{y+1}{2}}$</LATEXINLINE> and
+            <LATEXINLINE>$\frac{1}{\frac{y(y+1)}{2}}$</LATEXINLINE>.
+          </LI>
+        </UL>
+      </LI>
+      <LI>
+        Repeat step 2 until there are no more duplicates.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+       Break down <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE> into a list with
+        <LATEXINLINE> $[\frac{1}{21}, \frac{1}{21}, \frac{1}{21}, \frac{1}{21}]$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        Remove a pair of <LATEXINLINE>$\frac{1}{21}$</LATEXINLINE>. Since 21
+        is odd, use the formula and add
+        <LATEXINLINE>$\frac{1}{11}, \frac{1}{231}$ </LATEXINLINE> to the list.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{21},
+        \frac{1}{11}, \frac{1}{231}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Repeat step 2 and the list now has: <LATEXINLINE>$[\frac{1}{11},
+        \frac{1}{11}, \frac{1}{231}, \frac{1}{231}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Remove the pair of <LATEXINLINE>$\frac{1}{11}$</LATEXINLINE>. Since 11
+        is odd, use the formula and add
+        <LATEXINLINE>$\frac{1}{6}, \frac{1}{66}$ </LATEXINLINE> to the list.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{231}, \frac{1}{231},
+        \frac{1}{6}, \frac{1}{66}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Remove the pair of <LATEXINLINE>$\frac{1}{231}$</LATEXINLINE>. Since
+        231 is odd, use the formula and add <LATEXINLINE>$\frac{1}{116},
+        \frac{1}{26796}$ </LATEXINLINE> to the list.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{6}, \frac{1}{66},
+        \frac{1}{116}, \frac{1}{26796}]$</LATEXINLINE>.
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21} =
+    \frac{1}{6}+\frac{1}{66}+\frac{1}{116}+\frac{1}{26796}$</LATEXINLINE>.
+  </TEXT>
+
+  <SUBHEADING>
+    <NAME>Binary Remainder Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms
+    <SUBINDEX>Binary Remainder</SUBINDEX></INDEX>
+  <TEXT>
+    A binary number is a number made up of only 0s and 1s. For example,
+    <LATEXINLINE>$2_{10}$</LATEXINLINE> and <LATEXINLINE>$7_{10}$</LATEXINLINE>
+    are represented as <LATEXINLINE>$10_2$</LATEXINLINE> and
+    <LATEXINLINE>$111_2$</LATEXINLINE> respectively in the binary numeral system.
+    Every number in our normal decimal numeral system can be represented by 0s
+    and 1s in the binary numeral system. In this algorithm, we use powers of 2
+    to find the denominators of unit fractions and the fact that all numbers
+    can be summed up with powers of 2.
+
+    In this algorithm, we first find the biggest possible unit fractions that
+    have powers of 2 as the denominators that are smaller than the original
+    fraction. We can then remove them from the original fraction. With the
+    remainder, we can split the numerator into powers of 2 (eg. 5 = 4 + 0 + 1),
+    and divide them with the denominator of the remaining fraction that has
+    been multiplied with the powers of 2 that were removed. To understand this
+    better, let's look at the steps of the algorithm.
+</TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Starting from <LATEXINLINE>$\frac{1}{2}$</LATEXINLINE>, find the
+        largest possible unit fraction that has a power of 2 as the denominator
+        which leaves a positive remaining fraction.
+      </LI>
+      <LI>
+        Subtract the unit fraction found from the original fraction, it is part
+        of the final decomposition.
+      </LI>
+      <LI>
+        With the remainder part of the fraction, split the numerator into a sum
+        of powers of 2.
+      </LI>
+      <LI>
+        Splitting the sum into individual fractions, simplify them and get the
+        remaining unit fractions of the decomposition.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        Start from <LATEXINLINE>$\frac{1}{2}$</LATEXINLINE>: <LATEXINLINE>
+        $\frac{4}{21} - \frac{1}{2} = -\frac{13}{(21)(2)}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        Since the remainining fraction is negative, we check the next unit
+        fraction <LATEXINLINE>$\frac{1}{4}$</LATEXINLINE>: <LATEXINLINE>
+        $\frac{4}{21} - \frac{1}{4} = -\frac{5}{(21)(4)}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        Since the remainining fraction is negative, we check the next unit
+        fraction <LATEXINLINE>$\frac{1}{8}$</LATEXINLINE>: <LATEXINLINE>
+        $\frac{4}{21} - \frac{1}{8} = \frac{11}{(21)(8)}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        Since the remaining fraction is positive, break down 11 into powers of
+        2: 11 = 8 + 2 + 1, ie. <LATEXINLINE>$\frac{11}{(21)(8)} =
+        \frac{8 + 2 + 1}{(21)(8)}$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Then, <LATEXINLINE>$\frac{8+2+1}{(21)(8)}$</LATEXINLINE> becomes
+        <LATEXINLINE>$\frac{1}{21} + \frac{1}{84} + \frac{1}{168}$
+        </LATEXINLINE> which is added to the decomposition of the fraction.
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21} =
+    \frac{1}{8}+\frac{1}{21}+\frac{1}{84}+\frac{1}{168}$</LATEXINLINE>.
+  </TEXT>
+  <TEXT>
+    <INDEX>Eppstein, David</INDEX> <INDEX>Gong, Kevin</INDEX>
+    <INDEX>Zanardo, Alberto</INDEX>
+    This method is not limited to only binary numbers or powers of 2. This
+    algorithm can be generalised to other types of numbers as well (Eppstein
+    n.d.). This works well with a special type of numbers called practical
+    numbers (Gong 1992). According to Zanardo (2018),
+    Kevin Gong (1992), a practical number is defined as a natural number
+    <LATEXINLINE>$N$</LATEXINLINE> such that for all
+    <LATEXINLINE>$n&lt;N, n \in \mathbb{N}$</LATEXINLINE>, then
+    <LATEXINLINE>$n$</LATEXINLINE> can be written as the sum of distinct
+    divisors of <LATEXINLINE>$N$</LATEXINLINE>. Similar to the binary
+    remainder method explained above, the numerator of the remaining fraction
+    must be expressed in terms of the divisors so that the fractions from the
+    remainder can be simplified into unit fractions. Practical numbers fit the
+    requirements perfectly and different ones can be used to form different
+    Egyptian Fraction decompositions.
+  </TEXT>
+
+  <SUBHEADING>
+    <NAME>Splitting Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Splitting</SUBINDEX></INDEX>
+  <TEXT>
+    This algorithm has a similar intuition to the Pairing algorithm but with a
+    simpler formula:
+
+    <LATEX>
+      \[frac{1}{b}+\frac{1}{b} = \frac{1}{b}+\frac{1}{b+1}+\frac{1}{b(b+1)}\]
+    </LATEX>
+
+    To begin, split the original fraction into individual unit fractions with
+    the same denominator. For every pair of unit fractions with the same
+    denominator, use the formula to replace them. Keep doing this until all the
+    unit fractions are distinct from one another.
+  </TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Break the fraction <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> into
+        <LATEXINLINE>$a$</LATEXINLINE> pieces of
+        <LATEXINLINE>$\frac{1}{b}$</LATEXINLINE>.
+      </LI>
+      <LI>
+        For any pair of duplicate unit fractions
+        <LATEXINLINE>$\frac{1}{y}$</LATEXINLINE>, remove one of them and add
+        2 unit fractions: <LATEXINLINE>$\frac{1}{y+1}$</LATEXINLINE> and
+        <LATEXINLINE>$\frac{1}{y(y+1)}$</LATEXINLINE> (since the first term on
+        the right hand side of the formula is the same as the original unit
+        fraction)
+      </LI>
+      <LI>
+        Repeat step 2 until all the unit fractions are distinct.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        Break down <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE> into <LATEXINLINE>
+        $[\frac{1}{21}, \frac{1}{21}, \frac{1}{21}, \frac{1}{21}]$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        Remove a <LATEXINLINE>$\frac{1}{21}$</LATEXINLINE> and add
+        <LATEXINLINE>$\frac{1}{22}, \frac{1}{462}$ </LATEXINLINE> to the list.
+      </LI>
+      <LI>
+        Repeating Step 2 twice gives us: <LATEXINLINE>$[\frac{1}{21},
+        \frac{1}{22}, \frac{1}{22}, \frac{1}{22}, \frac{1}{462}, \frac{1}{462},
+        \frac{1}{462}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{22} = \frac{1}{22} + \frac{1}{23} +
+        \frac{1}{506}$</LATEXINLINE>, we remove 2 of them and replace them with
+        the new unit fractions: <LATEXINLINE>$\frac{1}{23}, \frac{1}{506}$
+        </LATEXINLINE>.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21},
+        \frac{1}{22}, \frac{1}{23}, \frac{1}{23}, \frac{1}{462}, \frac{1}{462},
+        \frac{1}{462}, \frac{1}{506}, \frac{1}{506}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{23} = \frac{1}{23} + \frac{1}{24} +
+        \frac{1}{552}$</LATEXINLINE>, we remove 1 and replace it with
+        the new unit fractions: <LATEXINLINE>$\frac{1}{24}, \frac{1}{552}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{22},
+        \frac{1}{23}, \frac{1}{24}, \frac{1}{462}, \frac{1}{462}, \frac{1}{462},
+         \frac{1}{506}, \frac{1}{506}, \frac{1}{552}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{462} = \frac{1}{462} + \frac{1}{463} +
+        \frac{1}{213906}$</LATEXINLINE>, we remove 2 of them and replace them
+        with the new unit fractions: <LATEXINLINE>$\frac{1}{463},
+        \frac{1}{213906}$</LATEXINLINE>.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{22},
+        \frac{1}{23}, \frac{1}{24}, \frac{1}{462}, \frac{1}{463}, \frac{1}{463},
+        \frac{1}{506}, \frac{1}{506}, \frac{1}{552}, \frac{1}{213906},
+        \frac{1}{213906}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{463} = \frac{1}{463} + \frac{1}{464} +
+        \frac{1}{214832}$</LATEXINLINE>, we remove 1 and replace it with the
+        new unit fractions: <LATEXINLINE>$\frac{1}{464}, \frac{1}{214832}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{22},
+        \frac{1}{23}, \frac{1}{24}, \frac{1}{462}, \frac{1}{463}, \frac{1}{464},
+        \frac{1}{506}, \frac{1}{506}, \frac{1}{552}, \frac{1}{213906},
+        \frac{1}{213906}, \frac{1}{214832}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{506} = \frac{1}{506} + \frac{1}{507} +
+        \frac{1}{256542}$</LATEXINLINE>, we remove 1 and replace it with the
+        new unit fractions: <LATEXINLINE>$\frac{1}{507}, \frac{1}{256542}$
+      </LATEXINLINE>.
+      </LI>
+      <LI>
+        The list now has: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{22},
+        \frac{1}{23}, \frac{1}{24}, \frac{1}{462}, \frac{1}{463}, \frac{1}{464},
+        \frac{1}{506}, \frac{1}{507}, \frac{1}{552}, \frac{1}{213906},
+        \frac{1}{213906}, \frac{1}{214832}, \frac{1}{256542}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using <LATEXINLINE>$\frac{2}{213906} = \frac{1}{213906} +
+        \frac{1}{213907} + \frac{1}{45755990742}$</LATEXINLINE>, we remove 1
+        and replace it with the new unit fractions: <LATEXINLINE>
+        $\frac{1}{213907}, \frac{1}{45755990742}$</LATEXINLINE>.
+      </LI>
+      <LI>
+        This gives: <LATEXINLINE>$[\frac{1}{21}, \frac{1}{22},
+        \frac{1}{23}, \frac{1}{24}, \frac{1}{462}, \frac{1}{463}, \frac{1}{464},
+        \frac{1}{506}, \frac{1}{507}, \frac{1}{552}, \frac{1}{213906},
+        \frac{1}{213907}, \frac{1}{214832}, \frac{1}{256542},
+        \frac{1}{45755990742}]$</LATEXINLINE> and has no more duplicates.
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21} =\frac{1}{21} + \frac{1}{22} +
+    \frac{1}{23} + \frac{1}{24} + \frac{1}{462} + \frac{1}{463} + \frac{1}{464}
+    + \frac{1}{506} + \frac{1}{507} + \frac{1}{552} + \frac{1}{213906} +
+    \frac{1}{213907}+\frac{1}{214832}+\frac{1}{256542}+\frac{1}{45755990742}$
+    </LATEXINLINE>.
+  </TEXT>
+
+  <SUBHEADING>
+    <NAME>Continued Fraction Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms
+    <SUBINDEX>Continued Fraction</SUBINDEX></INDEX>
+  <TEXT>
+    To start, we need to know what a simple continued fraction is. Eric
+    Weisstein (n.d.) defined it as an expression of the form <LATEXINLINE>$
+    s_0 + \frac{1}{s_1 + \frac{1}{s_2 + ...}}$</LATEXINLINE>
+    which is a special case of a generalized continued fraction. Every rational
+    number has a finite continued fraction representation. With this
+    expression, we can find primary and secondary convergents related to it.
+    With these convergents, we can find a sequence of fractions that converge
+    to the original fraction. At the same time, the difference between any
+    consecutive pair of fractions in the sequence is a unit fraction. Hence,
+    we can form the decomposition with this method.
+  </TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Represent the fraction as a continued fraction, ie. <LATEXINLINE>
+        $\frac{a}{b} = s_0 + \frac{1}{s_1 + \frac{1}{s_2 + ...}}$
+        </LATEXINLINE>
+      </LI>
+      <LI>
+        Find the sequence of primary convergents that converges to
+        <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE>. Let
+        <LATEXINLINE>$p_i$</LATEXINLINE> be the <LATEXINLINE>$i$</LATEXINLINE>th
+        term in the primary convergent series. The terms are found by using this
+        recurrence relation <LATEXINLINE>$p_i = \frac{h_i}{k_i}$</LATEXINLINE>,
+        where<LATEXINLINE>$h_i = s_ih_{i-1}+h_{i-2}$</LATEXINLINE> and
+        <LATEXINLINE>$k_i = {s_ik_{i-1} + k_{i-2}}$</LATEXINLINE>, where
+        <LATEXINLINE>$s_i$</LATEXINLINE> is defined above and
+        <LATEXINLINE>$h_{-2} = k_{-1} = 0$</LATEXINLINE> and
+        <LATEXINLINE>$h_{-1} = k_{-2} = 1$</LATEXINLINE>. <FOOTNOTE>We can also
+        do this by truncating the continued fraction. As fewer terms
+        get truncated, the value tends toward the actual value.</FOOTNOTE>
+      </LI>
+      <LI>
+        Find the secondary convergents that form positive sequences between
+        each term in the primary convergents by using the formula <LATEXINLINE>
+        $q_{ij} = \frac{h_{i-1} + j h_i}{k_{i-1} + j k_i}$</LATEXINLINE>, where
+        <LATEXINLINE>$j = \in [0, s_{i+1}]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Replace primary convergents that exceed the original fraction with
+        secondary convergents to get an increasing sequence.
+      </LI>
+      <LI>
+        Multiply each pair of consecutive denominators in the final list of
+        convergents to get UFs.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        Change the fraction into the continued fraction expression:
+        <LATEXINLINE> $\frac{4}{21} = 0 + \frac{1}{5 + \frac{1}{4}}$
+        </LATEXINLINE>, ie. <LATEXINLINE>$s_i = [0;5,4]$</LATEXINLINE>
+      </LI>
+      <LI>
+        Using the recurrence relation, it gives the sequence: <LATEXINLINE>
+        $\frac{h_i}{k_i}=[\frac{0}{1}, \frac{1}{5}, \frac{4}{21}], i \in [0, 2]$
+        </LATEXINLINE>, where <LATEXINLINE>$h_{-2} = k_{-1} = 0$</LATEXINLINE>
+        and <LATEXINLINE>$h_{-1} = k_{-2} = 1$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Since <LATEXINLINE>$\frac{1}{5} &gt; \frac{4}{21}$</LATEXINLINE>,
+        replace 5 with denominators from
+        <LATEXINLINE>$\frac{0}{1}$</LATEXINLINE> to
+        <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Secondary convergents from <LATEXINLINE>$\frac{0}{1}$</LATEXINLINE> to
+        <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>, where
+        <LATEXINLINE>$j \in [0, s_{2}]$</LATEXINLINE>, giving: <LATEXINLINE>
+        $[\frac{0}{1},\frac{1}{6},\frac{2}{11},\frac{3}{16},\frac{4}{21}]$
+        </LATEXINLINE>.
+      </LI>:
+      <LI>
+        Multiplying denominators of consecutive pairs, the unit fractions found
+        are <LATEXINLINE>$[\frac{1}{6}, \frac{1}{66}, \frac{1}{176},
+        \frac{1}{336}]$</LATEXINLINE>.
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21} =
+    \frac{1}{6}+\frac{1}{66}+\frac{1}{176}+\frac{1}{336}$</LATEXINLINE>.
+  </TEXT>
+
+<SUBHEADING>
+    <NAME>Binary Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms
+    <SUBINDEX>Binary</SUBINDEX></INDEX>
+  <TEXT>
+    As mentioned in the binary remainder algorithm, a binary number is a number
+    made up of only 0s and 1s. In this algorithm, the intuition is to change
+    the original fraction to be represented as a binary number. For example,
+    <LATEXINLINE>$\frac{3}{4}_{10} = 0.11_2$</LATEXINLINE> Then, it is
+    converted back into unit fractions. For example,
+    <LATEXINLINE>$0.11_2 = \frac{1}{2} + \frac{1}{4}$</LATEXINLINE>
+
+    <INDEX>Koretskyi, Max</INDEX>
+    Just as fractions are represented with decimals, fractions have either
+    terminating or non-terminating, repeating parts. If the
+    denominator of the fraction is not a power of 2, there will be an
+    infinite fraction in the binary system (Koretskyi 2016). Since they are
+    different, 2 different formulae are required to convert both
+    types back into unit fractions.
+  </TEXT>
+  <TEXT>
+    <INDEX>Regan, Rick</INDEX>
+    Here are the steps:
+    <OL>
+      <LI>
+        Find the binary representation of the fraction, such that the
+        non-repeating part at least as long as the repeating part.
+      </LI>
+      <LI>
+        Split the binary representation into the non-repeating and repeating
+        parts.
+      </LI>
+      <LI>
+        Convert the `1's in the non-repeating part of the binary representation
+        into its decimal representation as unit fractions, where the
+        denominator of the unit fraction is <LATEXINLINE>$2^d$</LATEXINLINE>,
+        where <LATEXINLINE>$d$</LATEXINLINE> is the number of digits from the
+        binary point.
+      </LI>
+      <LI>
+        Convert the `1's in the repeating part of the binary representation
+        into its decimal representation as unit fractions, where the
+        denominator of the unit fraction is <LATEXINLINE>$2^d - 2^{d-r}$
+        </LATEXINLINE>, where <LATEXINLINE>$d$</LATEXINLINE> and
+        <LATEXINLINE>$r$</LATEXINLINE> are the number of digits from the
+        binary point and number of digits in the repeating part respectively.
+        <FOOTNOTE>To understand the origins of the formula, it involves
+        using the sum of an infinite geometric series which is explained by
+        Rick Regan (2012) on converting repeating fractional binary numbers.
+        </FOOTNOTE>
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        Multiply the numerator of the fraction by 2, which gives
+        <LATEXINLINE>$\frac{8}{21}$</LATEXINLINE>. Since the numerator is
+        smaller than the denominator, add 0 to the binary representation: 0
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{16}{21}$</LATEXINLINE>. Since the numerator is
+        smaller than the denominator, add 0 to the binary representation: 0.0
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{32}{21}$</LATEXINLINE>. Since the numerator is
+        greater than the denominator, the numerator is changed to 32-21=11 and
+        add 1 to the binary representation: 0.01
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{22}{21}$</LATEXINLINE>. Since the numerator is
+        greater than the denominator, the numerator is changed to 22-21=1 and
+        add 1 to the binary representation: 0.011
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{2}{21}$</LATEXINLINE>. Since the numerator is
+        smaller than the denominator, add 0 to the binary representation: 0.0110
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>. Since the numerator is
+        smaller than the denominator, add 0 to the binary representation: 0.01100
+      </LI>
+      <LI>
+        Multiplying the numerator by 2 again, it gives
+        <LATEXINLINE>$\frac{8}{21}$</LATEXINLINE>. Since we have seen this
+        fraction before (see step 1), we know that this is the repeating part.
+      </LI>
+      <LI>
+        Hence, the binary representation of
+        <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE> is 0.(001100), where the part
+        in bracket is repeating.
+      </LI>
+      <LI>
+        Since the repeating part has 6 digits, it becomes 0.00110(000110) where
+        the non-repeating part is the same length.
+      </LI>
+      <LI>
+        The first `1<APOS/> is in the 3rd position which is in the
+        non-repeating part. Hence, the unit fraction is
+        <LATEXINLINE>$\frac{1}{2^3} = \frac{1}{8}$</LATEXINLINE>
+      </LI>
+      <LI>
+        The next `1<APOS/> is in the 4th position which is in the
+        non-repeating part. Hence, the unit fraction is
+        <LATEXINLINE>$\frac{1}{2^4} = \frac{1}{16}$</LATEXINLINE>
+      </LI>
+      <LI>
+        The next `1<APOS/> is in the 9th position which is in the
+        repeating part. Hence, the unit fraction is
+        <LATEXINLINE>$\frac{1}{2^9-2^{9-6}} = \frac{1}{504}$</LATEXINLINE>
+      </LI>
+      <LI>
+        The last `1<APOS/> is in the 10th position which is in the
+        repeating part. Hence, the unit fraction is
+        <LATEXINLINE>$\frac{1}{2^{10}-2^{10-6}} = \frac{1}{1008}$</LATEXINLINE>
+      </LI>
+    </OL>
+    Hence, <LATEXINLINE>$\frac{4}{21} =
+    \frac{1}{8}+\frac{1}{16}+\frac{1}{504}+\frac{1}{1008}$</LATEXINLINE>.
+  </TEXT>
+  <TEXT>
+    Unlike the binary remainder method, this method only works best with the
+    binary number system as it only has 1s and 0s in its representation instead
+    of other number systems, making it easy to convert to unit fractions which
+    have a numerator of 1.
+  </TEXT>
+
+ <SUBHEADING>
+    <NAME>Reverse Greedy Algorithm</NAME>
+  </SUBHEADING>
+  <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Reverse Greedy</SUBINDEX></INDEX>
+  <TEXT>
+    <INDEX>Eppstein, David</INDEX>
+    As opposed to the greedy method, this method finds the smallest unit
+    fraction first (ie. biggest denominator) before finding larger unit
+    fractions (ie. smaller denominators). David Eppstein (n.d.) explains how
+    every  divisor of the square of the denominator of the fraction leads to a
+    unit fraction, but some lead to an invalid remaining fraction in his
+    website on Reverse Greedy Methods. Using the valid divisors, the basic
+    heuristic then chooses the unit fraction that minimises the denominator of
+    the remaining fraction. As the denominator of the remaining fraction
+    shrinks, unit fractions found will also have a smaller denominator. Then,
+    we repeat this until a unit fraction is left.
+  </TEXT>
+  <TEXT>
+    Here are the steps:
+    <OL>
+      <LI>
+        Find the divisors of the square of the denominator of the fraction.
+      </LI>
+      <LI>
+        Find the modular inverse of the numerator and denominator of the
+        fraction.
+      </LI>
+      <LI>
+        Check whether the divisors found in step 1 result in valid remaining
+        fraction. For each divisor:
+        <OL>
+          <LI>
+            Multiply the divisor with the inverse found in step 2.
+          </LI>
+          <LI>
+            Get the remainder when dividing the product from the previous step
+            with the denominator.
+          </LI>
+          <LI>
+            Check whether the divisor is smaller than the product of the
+            numerator with the remainder found in the previous step. If it is,
+            add it to the list of possible divisors to use.
+          </LI>
+        </OL>
+      </LI>
+      <LI>
+        Use a heuristic to choose between the potential divisors to
+        remove. For the basic heuristic: choose the divisor that
+        minimises the denominator of the remaining fraction.
+      </LI>
+      <LI>
+        Repeat steps 1 to 3 with the remaining fraction until a unit fraction
+        is left.
+      </LI>
+    </OL>
+
+    Here is an example: <LATEXINLINE>$\frac{4}{21}$</LATEXINLINE>
+    <OL>
+      <LI>
+        The divisors of <LATEXINLINE>$21^2$</LATEXINLINE> can be found by
+        checking every integer from 1 to 21 and add those that leave a
+        remainder of 0 with <LATEXINLINE>$21^2$</LATEXINLINE> and the quotient
+        from dividing it, which gives this list:
+        <LATEXINLINE>$[1,441,3,147,7,63,9,49,21]$</LATEXINLINE>
+      </LI>
+      <LI>
+        Find the modular inverse of the numerator and denominator of the
+        original fraction. This is done by finding a remainder of 1 from
+        multiplying 4 with a number from 1 to the 21, ie.
+        <LATEXINLINE>$(4)(16) \mod 21 = 1$</LATEXINLINE>. So, 16 is the
+        modular inverse.
+      </LI>
+      <LI>
+        For the first divisor, 1, <LATEXINLINE>$(1)(16) \mod 21  = 16$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(16) &gt; 1$</LATEXINLINE>,
+        1 is a valid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 441, <LATEXINLINE>$(441)(16) \mod 21  = 0$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(0) &lt; 441$</LATEXINLINE>,
+        441 is an invalid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 3, <LATEXINLINE>$(3)(16) \mod 21  = 6$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(6) &gt; 3$</LATEXINLINE>,
+        3 is a valid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 147, <LATEXINLINE>$(147)(16) \mod 21  = 0$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(0) &lt; 147$</LATEXINLINE>,
+        147 is an invalid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 7, <LATEXINLINE>$(7)(16) \mod 21  = 7$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(7) &gt; 7$</LATEXINLINE>,
+        7 is a valid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 63, <LATEXINLINE>$(63)(16) \mod 21  = 0$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(0) &lt; 63$</LATEXINLINE>,
+        63 is an invalid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 9, <LATEXINLINE>$(9)(16) \mod 21  = 18$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(18) &gt; 9$</LATEXINLINE>,
+        9 is a valid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 49, <LATEXINLINE>$(49)(16) \mod 21  = 7$
+        </LATEXINLINE>. Since <LATEXINLINE>$(4)(7) &lt; 49$</LATEXINLINE>,
+        49 is an invalid divisor.
+      </LI>
+      <LI>
+        For the next divisor, 21, <LATEXINLINE>$(21)(16) \mod 21  = 0$
+      </LATEXINLINE>. Since <LATEXINLINE>$(4)(0) &lt; 21$</LATEXINLINE>,
+        21 is an invalid divisor.
+      </LI>
+      <LI>
+        So, the list of divisors that are valid are
+        <LATEXINLINE>$[1,3,7,9]$</LATEXINLINE>.
+      </LI>
+      <LI>
+        Using the basic heuristic, 3 is chosen because
+        <LATEXINLINE>$(3)(16) \mod 21  = 6$</LATEXINLINE> is the smallest.
+      </LI>
+      <LI>
+        Using the values of 3 and 6 found, the unit fraction is:
+        <LATEXINLINE>$\frac{(6)(4) \mod 21}{(21)(6)}=\frac{1}{42}$</LATEXINLINE>
+      </LI>
+      <LI>
+        The remaining fraction is:
+        <LATEXINLINE>$\frac{4}{21}-\frac{1}{42}=\frac{1}{6}$</LATEXINLINE>.
+        Since it is a unit fraction, the algorithm stops.
+      </LI>
+    </OL>
+  </TEXT>
+  <TEXT>
+    Hence, <LATEXINLINE>$\frac{4}{21}=\frac{1}{6} + \frac{1}{42}$</LATEXINLINE>.
+
+    <INDEX>Eppstein, David</INDEX>
+    David Eppstein (n.d.) has found variations of the heuristic to be used
+    after finding the valid divisors, which are:
+    <UL>
+      <LI>
+        Basic: Minimise the denominator of the remaining fraction (the example).
+      </LI>
+      <LI>
+        Small-Unit: Adds a tiebreaker for the basic method by minimising the
+        divisor used.
+      </LI>
+      <LI>
+        Small Denominator: Minimise both denominators of the remaining
+        fraction and the unit fraction.
+      </LI>
+      <LI>
+        Small Numerator: Minimise the numerator of the remaining fraction.
+      </LI>
+      <LI>
+        Big Divisor: Maximise the divisor used.
+      </LI>
+    </UL>
+    These variations may change the output as the chosen unit fractions may be
+    different at each step. In the case of the example above, the basic and big
+    divisor heuristics give the same result. For the other heuristics, they
+    return <LATEXINLINE>$\frac{4}{21}=\frac{1}{7} + \frac{1}{21}$</LATEXINLINE>.
+  </TEXT>
+
+
+</SUBSECTION>

@@ -12,43 +12,25 @@
     as Black-Box Abstractions
   </NAME>
 
-    <TEXT>
-      [<EM>
-        In this subsection, the original authors used square root as an
-        example to show the idea of functional abstraction, to know what a
-        function computes without knowing how it is done. Block structure was
-        also introduced here. Likewise, the usage of divide and modulo in
-        the ceiling function from the previous exercise is used here to show
-        the same functional abstraction. The ceiling function was used to add
-        another level of abstraction.
-      </EM>]
-    </TEXT>
-
   <TEXT>
     <SPLITINLINE>
       <SCHEME><SCHEMEINLINE>Sqrt</SCHEMEINLINE></SCHEME>
       <JAVASCRIPT>
-	The function <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE>
-        <!--<JAVASCRIPTINLINE>sqrt</JAVASCRIPTINLINE> -->
+	The function <JAVASCRIPTINLINE>sqrt</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    <!--is our first example -->
-    are our first examples of processes defined by a set of mutually
+    is our first example of a process defined by a set of mutually 
     <SPLITINLINE>
       <SCHEME>defined procedures.</SCHEME>
       <JAVASCRIPT>defined functions.</JAVASCRIPT>
     </SPLITINLINE>
     Notice that the 
-    <!--<SPLITINLINE>
+    <SPLITINLINE>
       <SCHEME>definition of <SCHEMEINLINE>sqrt-iter</SCHEMEINLINE></SCHEME>
       <JAVASCRIPT>declaration of <JAVASCRIPTINLINE>sqrt_iter
       </JAVASCRIPTINLINE></JAVASCRIPT>
     </SPLITINLINE>
     is
-    -->
-    declarations of  <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> are
     <INDEX>recursive procedure
     <SUBINDEX>recursive procedure definition</SUBINDEX></INDEX>
     <EM>recursive</EM>; that is, the
@@ -57,10 +39,10 @@
         procedure
       </SCHEME>
       <JAVASCRIPT>
-        functions
+        function
       </JAVASCRIPT>
     </SPLITINLINE>
-    are defined in terms of itself. The idea of being able to define a
+    is defined in terms of itself.  The idea of being able to define a
     <SPLITINLINE>
       <SCHEME>
         procedure
@@ -75,39 +57,19 @@
     be addressed more carefully in
     section<SPACE/><REF NAME="sec:procedures-and-processes"/>.  But first
     let<APOS/>s consider some other important points illustrated by the
-    <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE> exercise first.
+    <SCHEMEINLINE>sqrt</SCHEMEINLINE> example.
   </TEXT>
-  <SNIPPET>
-	<NAME>ceiling</NAME>
-	<REQUIRES>modulo_definition</REQUIRES>
-	<REQUIRES>divide_definition</REQUIRES>
-    <EXAMPLE>ceiling_example_1</EXAMPLE>
-	<JAVASCRIPT>
-function ceiling(num, den) { //num/den
-    return isNaN(modulo(num, den))
-        ? divide(num, den)
-        : 1 + divide(num, den);
-}
-	</JAVASCRIPT>
-  </SNIPPET>
-  <SNIPPET HIDE="yes">
-      <NAME>ceiling_example_1</NAME>
-      <JAVASCRIPT>
-ceiling(26, 5);
-      </JAVASCRIPT>
-  </SNIPPET>
   <TEXT>
     <INDEX>program<SUBINDEX>structure@structure of</SUBINDEX></INDEX>
-    Observe that the problem of computing the ceiling of a fraction
-    <LATEXINLINE>$\frac{num}{den}$</LATEXINLINE> breaks up naturally
-    into a number of subproblems: how to tell a number's quotient and remainder
-    and within them whether a dividend is small enough, how to get the next
-    dividend, and so on.  Each of these tasks is accomplished by a separate
+    Observe that the problem of computing square roots breaks up naturally
+    into a number of subproblems: how to tell whether a guess is good
+    enough, how to improve a guess, and so on.  Each of these tasks is
+    accomplished by a separate
     <SPLITINLINE>
       <SCHEME>procedure.</SCHEME>
       <JAVASCRIPT>function.</JAVASCRIPT>
     </SPLITINLINE>
-    The entire <SCHEMEINLINE>ceiling</SCHEMEINLINE> program can be viewed as a
+    The entire <SCHEMEINLINE>sqrt</SCHEMEINLINE> program can be viewed as a
     cluster of
     <SPLITINLINE>
       <SCHEME>
@@ -116,20 +78,30 @@ ceiling(26, 5);
       </SCHEME>
       <JAVASCRIPT>
         functions
-	(shown in figure<SPACE/><REF NAME="fig:div-rem-decomposition"/>)
+	(shown in figure<SPACE/><REF NAME="fig:sqrt-decomposition_new"/>)
       </JAVASCRIPT>
     </SPLITINLINE>
     that mirrors the decomposition of the problem into subproblems.
   </TEXT>
-
-  <FIGURE>
-    <FIGURE src="img_egypt/ch1-Z-G-6.svg"></FIGURE>
-    <LABEL NAME="fig:div-rem-decomposition"/>
-    <CAPTION>Functional decomposition of the
-    <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE> program.
-    </CAPTION>
-  </FIGURE>
-
+  <SPLIT>
+    <SCHEME>
+      <FIGURE src="img_original/ch1-Z-G-6.svg">
+        <LABEL NAME="fig:sqrt-decomposition"/>
+        <CAPTION>Procedural decomposition of the
+	<SCHEMEINLINE>sqrt</SCHEMEINLINE> program.
+        </CAPTION>
+      </FIGURE>
+    </SCHEME>
+    <JAVASCRIPT>
+      <FIGURE>
+        <FIGURE src="img_javascript/ch1-Z-G-6.svg"></FIGURE>
+        <LABEL NAME="fig:sqrt-decomposition_new"/>
+        <CAPTION>Functional decomposition of the
+        <JAVASCRIPTINLINE>sqrt</JAVASCRIPTINLINE> program.
+        </CAPTION>
+      </FIGURE>
+    </JAVASCRIPT>
+  </SPLIT>
   <TEXT>
     <INDEX>decomposition of program into parts</INDEX>
     The importance of this decomposition strategy is not simply that one
@@ -158,11 +130,11 @@ ceiling(26, 5);
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE> procedure
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> function
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE> function
       </JAVASCRIPT>
     </SPLITINLINE>
-    in terms of <SCHEMEINLINE>small_enough</SCHEMEINLINE>, we are able to
-    regard the <SCHEMEINLINE>small_enough</SCHEMEINLINE>
+    in terms of <SCHEMEINLINE>square</SCHEMEINLINE>, we are able to
+    regard the <SCHEMEINLINE>square</SCHEMEINLINE>
     <SPLITINLINE>
       <SCHEME>
         procedure
@@ -183,31 +155,30 @@ ceiling(26, 5);
         function
       </JAVASCRIPT>
     </SPLITINLINE>
-    computes its result, only with the fact <EM>that</EM> it checks that the
-    dividend is small enough. The details of how the check is computed can be
-    suppressed, to be considered at a later time.  Indeed, as far as the
+    computes its result, only with the fact <EM>that</EM> it computes the
+    square.  The details of how the square is computed can be suppressed,
+    to be considered at a later time.  Indeed, as far as the
     <SPLITINLINE>
       <SCHEME>
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE> procedure
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE> function
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE> function
       </JAVASCRIPT>
     </SPLITINLINE>
-    is concerned, <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>divide </JAVASCRIPTINLINE> are not quite
+    is concerned, <SCHEMEINLINE>square</SCHEMEINLINE> is not quite a
     <SPLITINLINE>
       <SCHEME>
         procedure
       </SCHEME>
       <JAVASCRIPT>
-        functions
+        function
       </JAVASCRIPT>
     </SPLITINLINE>
-    but rather abstractions of
+    but rather an abstraction of a
     <SPLITINLINE>
       <SCHEME>procedure,</SCHEME>
-      <JAVASCRIPT>functions,</JAVASCRIPT>
+      <JAVASCRIPT>function,</JAVASCRIPT>
     </SPLITINLINE>
     a so-called
     <SPLITINLINE>
@@ -228,10 +199,10 @@ ceiling(26, 5);
         procedure
       </SCHEME>
       <JAVASCRIPT>
-        functions
+        function
       </JAVASCRIPT>
     </SPLITINLINE>
-    that compute the quotient and remainder are equally good.
+    that computes the square is equally good.
   </TEXT>
   <TEXT>
     Thus, considering only the values they return, the following two
@@ -243,10 +214,9 @@ ceiling(26, 5);
         functions
       </JAVASCRIPT>
     </SPLITINLINE>
-    getting a remainder from the division of 2 numbers should be
-    indistinguishable. Each takes a numerical argument and produces the
-    remainder of that number as the value. <FOOTNOTE>It is not even clear which
-    of these
+    squaring a number should be indistinguishable. Each takes a numerical
+    argument and produces the square of that number as the value.<FOOTNOTE>It
+    is not even clear which of these
     <SPLITINLINE>
       <SCHEME>
         procedures
@@ -261,32 +231,18 @@ ceiling(26, 5);
     extensive tables of logarithms and antilogarithms stored in a very
     efficient manner.</FOOTNOTE>
     <SNIPPET>
-      <NAME>modulo_original</NAME>
-      <REQUIRES>small_enough</REQUIRES>
-      <REQUIRES>next</REQUIRES>
-      <EXAMPLE>modulo_original_example</EXAMPLE>
+      <EXAMPLE>square_example</EXAMPLE>
       <SCHEME>
 (define (square x) (* x x))
       </SCHEME>
       <JAVASCRIPT>
-function modulo(x, y) {
-    return small_enough(x, y)
-      ? x
-      : modulo(next(x, y), y);
+function square(x) {
+    return x * x;
 }
       </JAVASCRIPT>
     </SNIPPET>
-  <SNIPPET HIDE="yes">
-      <NAME>modulo_original_example</NAME>
-      <JAVASCRIPT>
-modulo(26, 5);
-      </JAVASCRIPT>
-  </SNIPPET>
     <SNIPPET>
-      <NAME>modulo_alt</NAME>
-      <REQUIRES>divide_definition</REQUIRES>
-      <REQUIRES>minus_definition</REQUIRES>
-      <EXAMPLE>modulo_alt_example</EXAMPLE>
+      <EXAMPLE>square_example</EXAMPLE>
       <SCHEME>
 (define (square x)
    (exp (double (log x))))
@@ -294,19 +250,14 @@ modulo(26, 5);
 (define (double x) (+ x x))
       </SCHEME>
       <JAVASCRIPT>
-function modulo(x, y) {
-    return x &lt; y
-      ? x
-      : minus(x, y * divide(x, y));
+function square(x) {
+    return math_exp(double(math_log(x)));
+}
+function double(x) {
+    return x + x;
 }
       </JAVASCRIPT>
     </SNIPPET>
-  <SNIPPET HIDE="yes">
-      <NAME>modulo_alt_example</NAME>
-      <JAVASCRIPT>
-modulo(26, 5);
-      </JAVASCRIPT>
-  </SNIPPET>
   </TEXT>
   <TEXT>
     So a
@@ -386,24 +337,24 @@ modulo(26, 5);
     </SPLITINLINE>
     should not be distinguishable:
     <SNIPPET>
-      <EXAMPLE>inc_example</EXAMPLE>
+      <EXAMPLE>square_example</EXAMPLE>
       <SCHEME>
 (define (square x) (* x x))
       </SCHEME>
       <JAVASCRIPT>
-function inc(x) {
-    return x + 1;
+function square(x) {
+    return x * x;
 }
       </JAVASCRIPT>
     </SNIPPET>
     <SNIPPET>
-      <EXAMPLE>inc_example</EXAMPLE>
+      <EXAMPLE>square_example</EXAMPLE>
       <SCHEME>
 (define (square y) (* y y))
       </SCHEME>
       <JAVASCRIPT>
-function inc(y) {
-    return y + 1;
+function square(y) {
+    return y * y;
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -439,17 +390,18 @@ function inc(y) {
         function.
       </JAVASCRIPT>
     </SPLITINLINE>
-    For example, we used <SCHEMEINLINE>modulo</SCHEMEINLINE>
+    For example, we used <SCHEMEINLINE>square</SCHEMEINLINE> 
     <SPLITINLINE>
       <SCHEME>
-	in the definition of
+	in the definition of	      
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-	in the declaration of our
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
+	in the declaration of	      
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
+    in our square-root
     <SPLITINLINE>
       <SCHEME>
         procedure:
@@ -459,24 +411,19 @@ function inc(y) {
       </JAVASCRIPT>
     </SPLITINLINE>
     <SNIPPET>
-      <NAME>ceiling_2</NAME>
-      <REQUIRES>divide_definition</REQUIRES>
-      <REQUIRES>modulo_definition</REQUIRES>
-      <EXAMPLE>ceiling_example_2</EXAMPLE>
+      <EXAMPLE>good_enough_example</EXAMPLE>
+      <REQUIRES>abs_definition</REQUIRES>
+      <REQUIRES>square_definition</REQUIRES>
+      <SCHEME>
+(define (good-enough? guess x)
+   (&lt; (abs (- (square guess) x)) 0.001))
+      </SCHEME>
       <JAVASCRIPT>
-function ceiling(num, den) {
-    return isNaN(modulo(num, den))
-        ? divide(num, den)
-        : 1 + divide(num, den);
+function good_enough(guess, x) {
+    return abs(square(guess) - x) &lt; 0.001;
 }
       </JAVASCRIPT>
     </SNIPPET>
-  <SNIPPET HIDE="yes">
-      <NAME>ceiling_example_2</NAME>
-      <JAVASCRIPT>
-ceiling(26, 5);
-      </JAVASCRIPT>
-  </SNIPPET>
   </TEXT>
   <TEXT>
     The intention of the author of
@@ -485,38 +432,36 @@ ceiling(26, 5);
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> and
-        <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    is to determine the quotient and remainder.  We see that the author of
+    is to determine if the square of the first argument is within a given
+    tolerance of the second argument.  We see that the author of
     <SPLITINLINE>
       <SCHEME>
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    used the name <SCHEMEINLINE>num</SCHEMEINLINE> to refer to the
-    first argument and <SCHEMEINLINE>den</SCHEMEINLINE> to refer to the
-    second argument.  The argument of <JAVASCRIPTINLINE>divide
-    </JAVASCRIPTINLINE> are <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE> and
-    <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE>. If the author of
-    <SCHEMEINLINE>divide</SCHEMEINLINE> used
-    <JAVASCRIPTINLINE>num</JAVASCRIPTINLINE>
+    used the name <SCHEMEINLINE>guess</SCHEMEINLINE> to refer to the
+    first argument and <SCHEMEINLINE>x</SCHEMEINLINE> to refer to the
+    second argument.  The argument of <SCHEMEINLINE>square</SCHEMEINLINE>
+    is <SCHEMEINLINE>guess</SCHEMEINLINE>.  If the author of
+    <SCHEMEINLINE>square</SCHEMEINLINE> used <SCHEMEINLINE>x</SCHEMEINLINE>
     (as above) to refer to that argument, we see that the
-    <SCHEMEINLINE>num</SCHEMEINLINE> in
+    <SCHEMEINLINE>x</SCHEMEINLINE> in
     <SPLITINLINE>
       <SCHEME>
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    must be a different <SCHEMEINLINE>num</SCHEMEINLINE> than the one
-    in  <SCHEMEINLINE>divide</SCHEMEINLINE>. Running the
+    must be a different <SCHEMEINLINE>x</SCHEMEINLINE> than the one
+    in  <SCHEMEINLINE>square</SCHEMEINLINE>. Running the
     <SPLITINLINE>
       <SCHEME>
         procedure
@@ -525,26 +470,26 @@ ceiling(26, 5);
         function
       </JAVASCRIPT>
     </SPLITINLINE>
-    <SCHEMEINLINE>divide</SCHEMEINLINE> must not affect the value
-    of <SCHEMEINLINE>num</SCHEMEINLINE> that is used by
+    <SCHEMEINLINE>square</SCHEMEINLINE> must not affect the value
+    of <SCHEMEINLINE>x</SCHEMEINLINE> that is used by
     <SPLITINLINE>
       <SCHEME>
 	<SCHEMEINLINE>good-enough?</SCHEMEINLINE>,
       </SCHEME>
       <JAVASCRIPT>
-	<JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>,
+	<JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>,
       </JAVASCRIPT>
     </SPLITINLINE>
-    because that value of <SCHEMEINLINE>num</SCHEMEINLINE> may be needed by
+    because that value of <SCHEMEINLINE>x</SCHEMEINLINE> may be needed by
     <SPLITINLINE>
       <SCHEME>
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    after <SCHEMEINLINE>divide</SCHEMEINLINE> is done computing.
+    after <SCHEMEINLINE>square</SCHEMEINLINE> is done computing.
   </TEXT>
   <TEXT>
     If the parameters were not local to the bodies of their respective
@@ -552,15 +497,15 @@ ceiling(26, 5);
       <SCHEME>procedures,</SCHEME>
       <JAVASCRIPT>functions,</JAVASCRIPT>
     </SPLITINLINE>
-    then the parameter <SCHEMEINLINE>num</SCHEMEINLINE> in
-    <SCHEMEINLINE>divide</SCHEMEINLINE> could be confused with the
-    parameter <SCHEMEINLINE>num</SCHEMEINLINE> in
+    then the parameter <SCHEMEINLINE>x</SCHEMEINLINE> in
+    <SCHEMEINLINE>square</SCHEMEINLINE> could be confused with the parameter
+    <SCHEMEINLINE>x</SCHEMEINLINE> in
     <SPLITINLINE>
       <SCHEME>
 	<SCHEMEINLINE>good-enough?</SCHEMEINLINE>,
       </SCHEME>
       <JAVASCRIPT>
-	<JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>,
+	<JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>,
       </JAVASCRIPT>
       </SPLITINLINE>
     and the behavior of
@@ -569,12 +514,11 @@ ceiling(26, 5);
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    would depend upon which version of
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> we used.  Thus,
-    <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE> would not be the
+    would depend upon which version of <SCHEMEINLINE>square</SCHEMEINLINE>
+    we used.  Thus, <SCHEMEINLINE>square</SCHEMEINLINE> would not be the
     black box we desired.
   </TEXT>
   <TEXT>
@@ -605,7 +549,7 @@ ceiling(26, 5);
       <JAVASCRIPT>
       </JAVASCRIPT>
     </SPLITINLINE>
-    parameter has. Such a name is called
+    parameter has.  Such a name is called
     <INDEX>bound variable</INDEX>
     <INDEX>variable<SUBINDEX>bound</SUBINDEX></INDEX>
     <SPLITINLINE>
@@ -695,12 +639,12 @@ ceiling(26, 5);
 	definition of <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-	declaration of <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>
+	declaration of <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
     above,
-    <SCHEMEINLINE>x</SCHEMEINLINE> and
-    <SCHEMEINLINE>y</SCHEMEINLINE> are
+    <SCHEMEINLINE>guess</SCHEMEINLINE> and
+    <SCHEMEINLINE>x</SCHEMEINLINE> are
     bound
     <SPLITINLINE>
       <SCHEME>
@@ -717,20 +661,20 @@ ceiling(26, 5);
         <SCHEMEINLINE>-</SCHEMEINLINE>,
       </SCHEME>
     </SPLITINLINE>
-    <SCHEMEINLINE>next</SCHEMEINLINE>
-    and <SCHEMEINLINE>small_enough</SCHEMEINLINE> are free.
+    <SCHEMEINLINE>abs</SCHEMEINLINE>
+    and <SCHEMEINLINE>square</SCHEMEINLINE> are free.
     The meaning of
     <SPLITINLINE>
       <SCHEME>
 	<SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-	<JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>
+	<JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
     should be independent of the names we choose for
-    <SCHEMEINLINE>x</SCHEMEINLINE> and
-    <SCHEMEINLINE>y</SCHEMEINLINE> so long as they are distinct and
+    <SCHEMEINLINE>guess</SCHEMEINLINE> and
+    <SCHEMEINLINE>x</SCHEMEINLINE> so long as they are distinct and
     different from
     <SPLITINLINE>
       <SCHEME>
@@ -738,10 +682,10 @@ ceiling(26, 5);
         <SCHEMEINLINE>-</SCHEMEINLINE>,
       </SCHEME>
     </SPLITINLINE>
-    <SCHEMEINLINE>next</SCHEMEINLINE>
-    and <SCHEMEINLINE>small_enough</SCHEMEINLINE>.  (If we renamed
-    <SCHEMEINLINE>x</SCHEMEINLINE> to
-    <SCHEMEINLINE>next</SCHEMEINLINE> we would have introduced a bug by
+    <SCHEMEINLINE>abs</SCHEMEINLINE>
+    and <SCHEMEINLINE>square</SCHEMEINLINE>.  (If we renamed
+    <SCHEMEINLINE>guess</SCHEMEINLINE> to
+    <SCHEMEINLINE>abs</SCHEMEINLINE> we would have introduced a bug by
     <INDEX>capturing a free variable</INDEX>
     <INDEX>bug<SUBINDEX>capturing a free variable</SUBINDEX></INDEX>
     <INDEX>free variable<SUBINDEX>capturing</SUBINDEX></INDEX>
@@ -754,14 +698,14 @@ ceiling(26, 5);
 	name
       </JAVASCRIPT>
     </SPLITINLINE>
-    <SCHEMEINLINE>next</SCHEMEINLINE>.
+    <SCHEMEINLINE>abs</SCHEMEINLINE>.
     It would have changed from free to bound.)  The meaning of
     <SPLITINLINE>
       <SCHEME>
 	<SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>	      
       </JAVASCRIPT>
     </SPLITINLINE>
     is not independent of the 
@@ -787,7 +731,7 @@ ceiling(26, 5);
 	that the symbol <SCHEMEINLINE>abs</SCHEMEINLINE> names a procedure
       </SCHEME>
       <JAVASCRIPT>
-	tht the name <SCHEMEINLINE>next</SCHEMEINLINE> refers to a function
+	tht the name <SCHEMEINLINE>abs</SCHEMEINLINE> refers to a function
       </JAVASCRIPT>
     </SPLITINLINE>
     for computing the absolute value of a number.
@@ -796,7 +740,7 @@ ceiling(26, 5);
         <SCHEMEINLINE>Good-enough?</SCHEMEINLINE> 
       </SCHEME>
       <JAVASCRIPT>
-	The function <JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>
+	The function <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE> 
       </JAVASCRIPT>
     </SPLITINLINE>
     will compute a different function if we substitute
@@ -809,7 +753,7 @@ ceiling(26, 5);
 	(JavaScript<APOS/>s cosine function)
       </JAVASCRIPT>
     </SPLITINLINE>
-    for <SCHEMEINLINE>next</SCHEMEINLINE> in its
+    for <SCHEMEINLINE>abs</SCHEMEINLINE> in its
     <SPLITINLINE>
       <SCHEME>
 	definition.
@@ -846,7 +790,7 @@ ceiling(26, 5);
       <SCHEME>procedure.</SCHEME>
       <JAVASCRIPT>function.</JAVASCRIPT>
     </SPLITINLINE>
-    The ceiling program illustrates another way in which we would like to
+    The square-root program illustrates another way in which we would like to
     control the use of names.
     <INDEX>program<SUBINDEX>structure@structure of|(</SUBINDEX></INDEX>
     The existing program consists of separate
@@ -859,12 +803,10 @@ ceiling(26, 5);
       </JAVASCRIPT>
       </SPLITINLINE>
       <SNIPPET>
-        <EXAMPLE>ceiling_example_1</EXAMPLE>
-        <REQUIRES>next</REQUIRES>
-        <REQUIRES>inc</REQUIRES>
-        <REQUIRES>minus_definition</REQUIRES>
-        <REQUIRES>isNaN_definition</REQUIRES>
-        <REQUIRES>small_enough</REQUIRES>
+        <EXAMPLE>sqrt_example_2</EXAMPLE>
+        <REQUIRES>abs_definition</REQUIRES>
+        <REQUIRES>square_definition</REQUIRES>
+        <REQUIRES>average_definition</REQUIRES>
         <SCHEME>
 (define (sqrt x)
    (sqrt-iter 1.0 x))
@@ -881,23 +823,19 @@ ceiling(26, 5);
    (average guess (/ x guess)))
         </SCHEME>
         <JAVASCRIPT>
-function ceiling(x, y) {
-    return isNaN(modulo(x, y))
-        ? divide(x, y)
-        : 1 + divide(x, y);
+function sqrt(x) {
+    return sqrt_iter(1.0, x);
 }
-function divide_iter(x, y, counter) {
-    return small_enough(x, y)
-           ? minus(counter, 1)
-           : divide_iter(next(x, y), y, inc(counter));
+function sqrt_iter(guess, x) {
+    return good_enough(guess, x)
+           ? guess
+           : sqrt_iter(improve(guess, x), x);
 }
-function divide(x, y) {
-    return divide_iter(x, y, 1);
+function good_enough(guess, x) {
+    return abs(square(guess) - x) &lt; 0.001;
 }
-function modulo(x, y) {
-    return small_enough(x, y)
-           ? x
-           : modulo(next(x, y), y);
+function improve(guess, x) {
+    return average(guess, x / guess);
 }
         </JAVASCRIPT>
       </SNIPPET>
@@ -912,8 +850,8 @@ function modulo(x, y) {
         function
       </JAVASCRIPT>
     </SPLITINLINE>
-    that is important to users of <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
-    is <SCHEMEINLINE>ceiling</SCHEMEINLINE>.  The other
+    that is important to users of <SCHEMEINLINE>sqrt</SCHEMEINLINE> is
+    <SCHEMEINLINE>sqrt</SCHEMEINLINE>.  The other
     <SPLITINLINE>
       <SCHEME>
         procedures
@@ -928,14 +866,11 @@ function modulo(x, y) {
 	<SCHEMEINLINE>good-enough?</SCHEMEINLINE>,
       </SCHEME>
       <JAVASCRIPT>
-	(<JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE>,
-	<JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>,
-	<JAVASCRIPTINLINE>divide_iter</JAVASCRIPTINLINE>,
-    <JAVASCRIPTINLINE>small_enough</JAVASCRIPTINLINE>,
-	<JAVASCRIPTINLINE>next</JAVASCRIPTINLINE>,
+	(<JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE>,
+	<JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>,
       </JAVASCRIPT>
     </SPLITINLINE>
-    and <SCHEMEINLINE>inc</SCHEMEINLINE>) only clutter up their minds.
+    and <SCHEMEINLINE>improve</SCHEMEINLINE>) only clutter up their minds.
     They may not 
     <SPLITINLINE>
       <SCHEME>
@@ -951,19 +886,20 @@ function modulo(x, y) {
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>small_enough</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
     as part of another program to work together
-    with the ceiling program, because <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>
-    needs it. The problem is especially severe in the construction of large
-    systems by many separate programmers. For example, in the construction
+    with the square-root program, because <SCHEMEINLINE>sqrt</SCHEMEINLINE>
+    needs it.  The problem is especially severe in the construction of large
+    systems by many separate programmers.  For example, in the construction
     of a large library of numerical
     <SPLITINLINE>
       <SCHEME>procedures,</SCHEME>
       <JAVASCRIPT>functions,</JAVASCRIPT>
     </SPLITINLINE>
-    many numerical functions are computed and thus might have
+    many numerical functions are computed as successive approximations and
+    thus might have
     <SPLITINLINE>
       <SCHEME>
         procedures
@@ -978,10 +914,10 @@ function modulo(x, y) {
         <SCHEMEINLINE>good-enough?</SCHEMEINLINE>
       </SCHEME>
       <JAVASCRIPT>
-        <JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE>
+        <JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>
       </JAVASCRIPT>
     </SPLITINLINE>
-    and <SCHEMEINLINE>inc</SCHEMEINLINE> as auxiliary
+    and <SCHEMEINLINE>improve</SCHEMEINLINE> as auxiliary
     <SPLITINLINE>
       <SCHEME>procedures.</SCHEME>
       <JAVASCRIPT>functions.</JAVASCRIPT>
@@ -991,13 +927,13 @@ function modulo(x, y) {
       <SCHEME>subprocedures,</SCHEME>
       <JAVASCRIPT>subfunctions,</JAVASCRIPT>
     </SPLITINLINE>
-    hiding them inside <SCHEMEINLINE>ceiling</SCHEMEINLINE> so that
-    <SCHEMEINLINE>ceiling</SCHEMEINLINE> could coexist with other
+    hiding them inside <SCHEMEINLINE>sqrt</SCHEMEINLINE> so that
+    <SCHEMEINLINE>sqrt</SCHEMEINLINE> could coexist with other
     successive approximations, each having its own private
     <SPLITINLINE>
       <SCHEME><SCHEMEINLINE>good-enough?</SCHEMEINLINE> procedure.
       </SCHEME>
-      <JAVASCRIPT><JAVASCRIPTINLINE>modulo</JAVASCRIPTINLINE> function.
+      <JAVASCRIPT><JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE> function.
       </JAVASCRIPT>
     </SPLITINLINE>
     To make this possible, we allow a
@@ -1017,12 +953,13 @@ function modulo(x, y) {
       <SCHEME>procedure.</SCHEME>
       <JAVASCRIPT>function.</JAVASCRIPT>
     </SPLITINLINE>
-    For example, in the ceiling problem we can write
+    For example, in the square-root problem we can write
     <SNIPPET>
-      <EXAMPLE>ceiling_example_1</EXAMPLE>
-      <EXPECTED>6</EXPECTED>
-      <REQUIRES>isNaN_definition</REQUIRES>
-      <REQUIRES>minus_definition</REQUIRES>
+      <EXAMPLE>sqrt_example_2</EXAMPLE>
+      <EXPECTED>2.2360688956433634</EXPECTED>
+      <REQUIRES>abs_definition</REQUIRES>
+      <REQUIRES>square_definition</REQUIRES>
+      <REQUIRES>average_definition</REQUIRES>
       <SCHEME>
 (define (sqrt x)
    (define (good-enough? guess x)
@@ -1036,34 +973,19 @@ function modulo(x, y) {
    (sqrt-iter 1.0 x))
       </SCHEME>
       <JAVASCRIPT>
-function ceiling(x, y) {
-    function next(x, y) {
-        return minus(x, y);
+function sqrt(x) {
+    function good_enough(guess, x) {
+        return abs(square(guess) - x) &lt; 0.001;
     }
-    function inc(x) {
-        return x + 1;
+    function improve(guess, x) {
+        return average(guess, x / guess);
     }
-    function divide_iter(x, y, counter) {
-        return small_enough(x, y)
-          ? minus(counter, 1)
-          : divide_iter(next(x, y), y, inc(counter));
+    function sqrt_iter(guess, x) {
+        return good_enough(guess, x) 
+                   ? guess
+                   : sqrt_iter(improve(guess, x), x);
     }
-    function divide(x, y) {
-        return divide_iter(x, y, 1);
-    }
-    function modulo(x, y) {
-        return small_enough(x, y)
-          ? x
-          : modulo(next(x, y), y);
-    }
-    function small_enough(x, y) {
-        return x &lt; y || isNaN(x)
-          ? true
-          : false;
-    }
-    return isNaN(modulo(x, y))
-        ? divide(x, y)
-        : 1 + divide(x, y);
+   return sqrt_iter(1.0, x);
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -1081,13 +1003,12 @@ function ceiling(x, y) {
       <SCHEME>definitions of the auxiliary procedures,</SCHEME>
       <JAVASCRIPT>declarations of the auxiliary functions,</JAVASCRIPT>
     </SPLITINLINE>
-    we can simplify them.  Since <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE>
-    is bound in the
+    we can simplify them.  Since <SCHEMEINLINE>x</SCHEMEINLINE> is bound in the
     <SPLITINLINE>
       <SCHEME>definition</SCHEME>
       <JAVASCRIPT>declaration</JAVASCRIPT>
     </SPLITINLINE>
-    of <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>, the
+    of <SCHEMEINLINE>sqrt</SCHEMEINLINE>, the
     <SPLITINLINE>
       <SCHEME>
         procedures
@@ -1098,23 +1019,23 @@ function ceiling(x, y) {
     </SPLITINLINE>
     <SPLITINLINE>
       <SCHEME><SCHEMEINLINE>good-enough?</SCHEMEINLINE>,</SCHEME>
-      <JAVASCRIPT><JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>,</JAVASCRIPT>
+      <JAVASCRIPT><JAVASCRIPTINLINE>good_enough</JAVASCRIPTINLINE>,</JAVASCRIPT>
     </SPLITINLINE>
-    and
+    <SCHEMEINLINE>improve</SCHEMEINLINE>, and
     <SPLITINLINE>
-      <SCHEME><SCHEMEINLINE>square</SCHEMEINLINE>,
+      <SCHEME><SCHEMEINLINE>sqrt-iter</SCHEMEINLINE>,
       which are defined internally to</SCHEME>
-      <JAVASCRIPT><JAVASCRIPTINLINE>divide</JAVASCRIPTINLINE>,
+      <JAVASCRIPT><JAVASCRIPTINLINE>sqrt_iter</JAVASCRIPTINLINE>,
       which are declared internally to</JAVASCRIPT>
     </SPLITINLINE>
-    <JAVASCRIPTINLINE>ceiling</JAVASCRIPTINLINE>, are in the scope of
-    <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE>. Thus, it is not necessary to pass
-    <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE> explicitly to each of these
+    <SCHEMEINLINE>sqrt</SCHEMEINLINE>, are in the scope of
+    <SCHEMEINLINE>x</SCHEMEINLINE>. Thus, it is not necessary to pass
+    <SCHEMEINLINE>x</SCHEMEINLINE> explicitly to each of these
     <SPLITINLINE>
       <SCHEME>procedures.</SCHEME>
       <JAVASCRIPT>functions.</JAVASCRIPT>
     </SPLITINLINE>
-    Instead, we allow <SCHEMEINLINE>y</SCHEMEINLINE> to be a free
+    Instead, we allow <SCHEMEINLINE>x</SCHEMEINLINE> to be a free
     <INDEX>internal definition<SUBINDEX>free variable in</SUBINDEX></INDEX>
     <INDEX>free variable
     <SUBINDEX>internal@in internal definition</SUBINDEX></INDEX>
@@ -1127,7 +1048,7 @@ function ceiling(x, y) {
       <SCHEME>definitions,</SCHEME>
       <JAVASCRIPT>declarations,</JAVASCRIPT>
     </SPLITINLINE>
-    as shown below. Then <SCHEMEINLINE>y</SCHEMEINLINE> gets its value from
+    as shown below. Then <SCHEMEINLINE>x</SCHEMEINLINE> gets its value from
     the argument with which the enclosing
     <SPLITINLINE>
       <SCHEME>
@@ -1137,12 +1058,9 @@ function ceiling(x, y) {
         function
       </JAVASCRIPT>
     </SPLITINLINE>
-    <SCHEMEINLINE>ceiling</SCHEMEINLINE> is called.  This discipline is called
+    <SCHEMEINLINE>sqrt</SCHEMEINLINE> is called.  This discipline is called
     <INDEX>lexical scoping</INDEX>
-    <EM>lexical scoping</EM>. While this applies to
-    <JAVASCRIPTINLINE>y</JAVASCRIPTINLINE>, the same cannot be said of
-    <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE> because its value changes.
-    <FOOTNOTE>Lexical scoping dictates that free
+    <EM>lexical scoping</EM>.<FOOTNOTE>Lexical scoping dictates that free
     <SPLITINLINE>
       <SCHEME>
 	variables in a procedure
@@ -1175,10 +1093,10 @@ function ceiling(x, y) {
     study environments and the detailed behavior of the interpreter.</FOOTNOTE>
     <!-- \indcode*{sqrt}[block structured] -->
     <SNIPPET>
-      <EXAMPLE>ceiling_example_1</EXAMPLE>
-      <REQUIRES>isNaN_definition</REQUIRES>
-      <REQUIRES>minus_definition</REQUIRES>
-
+      <EXAMPLE>sqrt_example_2</EXAMPLE>
+      <REQUIRES>abs_definition</REQUIRES>
+      <REQUIRES>square_definition</REQUIRES>
+      <REQUIRES>average_definition</REQUIRES>
       <SCHEME>
 (define (sqrt x)
    (define (good-enough? guess)
@@ -1192,34 +1110,19 @@ function ceiling(x, y) {
    (sqrt-iter 1.0))
       </SCHEME>
       <JAVASCRIPT>
-function ceiling(x, y) {
-    function next(x) {
-        return minus(x, y);
+function sqrt(x) {
+    function good_enough(guess) {
+        return abs(square(guess) - x) &lt; 0.001;
     }
-    function inc(x) {
-        return x + 1;
+    function improve(guess) {
+        return average(guess, x / guess);
     }
-    function divide_iter(x, counter) {
-        return small_enough(x)
-          ? minus(counter, 1)
-          : divide_iter(next(x), inc(counter));
-    }
-    function divide(x) {
-        return divide_iter(x, 1);
-    }
-    function modulo(x) {
-        return small_enough(x)
-          ? x
-          : modulo(next(x));
-    }
-    function small_enough(x) {
-        return x &lt; y || isNaN(x)
-          ? true
-          : false;
-    }
-    return isNaN(modulo(x))
-        ? divide(x)
-        : divide(x) + 1;
+    function sqrt_iter(guess) {
+        return good_enough(guess)
+               ? guess
+               : sqrt_iter(improve(guess));
+   }
+   return sqrt_iter(1.0);
 }
       </JAVASCRIPT>
     </SNIPPET>
@@ -1252,5 +1155,4 @@ function ceiling(x, y) {
     <INDEX>block structure|)</INDEX>
     <INDEX>internal definition|)</INDEX>
   </TEXT>
-
 </SUBSECTION>

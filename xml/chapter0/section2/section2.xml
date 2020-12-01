@@ -3,6 +3,13 @@
     <LABEL NAME="sec:work-done"/>
 
     <SECTIONCONTENT/>
+    <TEXT>
+        [<EM>
+This section discusses the work on Egyptian Fraction algorithms and introduces
+        the Egyptian Fraction algorithms in a more detailed manner in the
+        next subesction.
+    </EM>]
+    </TEXT>
 
     <TEXT>
         While the ancient Egyptians had a large table, it does not contain all the
@@ -16,34 +23,77 @@
     </TEXT>
 
     <TEXT>
-        Work has been done since 1880, when the first known algorithm was discovered
-        by Fibonacci and Sylvester called the Fibonacci-Sylveter Algorithm. This is
-        more commonly known as the Greedy method. With this method, it can be proven
-        that all fractions can have an Egyptian Fraction representation, which will
-        be explored more later on. In more recent years, famous mathematican Paul
-        Erdos has also done research on this topic and have published works on it,
-        regarding optimising algorithms as well as proposing conjectures regarding
-        Egyptian Fractions.
+        The very first algorithm was found by Fibonacci in 1202
+        <INDEX>Sigler, Laurence</INDEX> (Sigler 2002) which was rediscovered by
+        <INDEX>Sylvester, James</INDEX> Sylvester (1880). This was known as the
+        <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Greedy</SUBINDEX></INDEX>
+        Greedy Algorithm. Following their work, other mathematicians, like Paul
+        Erd<LATEXINLINE>\"{o}</LATEXINLINE>s have come up with algorithms such
+        as the <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Splitting</SUBINDEX>
+        </INDEX> Splitting Algorithm and the <INDEX>Egyptian Fraction Algorithms
+        <SUBINDEX>Continued Fractions</SUBINDEX></INDEX> Continued Fractions
+        algorithm. While these algorithms have been found, not all have
+        been proven to be mathematically valid.
     </TEXT>
 
     <TEXT>
-        As centuries passed, different algorithms and conjectures were formed by
-        mathematicians anc computer scientists. Some formed newer algorithms like
-        the Continued Fraction method while others have taken to proving validity
-        and/or termination of algorithms and the conjectures. Mathematical
-        properties of the algorithms were also explored, such as bounds of the
-        largest denominators and the number of terms found. Others have also worked
-        on improving and optimising current algorithms. Expanding beyond Egyptian
-        Fractions, researchers have also linked this topic to number theory, like
-        the Diophantine equation and Znam's Problem.
+        Over the many years, other mathematicians and computer scientists
+        build on their work by proving conjectures in the algorithms and
+        proving the correctness and termination of these algorithms. For
+        example, <INDEX>Erd<LATEXINLINE>\"{o}</LATEXINLINE>s, Paul</INDEX>
+        Erd<LATEXINLINE>\"{o}</LATEXINLINE>s and <INDEX>Bleicher, M.N.</INDEX>
+        Bleicher (1976) ends off with some conjectures in his paper. In the
+        following years, people have worked on proving conjectures
+        based on Egyptian Fraction algorithms, for example,
+         <INDEX>Yokota, Hisashi</INDEX> <INDEX>Beeckmans, Laurel</INDEX>
+        Hisashi Yokota (1986) built on one of the conjectures made by
+        Erd<LATEXINLINE>\"{o}</LATEXINLINE>s<APOS/> and Bleicher. Another
+        example is Laurel Beeckmans (1993) who worked on conjectures for the
+        Splitting algorithm.
+    </TEXT>
+    <TEXT>
+        <INDEX>Martin, Greg</INDEX>
+        Mathematical properties of the algorithms are also being explored, such
+        as bounds of the largest denominators and the number of unit fractions
+        in the expansion (Martin 1999). Others have also worked on improving
+        and optimising current algorithms (Yokota 1987) (Martin 1998).
+        <INDEX>Gong, Kevin</INDEX> <INDEX>Zanardo, Alberto</INDEX>
+        Not just that, others have compiled the algorithms and have done some
+        comparisons based on these mathematical properties (Gong 1992)
+        (Zanardo 2018).
+    </TEXT>
+    <TEXT>
+        <INDEX>Bello-Herandez</INDEX> <INDEX>Hagedorn, Thomas</INDEX>
+        <INDEX>Croot</INDEX> <INDEX>Huang, Jingjing</INDEX>
+        <INDEX>Negash, Dagnachew J.</INDEX>
+        Egyptian Fractions are closely linked to number theory problems such as
+        the Diophantine equation and semiperfect numbers.
+        Diophantine equation refers to equations that only have integer
+        solutions and the Erd<LATEXINLINE>\"{o}</LATEXINLINE>s-Straus Conjecture
+        is a well-known one (Manuel Bello-Harnández, Benito, and Fernández,
+        2012). This conjecture resulted in many researchers taking up the
+        challenge in solving it (Croot 1999) (Thomas Hagedorn 2000) (Croot et
+        al. 2000) (Negash 2001). Other than the conjecture, there are also
+        other Diophantine equations that are explored (Huang and Vaughan 2011).
+        <INDEX>Friedman, Charles</INDEX>
+        Semiperfect numbers are natural numbers that are equal to the sum of
+        certain of its distinct positive proper divisors that is not itself
+        (Friedman 1991). The nature of the semiperfect numbers fit in with
+        Egyptian Fractions that also only use natural numbers, making Egyptian
+        Fractions applicable to semiperfect numbers.
     </TEXT>
 
     <TEXT>
+        <INDEX>Eppstein, David</INDEX>
         Others have also worked on implementing Egyptian Fractions in other
-        computing languages like Mathematica, which has also been used as reference
-        for the algorithms implemented in this book for Egyptian Fractions. The
-        algorithms have been adapted to go through the essential concepts in
-        programming with the JavaScript language.
+        computing languages like Mathematica (Eppstein 2009) and ANSI C
+        (Gong 1992), which have been used as reference for the algorithms
+        implemented in this book for Egyptian Fractions. The algorithms have
+        been adapted to go through the essential concepts in programming with
+        the JavaScript language.
     </TEXT>
+
+    <!-- Subsection 1 : Algorithms-->
+    &subsection0.2.1;
 
 </SECTION>

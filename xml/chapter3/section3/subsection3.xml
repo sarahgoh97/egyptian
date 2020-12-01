@@ -6,6 +6,13 @@
   <LABEL NAME="sec:tables"/>
   <INDEX>table|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection builds tables as mutable list structures, as compared to the
+        tables built in chapter 2.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <INDEX>key of a record<SUBINDEX>in a table</SUBINDEX></INDEX>
     When we studied various ways of representing sets in chapter<SPACE/>2, we

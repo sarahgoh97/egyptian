@@ -5,6 +5,15 @@
 
   <LABEL NAME="sec:representations-complex-numbers"/>
 
+    <TEXT>
+        [<EM>
+This subsection talks about creating representations for complex numbers,
+        similar to the one done for rational numbers/fractions. The unique
+        property of complex numbers is that it is a type of number with more
+        than one mathematical representation.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <INDEX>complex numbers
     <SUBINDEX>rectangular vs.\ polar form|(</SUBINDEX></INDEX>

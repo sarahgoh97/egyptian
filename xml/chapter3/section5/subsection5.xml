@@ -8,6 +8,14 @@
   <SUBINDEX>functional programs vs.<SPACE/>objects|(</SUBINDEX></INDEX>
   <INDEX>functional programming|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about modularising programs and abstracting details of
+      programs away from other programs. This can make use of how streams
+      provide an alternative way to model objects with local states.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     As we saw in section<SPACE/><REF NAME="sec:benefits-of-assignment"/>, one of
     the major benefits of introducing assignment is that we can increase the

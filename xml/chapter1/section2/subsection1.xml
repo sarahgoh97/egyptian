@@ -5,30 +5,503 @@
   <INDEX>iterative process<SUBINDEX>recursive process vs.|(</SUBINDEX></INDEX>
   <INDEX>recursive process<SUBINDEX>iterative process vs.|(</SUBINDEX></INDEX>
 
+    <TEXT>
+      [<EM>
+        In this subsection, the original authors used factorial to demonstrate
+        how it can be written recursively and iteratively using functions. It
+        has been changed to the greedy algorithm where the sequence is
+        represented by a big integer instead of a different data structure.
+      </EM>]
+    </TEXT>
+
   <TEXT>
-    <INDEX>factorial</INDEX>
-    We begin by considering the factorial function, defined by
+    <!--<INDEX>factorial</INDEX>-->
+    <INDEX>Egyptian Fraction Algorithms<SUBINDEX>Greedy</SUBINDEX></INDEX>
+    We begin by considering the
+    <!--factorial modular inverse remainder and quotient
+    function,--> greedy algorithm
+    <!-- where Rem(a, b) and Quotient(a, b) returns the remainder
+    and quotient
+    of a fraction <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> respectively-->,
+    mentioned in <REF NAME="sec:ef-algorithms"/>, defined by
+    <!--
     <LATEX>
       \[ n!=n\cdot(n-1)\cdot(n-2)\cdots3\cdot2\cdot1 \]
     </LATEX>
-    There are many ways to compute factorials.  One way is to make use of
-    the observation that <LATEXINLINE>$n!$</LATEXINLINE> is equal to 
-    <LATEXINLINE>$n$</LATEXINLINE> times <LATEXINLINE>$(n-1)!$</LATEXINLINE> for
-    any positive integer<SPACE/><LATEXINLINE>$n$</LATEXINLINE>:
+    <LATEX> both
+      \[ Remainder(\frac{a}{b}) = r, \text{where} a = qb + r \]
+      \[ Quotient(\frac{a}{b}) = q, \text{where} a = qb + r \]
+    </LATEX>
+
+    <LATEX>
+      \[ ax \equiv 1 (\bmod b)\]
+    </LATEX>
+    -->
+    <LATEX>
+      \[\frac{a}{b} = \frac{1}{d_1} + \frac{1}{d_2} + ... \frac{1}{d_n} \]
+    </LATEX>
+    In this equation, we are trying to find all the values of
+    <LATEXINLINE>$d_i, i \in [1, n]$</LATEXINLINE> such that the unit fractions
+    sum up to<LATEXINLINE>$\frac{a}{b}$</LATEXINLINE>. To find out the value of
+    these individual unit fractions, we find the biggest unit fraction that can
+    be removed from the fraction <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE>
+    repeatedly. That means,
+
+    <LATEX>
+      \[\frac{a}{b} = \frac{1}{d_1} + \frac{a * d_1 - b}{b * d_1},
+      \text{where} \frac{1}{d_1} \leq \frac{a}{b} \land \frac{1}{d_1} &gt;
+      \frac{1}{d_k}, \text{for all } {d_k}  \in \mathbb{N}
+      \text{ such that } \frac{1}{d_k} \leq \frac{a}{b}\]
+    </LATEX>
+
+    Repeating the step of finding the biggest unit fraction repeatedly gives
+    this equation:
+
+    <LATEX>
+      \begin{equation} \label{greedy}
+      \begin{split}
+      \frac{a}{b} &#38; = \frac{1}{d_1} + \frac{a * d_1 - b}{b * d_1} \\
+      &#38; = \frac{1}{d_1} + \frac{1}{d_2} +
+      \frac{(a * d_1 - b) * d_2 - b * d_1}{b * d_1 * d_2} + ... \\
+      &#38; = \frac{1}{d_1} + \frac{1}{d_2} + ... + \frac{1}{d_n}
+      \end{split}
+      \end{equation}
+    </LATEX>
+
+    Thus, we can find the decomposition of
+    <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> by computing the decomposition of
+    <LATEXINLINE>$\frac{a * d_1 - b}{b * d_1}$</LATEXINLINE> and adding
+    <LATEXINLINE>$\frac{1}{d_1}$</LATEXINLINE> to the decomposition. We stop
+    the process once the numerator of the remaining fraction is 1. However, we
+    can only represent one number and are unable to show a sequence of numbers.
+    The only way to get around this problem with the tools we have is to show
+    the sequence in a number. We can use an integer to show the sequence by
+    multiplying with powers of 10, so that the
+    list of denominators will not overlap and show the wrong result:
+    <FOOTNOTE>
+      However, we have to be careful when representing these numbers. According
+      to MDN Web Docs (2020), the maximum safe integer is 9007199254740991
+      (<LATEXINLINE>$2^{53}-1$</LATEXINLINE>) in Javascript. This means
+      we can only show up to the 16 digits of the decomposition. When this
+      number is exceeded, the value returned by the compiler will no longer be
+      able to give the correct exact value of the integer. This is due to the
+      way JavaScript stores and processes numbers. We will find a more elegant
+      way of presenting number sequences in later chapters.
+    </FOOTNOTE>
+    This observation translates directly into a computer function.
+
+    <SNIPPET>
+      <NAME>greedy_rec</NAME>
+      <REQUIRES>minus_definition</REQUIRES>
+      <REQUIRES>largest_definition</REQUIRES>
+      <REQUIRES>combine_definition</REQUIRES>
+      <REQUIRES>isNaN_definition</REQUIRES>
+      <REQUIRES>modulo_definition</REQUIRES>
+      <REQUIRES>divide_definition</REQUIRES>
+      <EXAMPLE>greedy_rec_example</EXAMPLE>
+      <EXPECTED>2530</EXPECTED>
+      <JAVASCRIPT>
+function greedy(a, b) {
+    return a === 1
+        ? b
+        : isNaN(modulo(b, a))
+          ? divide(b, a)
+          : combine(largest(a, b),
+            greedy(minus(a * largest(a, b), b), b * largest(a, b)));
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+      <SNIPPET HIDE="yes">
+          <NAME>greedy_rec_example</NAME>
+          <JAVASCRIPT>
+greedy(11, 15);
+          </JAVASCRIPT>
+      </SNIPPET>
+
+    In the <JAVASCRIPTINLINE>greedy</JAVASCRIPTINLINE> function, it returns the
+    denominator if the numerator is 1 since it is a unit fraction. Otherwise,
+    the function will find the denominator of the biggest fraction using
+    <JAVASCRIPTINLINE>largest</JAVASCRIPTINLINE> and use
+    <JAVASCRIPTINLINE>combine</JAVASCRIPTINLINE> to combine the denominator
+    found from <JAVASCRIPTINLINE>largest</JAVASCRIPTINLINE> with the
+    denominators of the remaining fraction together into a big integer. We will
+    treat these functions as black boxes and look at what is happening in the
+    recursive greedy function first.
+
+  <JAVASCRIPT>
+      <FIGURE>
+	<FIGURE src="img_egypt/ch1-Z-G-7.svg"></FIGURE>
+	<LABEL NAME="fig:recursive-greedy-javascript"/>
+	<CAPTION>A linear recursive process for computing
+        <JAVASCRIPTINLINE>greedy</JAVASCRIPTINLINE>(11, 15).
+	</CAPTION>
+      </FIGURE>
+  </JAVASCRIPT>
+
+    Looking at the <JAVASCRIPTINLINE>greedy</JAVASCRIPTINLINE> function first,
+    we first check whether <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE> is a unit
+    fraction by checking whether <LATEXINLINE>$a$</LATEXINLINE> is 1. If it is
+    not, we check whether <LATEXINLINE>$a$</LATEXINLINE> divides
+    <LATEXINLINE>$b$</LATEXINLINE>. If it does, it can be simplified into a
+    unit fraction using the <JAVASCRIPT>divide</JAVASCRIPT> function.
+    Otherwise, it is not a unit fraction and we subtract the next largest
+    unit fraction from the current fraction. We can use the
+    substitution model of section <SPACE/><REF NAME="sec:substitution-model"/>
+    to watch the function in action computing the Egyptian Fraction
+    decomposition using the greedy algorithm for
+    <LATEXINLINE>$\frac{11}{15}$</LATEXINLINE>, as shown
+    in figure <SPACE/><REF NAME="fig:recursive-greedy-javascript"/>.
+
+    Now let<APOS/>s take a different perspective on computing
+    <!--factorials modular inverses.--> the greedy method for Egyptian
+    Fractions.
+    We could describe a rule for computing the greedy algorithm by building the
+    sequence from the first digit to the last digit until we reach a unit
+    fraction left. More formally, we maintain a running sequence such that
+    each function called knows what the sequence is. We can describe the
+    computation by saying that the sequence and the fraction changes from one
+    step to the next according to the rule:
+    <!--<LATEXINLINE>$n!$</LATEXINLINE> by
+    specifying that we first multiply 1 by 2, then multiply the result by 3,
+    then by 4, and so on until we reach <LATEXINLINE>$n$</LATEXINLINE>.
+    <LATEXINLINE>$mod\_inv(a, b)$</LATEXINLINE> by specifying that we first check
+    the remainder when multiplying <LATEXINLINE>$a$</LATEXINLINE> with
+    1, then multiplying <LATEXINLINE>$a$</LATEXINLINE> with 2, then with 3,
+    and so on until the remainder for multiplying gives a remainder of 1.
+    More formally, we maintain a running counter
+    product, together with a counter
+    that counts from 1 up to <LATEXINLINE>$n$</LATEXINLINE>.  We can describe
+    the computation by saying that the counter and the product simultaneously
+    change from one step to the next according to the rule
+
+    <P>
+      product <LATEXINLINE>$\leftarrow$</LATEXINLINE> counter
+      <LATEXINLINE>$\cdot$</LATEXINLINE> product
+    </P>
+    <P>
+      counter <LATEXINLINE>$\leftarrow$</LATEXINLINE> counter
+      <LATEXINLINE>$+$</LATEXINLINE> 1
+    </P>
+    and stipulating that <LATEXINLINE>$n!$</LATEXINLINE> is the value of the
+    product when the counter exceeds <LATEXINLINE>$n$</LATEXINLINE>.
+
+    Like the previous method, we maintain the same running counter, but this
+    counts from 0 to <LATEXINLINE>$b - 1$</LATEXINLINE> and we will check the
+    remainder before going to the next step.
+
+
+
+      Here we have used a running counter where the counter changes from one
+      step to the next according to the rule-->
+    <P>
+      a <LATEXINLINE>$\leftarrow$</LATEXINLINE> minus(a * largest(a, b), b)
+    </P>
+    <P>
+      b <LATEXINLINE>$\leftarrow$</LATEXINLINE> b * largest(a, b)
+    </P>
+    <P>
+      seq <LATEXINLINE>$\leftarrow$</LATEXINLINE> combine(seq, largest(a, b))
+    </P>
+      and stipulating that <LATEXINLINE>$seq$</LATEXINLINE> is the value of the
+      counter when <LATEXINLINE>$a$</LATEXINLINE> is 1 or
+    <LATEXINLINE>$a$</LATEXINLINE> divides <LATEXINLINE>$b$</LATEXINLINE>.
+
+  <TEXT>
+    Once again, we can recast our description as a
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    for computing
+    <!--factorials modular inverses--> the greedy algorithm:
+
+   <SNIPPET>
+      <NAME>greedy_iter_definition</NAME>
+      <REQUIRES>minus_definition</REQUIRES>
+      <REQUIRES>largest_definition</REQUIRES>
+      <REQUIRES>combine_definition</REQUIRES>
+      <REQUIRES>isNaN_definition</REQUIRES>
+      <REQUIRES>modulo_definition</REQUIRES>
+      <REQUIRES>divide_definition</REQUIRES>
+      <EXAMPLE>greedy_iter_example</EXAMPLE>
+      <EXPECTED>2530</EXPECTED>
+      <JAVASCRIPT>
+function greedy(a, b) {
+    return greedy_iter(a, b, NaN);
+}
+function greedy_iter(a, b, seq) {
+    return a === 1
+        ? combine(seq, b)
+        : isNaN(seq)
+          ? greedy_iter(minus(a * largest(a, b), b), b * largest(a, b),
+                largest(a, b))
+          : isNaN(modulo(b, a))
+            ?combine(seq, divide(b, a))
+            : greedy_iter(minus(a * largest(a, b), b), b * largest(a, b),
+                combine(seq, largest(a, b)));
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+      <!-- \indcode*{factorial}[linear iterative version] -->
+    <SNIPPET HIDE="yes">
+        <NAME>greedy_iter_example</NAME>
+        <JAVASCRIPT>
+greedy(11, 15);
+        </JAVASCRIPT>
+    </SNIPPET>
+  </TEXT>
+
+  <JAVASCRIPT>
+    <FIGURE >
+      <FIGURE src="img_egypt/ch1-Z-G-10.svg"></FIGURE>
+      <LABEL NAME="fig:iterative-greedy-javascript"/>
+      <CAPTION>A linear iterative process for computing
+          <JAVASCRIPTINLINE>greedy</JAVASCRIPTINLINE>(11, 15).
+      </CAPTION>
+    </FIGURE>
+    <TEXT>
+      As before, we can use the substitution model to visualize the process
+      of computing <LATEXINLINE>$greedy(11, 15)$</LATEXINLINE>, as shown in
+      figure<SPACE/><REF NAME="fig:iterative-greedy-javascript"/>.
+    </TEXT>
+  </JAVASCRIPT>
+
+    These 2 processes share these common functions:
+    <SNIPPET>
+      <NAME>largest_definition</NAME>
+      <REQUIRES>compare_frac_definition</REQUIRES>
+      <EXAMPLE>largest_example</EXAMPLE>
+      <JAVASCRIPT>
+function largest(a, b) {
+    return largest_iter(a, b, 1);
+}
+function largest_iter(a, b, n) {
+    return compare_frac(a, b, 1, n)
+        ? n
+        : largest_iter(a, b, n + 1);
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+   <SNIPPET HIDE="yes">
+      <NAME>largest_example</NAME>
+      <JAVASCRIPT>
+largest(11, 15);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    The function <JAVASCRIPTINLINE>largest</JAVASCRIPTINLINE>
+      <FOOTNOTE>
+          In a real program we would probably use the
+          block structure introduced in the last section to hide the
+          declaration of <JAVASCRIPTINLINE>greedy_iter</JAVASCRIPTINLINE>:
+    <SNIPPET>
+      <NAME>largest_definition_block</NAME>
+      <REQUIRES>compare_frac_definition</REQUIRES>
+      <EXAMPLE>largest_example_block</EXAMPLE>
+      <JAVASCRIPT>
+function largest(a, b) {
+    function largest_iter(a, b, n) {
+        return compare_frac(a, b, 1, n)
+            ? n
+            : largest_iter(a, b, n + 1);
+    }
+    return largest_iter(a, b, 1);
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+   <SNIPPET HIDE="yes">
+      <NAME>largest_example_block</NAME>
+      <JAVASCRIPT>
+largest(11, 15);
+      </JAVASCRIPT>
+    </SNIPPET>
+    this here so as to minimize the number of things to
+    think about at once.
+    <LABEL NAME="foot:block-structured-mod-inv"/></FOOTNOTE> helps to
+    find the largest possible unit fraction to remove from the original
+    fraction. The function <JAVASCRIPTINLINE>compare_frac</JAVASCRIPTINLINE>
+    was previously covered in section <REF NAME="sec:conditionals"/> and is
+    used to compare 2 fractions to see if it fits the equation above. The
+    function iteratively goes through fractions from
+    <LATEXINLINE>$\frac{1}{1}$</LATEXINLINE> to
+    <LATEXINLINE>$\frac{1}{d}$</LATEXINLINE>, where
+    <LATEXINLINE>$d$</LATEXINLINE> is the denominator that results in the
+    largest fraction that is smaller than
+    <LATEXINLINE>$\frac{a}{b}$</LATEXINLINE>.
+
+
+    <SNIPPET>
+      <NAME>combine_definition</NAME>
+      <REQUIRES>no_of_digits_definition</REQUIRES>
+      <EXAMPLE>combine_example</EXAMPLE>
+      <JAVASCRIPT>
+function combine(first, second) {
+    return first * exp_ten(no_of_digits(second)) + second;
+}
+      </JAVASCRIPT>
+   </SNIPPET>
+   <SNIPPET HIDE="yes">
+      <NAME>combine_example</NAME>
+      <JAVASCRIPT>
+combine(2, 10);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    The <JAVASCRIPTINLINE>combine</JAVASCRIPTINLINE> function is used to
+    combine the denominators together into an integer. This is done by
+    shifting the first number by the number of digits that the second number
+    has. This is done by using
+    <JAVASCRIPTINLINE>no_of_digits</JAVASCRIPTINLINE> and
+    <JAVASCRIPTINLINE>exp_ten</JAVASCRIPTINLINE> to multiply with the first
+    number. This way, at every function call in the greedy functions, the
+    sequence of denominators is combined at each step.
+
+    <SNIPPET>
+        <NAME>exp_ten_definition</NAME>
+        <REQUIRES>minus_definition</REQUIRES>
+        <EXAMPLE>exp_ten_example</EXAMPLE>
+        <JAVASCRIPT>
+function exp_ten(x) {
+    return x === 1
+        ? 10
+        :  10 * exp_ten(minus(x, 1));
+}
+        </JAVASCRIPT>
+      </SNIPPET>
+   <SNIPPET HIDE="yes">
+      <NAME>exp_ten_example</NAME>
+      <JAVASCRIPT>
+exp_ten(2);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    <JAVASCRIPTINLINE>exp_ten</JAVASCRIPTINLINE> takes in the exponent
+    <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE> to recursively find the value of
+    <LATEXINLINE>$10^x$</LATEXINLINE>. The exponent is reduced by 1 until it
+    reaches 1, where <LATEXINLINE>$10^1 = 10$</LATEXINLINE> which is returned.
+    At every other call, 10 is multiplied to the value returned. In the
+    context of the <JAVASCRIPTINLINE>combine</JAVASCRIPTINLINE> function, it
+    provides the value to multiply with the first number to shift the first
+    number to the left.
+
+      <SNIPPET>
+        <NAME>no_of_digits_definition</NAME>
+        <REQUIRES>exp_ten_definition</REQUIRES>
+        <EXAMPLE>no_of_digits_example</EXAMPLE>
+        <JAVASCRIPT>
+function no_of_digits(x) {
+    return no_of_digits_iter(x, 1);
+}
+function no_of_digits_iter(x, digits) {
+    return exp_ten(digits) > x
+        ? digits
+        : no_of_digits_iter(x, digits + 1);
+}
+        </JAVASCRIPT>
+      </SNIPPET>
+   <SNIPPET HIDE="yes">
+      <NAME>no_of_digits_example</NAME>
+      <JAVASCRIPT>
+no_of_digits(30);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    The above function finds the number of digits that a number
+    <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE> has. This is done by comparing
+    the number of digits with the value of
+    <JAVASCRIPTINLINE>x</JAVASCRIPTINLINE>. This allows the function to know
+    the number of digits that are required for the first number in the
+    <JAVASCRIPTINLINE>combine</JAVASCRIPTINLINE> function to shift by and is
+    the input into <JAVASCRIPTINLINE>exp_ten</JAVASCRIPTINLINE> in the combine
+    function.
+
+    <!--In this equation, we are trying to find the value of
+    <LATEXINLINE>x</LATEXINLINE> such that when <LATEXINLINE>a</LATEXINLINE> and
+    <LATEXINLINE>x</LATEXINLINE> are multiplied, the remainder when divided by
+    <LATEXINLINE>b</LATEXINLINE> is 1, ie.
+    <LATEX>
+      \[ mod\_inv(a, b) = x \text{ where } ax \equiv 1 (\bmod b)\]
+    </LATEX>
+    Though this may not seem useful now, we can use this to calculate Egyptian
+    Fractions later on in Chapter 2. This is because when we can find the
+    modular inverse, we know that <LATEXINLINE>a</LATEXINLINE> and
+    <LATEXINLINE>b</LATEXINLINE> are coprime - they do not share any common
+    factors other than 1.
+    There are many ways to compute
+    factorials. remainders. modular inverses.
+    One way is to make use of the observation that
+    as long as any positive number from 1 to <LATEXINLINE>b - 1</LATEXINLINE>
+    multiplied with <LATEXINLINE>a</LATEXINLINE> gives a remainder of 1 when it
+    is divided by <LATEXINLINE>b</LATEXINLINE>, it is a valid value for
+    <LATEXINLINE>x</LATEXINLINE> for the above equation. We can recast our
+    description as a function for finding the modular inverse with a third
+    parameter in the function.
+    <LATEXINLINE>$n!$</LATEXINLINE>
+    <LATEXINLINE>$mod\_inv\_rec(a, b, b - 1)$</LATEXINLINE>
+    is equal to
+    <LATEXINLINE>$n$</LATEXINLINE> -->
+    <!--<LATEXINLINE>$counter$</LATEXINLINE> (which is <LATEXINLINE>a</LATEXINLINE>
+    for the first case)
+    <LATEXINLINE>$b - 1$</LATEXINLINE>
+    or
+    <LATEXINLINE>$(n-1)!$</LATEXINLINE>
+    <LATEXINLINE>$mod\_inv\_rec(a, b, b - 2)$</LATEXINLINE>
+    for any positive integer<SPACE/>
+    <LATEXINLINE>$n$</LATEXINLINE> <LATEXINLINE>$a, b$</LATEXINLINE>:
     <LATEX>
       \[ n!=n\cdot\left[(n-1)\cdot(n-2)\cdots3\cdot2\cdot1\right]=n\cdot(n-1)! \]
     </LATEX>
-    Thus, we can compute <LATEXINLINE>$n!$</LATEXINLINE> by computing 
-    <LATEXINLINE>$(n-1)!$</LATEXINLINE> and multiplying the
-    result by <LATEXINLINE>$n$</LATEXINLINE>.  If we add the stipulation that 1! 
-    is equal to 1,
-    this observation translates directly into a 
+    <LATEX>
+      \[ r = Rem(a, b) = Rem(a - b, b), \text{where} a > b \]
+    </LATEX>
+    <LATEX>
+      \[ mod\_inv\_rec(a, b, b - 1) = b - 1 \text{ or } mod\_inv\_rec(a, b, b - 2) \]
+    </LATEX>
+    Thus, we can compute
+    <LATEXINLINE>$n!$</LATEXINLINE>
+    <LATEXINLINE>$Rem(a, b)$</LATEXINLINE>
+    <LATEXINLINE>$mod\_inv\_rec(a, b, b - 1)$</LATEXINLINE> by computing
+    <LATEXINLINE>$(n-1)!$</LATEXINLINE>
+    <LATEXINLINE>$Rem(a - b, b)$</LATEXINLINE>
+    <LATEXINLINE>$mod\_inv\_rec(a, b, b - 2)$</LATEXINLINE>
+    and multiplying the
+    result by <LATEXINLINE>$n$</LATEXINLINE>.
+    and using the result found as the answer if it is a valid result or to
+    calculate its own result otherwise.
+    If we add the stipulation that 1! is equal to 1,
+    an invalid result returns 1 and use a counter to keep track of the third
+    parameter in the function, this observation translates directly into a
     <SPLITINLINE>
       <SCHEME>procedure:</SCHEME>
       <JAVASCRIPT>computer function:</JAVASCRIPT>
     </SPLITINLINE>
+    <FOOTNOTE>In a real program we would probably use the
+    block structure introduced in the last section to hide the
+	declaration of <JAVASCRIPTINLINE>mod_inv_rec</JAVASCRIPTINLINE>:
+    <SNIPPET PAGE="33">
+      <EXAMPLE>mod_inv_example</EXAMPLE>
+      <REQUIRES>divide_remainder</REQUIRES>
+      <EXPECTED>2</EXPECTED>
+      <JAVASCRIPT>
+function mod_inv(a, b) {
+    function mod_inv_rec(a, b, counter) {
+        return counter === 1
+            ? 1
+            : mod_inv_rec(a, b, counter - 1) !== 1
+                ? mod_inv_rec(a, b, counter - 1)
+                : divide_remainder(a * counter, b) === 1
+                    ? counter
+                    : 1;
+        return mod_inv_rec(a, b, b - 1);
+    }
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+    We avoided doing this here so as to minimize the number of things to
+    think about at
+    once.<LABEL NAME="foot:block-structured-mod-inv"/></FOOTNOTE>-->
     <!-- \indcode*{factorial}[linear recursive version] -->
-    <SNIPPET>
+    <!-- <SNIPPET>
       <NAME>factorial_definition</NAME>
       <EXAMPLE>factorial_example</EXAMPLE>
       <EXPECTED>120</EXPECTED>
@@ -45,21 +518,51 @@ function factorial(n) {
            : n * factorial(n - 1);
 }
       </JAVASCRIPT>
-    </SNIPPET>
+    </SNIPPET> -->
 
-    <SNIPPET PAGE="32" HIDE="yes">
+    <!--
+    <SNIPPET>
+      <NAME>mod_inv_definition</NAME>
+      <REQUIRES>divide_remainder</REQUIRES>
+      <EXAMPLE>mod_inv_example</EXAMPLE>
+      <EXPECTED>2</EXPECTED>
+      <JAVASCRIPT>
+function mod_inv(a, b) {
+    return mod_inv_rec(a, b, b - 1);
+}
+function mod_inv_rec(a, b, counter) {
+    return counter === 1 //stop
+        ? 1
+        : mod_inv_rec(a, b, counter - 1) !== 1 //x has been found
+            ? mod_inv_rec(a, b, counter - 1)
+            : divide_remainder(a * counter, b) === 1 //valid value of x
+                ? counter //this is x
+                : 1;
+}
+      </JAVASCRIPT>
+    </SNIPPET>-->
+
+    <!--<SNIPPET PAGE="32" HIDE="yes">
       <NAME>factorial_example</NAME>
       <SCHEME>
-(factorial 5)
+        (factorial 5)
       </SCHEME>
       <JAVASCRIPT>
-factorial(5);
+        factorial(5);
+      </JAVASCRIPT>
+    </SNIPPET> -->
+
+<!--    <SNIPPET PAGE="32" HIDE="yes">
+      <NAME>mod_inv_example</NAME>
+      <JAVASCRIPT>
+mod_inv(3, 5);
       </JAVASCRIPT>
     </SNIPPET>
-  </TEXT>
+
+  </TEXT> -->
 
 
-  <SPLIT>
+  <!--<SPLIT>
     <SCHEME>
       <FIGURE src="img_original/ch1-Z-G-7.svg">
 	<LABEL NAME="fig:recursive-factorial-scheme"/>
@@ -98,37 +601,41 @@ factorial(5);
     </JAVASCRIPT>
   </SPLIT>
 
-  <TEXT>
-    Now let<APOS/>s take a different perspective on computing factorials.  We
-    could describe a rule for computing <LATEXINLINE>$n!$</LATEXINLINE> by 
-    specifying that we first multiply 1 by 2, then multiply the result by 3,
-    then by 4, and so on until we reach <LATEXINLINE>$n$</LATEXINLINE>.
-    More formally, we maintain a running product, together with a counter
-    that counts from 1 up to <LATEXINLINE>$n$</LATEXINLINE>.  We can describe
-    the computation by saying that the counter and the product simultaneously
-    change from one step to the next according to the rule
+  <JAVASCRIPT>
+      <FIGURE>
+	<FIGURE src="img_egypt/ch1-Z-G-7.svg"></FIGURE>
+	<LABEL NAME="fig:recursive-greedy-javascript"/>
+	<CAPTION>A linear recursive process for computing greedy(13, 15).
+	</CAPTION>
+      </FIGURE>
+      <TEXT>
+	    We can use the substitution model of section
+        <SPACE/><REF NAME="sec:substitution-model"/> to watch the function in
+        action computing mod_inv(3, 5), as shown in
+        figure<SPACE/><REF NAME="fig:recursive-mod-inv-javascript"/>.
+        Here we have used a running counter where the counter changes from one
+        step to the next according to the rule
+        <P>
+          counter <LATEXINLINE>$\leftarrow$</LATEXINLINE> counter
+          <LATEXINLINE>$-$</LATEXINLINE> 1
+        </P>
+        and stipulating that <LATEXINLINE>$x$</LATEXINLINE> is the value of the
+        counter when the remainder is <LATEXINLINE>$1$</LATEXINLINE>.
+      </TEXT>
 
-    <P>
-      product <LATEXINLINE>$\leftarrow$</LATEXINLINE> counter
-      <LATEXINLINE>$\cdot$</LATEXINLINE> product 
-    </P>
-    <P>
-      counter <LATEXINLINE>$\leftarrow$</LATEXINLINE> counter
-      <LATEXINLINE>$+$</LATEXINLINE> 1
-    </P>
-    and stipulating that <LATEXINLINE>$n!$</LATEXINLINE> is the value of the
-    product when the counter exceeds <LATEXINLINE>$n$</LATEXINLINE>.
-  </TEXT>
+  </JAVASCRIPT>-->
 
-  <TEXT>
+
+<!--  <TEXT>
     Once again, we can recast our description as a 
     <SPLITINLINE>
       <SCHEME>procedure</SCHEME>
       <JAVASCRIPT>function</JAVASCRIPT>
     </SPLITINLINE> 
     for computing
-    factorials:<FOOTNOTE>In a real program we would probably use the
-    block structure introduced in the last section to hide the 
+    factorials modular inverses:-->
+<!--    <FOOTNOTE>In a real program we would probably use the
+    block structure introduced in the last section to hide the
     <SPLITINLINE>
       <SCHEME>
 	definition of <SCHEMEINLINE>fact-iter</SCHEMEINLINE>:
@@ -153,7 +660,7 @@ factorial(5);
       <JAVASCRIPT>
 function factorial(n) {
     function iter(product, counter) {
-        return counter &gt; n 
+        return counter &gt; n
                ? product
                : iter(counter * product,
                       counter + 1);
@@ -164,8 +671,8 @@ function factorial(n) {
     </SNIPPET>
     We avoided doing this here so as to minimize the number of things to
     think about at
-    once.<LABEL NAME="foot:block-structured-factorial"/></FOOTNOTE>
-    <SNIPPET PAGE="34">
+    once.<LABEL NAME="foot:block-structured-factorial"/></FOOTNOTE>-->
+    <!--<SNIPPET PAGE="34">
       <NAME>factorial_iterative_definition</NAME>
       <EXAMPLE>factorial_example</EXAMPLE>
       <SCHEME>
@@ -191,11 +698,29 @@ function fact_iter(product, counter, max_count) {
                        max_count);
 }
       </JAVASCRIPT>
-    </SNIPPET>
+    </SNIPPET>-->
+
+    <!--
+<SNIPPET PAGE="34">
+      <NAME>mod_inv_iterative_definition</NAME>
+      <REQUIRES>divide_remainder</REQUIRES>
+      <EXAMPLE>mod_inv_example</EXAMPLE>
+      <JAVASCRIPT>
+function mod_inv(a, b) {
+    return mod_inv_iter(a, b, 1);
+}
+function mod_inv_iter(a, b, counter) {
+    return divide_remainder(a * counter, b) === 1
+        ? counter
+        : mod_inv_iter(a, b, counter + 1);
+}
+      </JAVASCRIPT>
+    </SNIPPET>-->
+
       <!-- \indcode*{factorial}[linear iterative version] -->
   </TEXT>
 
-  <SPLIT>
+  <!--<SPLIT>
     <SCHEME>
       <FIGURE src="img_original/ch1-Z-G-10.svg">
 	<LABEL NAME="fig:iterative-factorial-scheme"/>
@@ -224,15 +749,42 @@ function fact_iter(product, counter, max_count) {
       </TEXT>
     </JAVASCRIPT>
   </SPLIT>
+  <JAVASCRIPT>
+    <FIGURE >
+      <FIGURE src="img_egypt/ch1-Z-G-10.svg"></FIGURE>
+      <LABEL NAME="fig:iterative-mod-inv-javascript"/>
+      <CAPTION>A linear iterative process for computing
+        <LATEXINLINE>$mod\_inv(3, 5)$</LATEXINLINE>.
+      </CAPTION>
+    </FIGURE>
+    <TEXT>
+      As before, we can use the substitution model to visualize the process
+      of computing <LATEXINLINE>$mod\_inv(3, 5)$</LATEXINLINE>, as shown in
+      figure<SPACE/><REF NAME="fig:iterative-mod-inv-javascript"/>.
+    </TEXT>
+  </JAVASCRIPT>-->
+
 
   <TEXT>
-    Compare the two processes.  From one point of view, they seem hardly
-    different at all.  Both compute the same mathematical function on the
-    same domain, and each requires a number of steps proportional to
-    <LATEXINLINE>$n$</LATEXINLINE>
-    to compute <LATEXINLINE>$n!$</LATEXINLINE>.  Indeed, both processes even
-    carry out the same sequence of multiplications, obtaining the same sequence
-    of partial products.  On the other hand, when we consider the
+    Compare the two processes. From one point of view, they seem hardly
+    different at all. Both share the same common functions and both compute the
+    same mathematical function on the same domain, and each requires a number
+    of steps proportional to
+    <!--<LATEXINLINE>$n$</LATEXINLINE>
+    to compute <LATEXINLINE>$n!$</LATEXINLINE>. -->
+    <LATEXINLINE>$a$</LATEXINLINE> to compute
+    <LATEXINLINE>$greedy(a, b)$</LATEXINLINE> in the worst case.
+    <FOOTNOTE>
+      In this algorithm, the worst case is when <LATEXINLINE>$a$</LATEXINLINE>
+      decreases by 1 at each function call and at each call, the greatest
+      common divisor between the numerator and denominator is 1 (Gong 1992).
+    </FOOTNOTE>
+    Indeed, both processes even carry out the same sequence of
+    <!--multiplications, -->
+    <!--remainders through integer division,-->
+    finding the largest fraction to remove and combining denominators together,
+    obtaining the same sequence of partial results. On the other hand, when we
+    consider the
     <INDEX>shape of a process</INDEX>
     <INDEX>process<SUBINDEX>shape of</SUBINDEX></INDEX>
     <QUOTE>shapes</QUOTE> of the two processes, we find that they evolve quite
@@ -242,7 +794,10 @@ function fact_iter(product, counter, max_count) {
   <TEXT>
     Consider the first process.  The substitution model reveals a shape of
     expansion followed by contraction, indicated by the arrow in
-    figure<SPACE/><REF NAME="fig:recursive-factorial-javascript"/>.
+    figure
+    <!--<SPACE/><REF NAME="fig:recursive-factorial-javascript"/>.
+    <SPACE/><REF NAME="fig:recursive-mod-inv-javascript"/>-->
+    <SPACE/><REF NAME="fig:recursive-greedy-javascript"/>.
     The expansion occurs as the process builds up a chain of 
     <INDEX>deferred operations</INDEX>
     <EM>deferred operations</EM> (in this case, a chain of multiplications).
@@ -251,12 +806,17 @@ function fact_iter(product, counter, max_count) {
     <INDEX>recursive process</INDEX><INDEX>process<SUBINDEX>recursive</SUBINDEX></INDEX>
     <EM>recursive process</EM>.  Carrying out this process requires that the
     interpreter keep track of the operations to be performed later on.  In the
-    computation of <LATEXINLINE>$n!$</LATEXINLINE>, the length of the chain of
-    deferred multiplications, and hence the amount of information needed to
-    keep track of it, 
+    computation of
+    <!--<LATEXINLINE>$n!$</LATEXINLINE> <LATEXINLINE>$mod\_inv(a,b)$</LATEXINLINE>-->
+    <LATEXINLINE>$greedy(a,b)$</LATEXINLINE>, the length of the chain of
+    deferred <!--multiplications divisions-->combining of denominators in a
+    sequence, and hence the amount of information needed to keep track of it,
     <INDEX>linear growth</INDEX>
-    grows linearly with <LATEXINLINE>$n$</LATEXINLINE> (is proportional to
-    <LATEXINLINE>$n$</LATEXINLINE>), just like the number of steps.
+    grows linearly with
+    <!--<LATEXINLINE>$n$</LATEXINLINE><LATEXINLINE>$mod\_inv(a, b)$</LATEXINLINE> -->
+    <LATEXINLINE>$greedy(a, b)$</LATEXINLINE> (is proportional to
+    <!--<LATEXINLINE>$n$</LATEXINLINE> <LATEXINLINE>$b$</LATEXINLINE>-->
+    <LATEXINLINE>$a$</LATEXINLINE>), just like the number of steps.
     <INDEX>recursive process<SUBINDEX>linear</SUBINDEX></INDEX>
     <INDEX>linear recursive process</INDEX>
     <INDEX>process<SUBINDEX>linear recursive</SUBINDEX></INDEX>
@@ -265,18 +825,20 @@ function fact_iter(product, counter, max_count) {
 
   <TEXT>
     By contrast, the second process does not grow and shrink.  At each
-    step, all we need to keep track of, for any <LATEXINLINE>$n$</LATEXINLINE>,
+    step, all we need to keep track of, for any
+    <!--<LATEXINLINE>$n$</LATEXINLINE><LATEXINLINE>$b$</LATEXINLINE>-->
+    <LATEXINLINE>$a, b$</LATEXINLINE>,
     are the current values of the
     <SPLITINLINE>
       <SCHEME>variables</SCHEME>
       <JAVASCRIPT>names</JAVASCRIPT>
     </SPLITINLINE>
-    <SCHEMEINLINE>product</SCHEMEINLINE>, <SCHEMEINLINE>counter</SCHEMEINLINE>,
-    and
-    <SPLITINLINE>
+    <SCHEMEINLINE>a</SCHEMEINLINE>, <SCHEMEINLINE>b</SCHEMEINLINE>,
+    and <SCHEMEINLINE>seq</SCHEMEINLINE>.
+    <!--<SPLITINLINE>
       <SCHEME><SCHEMEINLINE>max-count</SCHEMEINLINE>.</SCHEME>
       <JAVASCRIPT><JAVASCRIPTINLINE>max_count</JAVASCRIPTINLINE>.</JAVASCRIPT>
-    </SPLITINLINE>
+    </SPLITINLINE>-->
     We call this an 
     <INDEX>iterative process</INDEX>
     <INDEX>process<SUBINDEX>iterative</SUBINDEX></INDEX>
@@ -286,9 +848,12 @@ function fact_iter(product, counter, max_count) {
     <EM>state variables</EM>, together with a fixed rule that describes how
     the state variables should be updated as the process moves from state to
     state and an (optional) end test that specifies conditions under which the
-    process should terminate.  In computing <LATEXINLINE>$n!$</LATEXINLINE>, the
-    number of steps required grows linearly with <LATEXINLINE>$n$</LATEXINLINE>.
-    Such a process is called a 
+    process should terminate.  In computing
+    <!--<LATEXINLINE>$n!$</LATEXINLINE><LATEXINLINE>$mod\_inv(a, b)$</LATEXINLINE>-->
+    <LATEXINLINE>$greedy(a, b)$</LATEXINLINE>, the number of steps required
+    grows linearly with <LATEXINLINE>$a$</LATEXINLINE>.
+    <!--<LATEXINLINE>$n$</LATEXINLINE><LATEXINLINE>$b$</LATEXINLINE>.-->
+    Such a process is called a
     <INDEX>iterative process<SUBINDEX>linear</SUBINDEX></INDEX>
     <INDEX>linear iterative process</INDEX>
     <INDEX>process<SUBINDEX>linear iterative</SUBINDEX></INDEX>
@@ -369,10 +934,11 @@ function fact_iter(product, counter, max_count) {
       <JAVASCRIPT>function</JAVASCRIPT>
     </SPLITINLINE>
     such as 
-    <SPLITINLINE>
+    <JAVASCRIPTINLINE>mod_inv_iter</JAVASCRIPTINLINE>
+    <!--<SPLITINLINE>
       <SCHEME><SCHEMEINLINE>fact-iter</SCHEMEINLINE></SCHEME>
       <JAVASCRIPT><JAVASCRIPTINLINE>fact_iter</JAVASCRIPTINLINE></JAVASCRIPT>
-    </SPLITINLINE>
+    </SPLITINLINE>-->
     as generating an iterative process.  However, the process really is
     iterative: Its state is captured completely by its three state variables,
     and an interpreter need keep track of only three
@@ -511,7 +1077,7 @@ function fact_iter(product, counter, max_count) {
     <SUBINDEX>iterative process vs.|)</SUBINDEX></INDEX>
   </TEXT>
 
-  <EXERCISE>
+  <!--<EXERCISE>
     <LABEL NAME="ex:addition-procedures"/>
     Each of the following two
     <SPLITINLINE>
@@ -646,9 +1212,199 @@ plus(0, 9)
 	</JAVASCRIPT>
       </SPLIT>
     </SOLUTION>
-  </EXERCISE>
+  </EXERCISE>-->
 
   <EXERCISE>
+    <LABEL NAME="ex:addition-procedures"/>
+    Since we are looking at Egyptian fractions, we are interested in adding
+    fractions together using <JAVASCRIPTINLINE>add_frac</JAVASCRIPTINLINE>,
+    where it takes in 4 parameters: the first 2 are the numerator and
+    denominator of the first fraction and the other 2 are the numerator and
+    denominator of the second fraction. In mathematics, we learn how to add
+    fractions and we implement the plus functions in 2 possible ways.
+    Each of the following two
+    <SPLITINLINE>
+      <SCHEME>procedures</SCHEME>
+      <JAVASCRIPT>functions</JAVASCRIPT>
+    </SPLITINLINE>
+    defines a method for adding two positive integers in terms of the
+    <SPLITINLINE>
+      <SCHEME>procedures</SCHEME>
+      <JAVASCRIPT>functions</JAVASCRIPT>
+    </SPLITINLINE>
+    <SCHEMEINLINE>inc</SCHEMEINLINE>, which increments its argument by 1,
+    and <SCHEMEINLINE>dec</SCHEMEINLINE>, which decrements its argument by 1.
+
+    <SNIPPET PAGE="36" HIDE="yes">
+      <NAME>inc_dec_definition</NAME>
+      <SCHEME>
+(define (inc x)
+  (- x -1))
+(define (dec x)
+  (- x 1))
+      </SCHEME>
+      <JAVASCRIPT>
+function inc(x) {
+    return x + 1;
+}
+function dec(x) {
+    return x === 1
+        ? NaN
+        : x - 1;
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    <SNIPPET PAGE="36" HIDE="yes">
+      <NAME>plus_example</NAME>
+      <SCHEME>
+(+ 4 5)
+      </SCHEME>
+      <JAVASCRIPT>
+add_frac(1, 4, 1, 5);
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    <SNIPPET>
+      <REQUIRES>inc_dec_definition</REQUIRES>
+      <EXPECTED>9</EXPECTED>
+      <EXAMPLE>plus_example</EXAMPLE>
+      <SCHEME>
+(define (+ a b)
+  (if (= a 0)
+      b
+      (inc (+ (dec a) b))))
+      </SCHEME>
+      <JAVASCRIPT>
+function plus(a, b) {
+    return a === 1 ? inc(b) : inc(plus(dec(a), b));
+}
+function add_frac(num1, den1, num2, den2) {
+    const finalNum = plus(num1 * den2, num2 * den1);
+    const finalDen = den1 * den2;
+    return finalNum;
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    <SNIPPET>
+      <REQUIRES>inc_dec_definition</REQUIRES>
+      <EXPECTED>9</EXPECTED>
+      <EXAMPLE>plus_example</EXAMPLE>
+      <SCHEME>
+(define (+ a b)
+  (if (= a 0)
+      b
+      (+ (dec a) (inc b))))
+      </SCHEME>
+      <JAVASCRIPT>
+function plus(a, b) {
+    return a === 1 ? inc(b) : plus(dec(a), inc(b));
+}
+function add_frac(num1, den1, num2, den2) {
+    const finalNum = plus(num1 * den2, num2 * den1);
+    const finalDen = den1 * den2;
+    return finalNum;
+}
+      </JAVASCRIPT>
+    </SNIPPET>
+
+    Using the substitution model, illustrate the process generated by each
+    <SPLITINLINE>
+      <SCHEME>procedure</SCHEME>
+      <JAVASCRIPT>function</JAVASCRIPT>
+    </SPLITINLINE>
+    in evaluating
+    <JAVASCRIPTINLINE>add_frac(1, 4, 1, 5);</JAVASCRIPTINLINE>
+    <!--<SPLITINLINE>
+      <SCHEME><SCHEMEINLINE>(+ 4 5)</SCHEMEINLINE>.</SCHEME>
+      <JAVASCRIPT><JAVASCRIPTINLINE>plus(4, 5);</JAVASCRIPTINLINE>.</JAVASCRIPT>
+    </SPLITINLINE>-->
+    Are these processes iterative or recursive?
+
+    <SOLUTION>
+      <SPLIT>
+	<JAVASCRIPT>
+	  The process generated by the first function is recursive.
+          <SNIPPET PAGE="36" EVAL="no">
+	    <!--<JAVASCRIPT>
+plus(4, 5)
+4 === 0 ? 5 : inc(plus(dec(4), 5))
+inc(plus(dec(4), 5))
+...
+inc(plus(3, 5))
+...
+inc(inc(plus(2, 5)))
+...
+inc(inc(inc(plus(1, 5))))
+...
+inc(inc(inc(inc(plus(0, 5)))))
+inc(inc(inc(inc( 0 === 0 ? 5 : inc(plus(dec(0), 5))))))
+inc(inc(inc(inc( 5 ))))
+inc(inc(inc( 6 )))
+inc(inc( 7 ))
+inc( 8 )
+9
+	    </JAVASCRIPT>-->
+<JAVASCRIPT>
+add_frac(1, 4, 1, 5);
+plus(4, 5)
+4 === 1 ? inc(5) : inc(plus(dec(4), 5))
+inc(plus(dec(4), 5))
+...
+inc(plus(3, 5))
+...
+inc(inc(plus(2, 5)))
+...
+inc(inc(inc(plus(1, 5))))
+inc(inc(inc(1 === 1 ? inc(5) : inc(plus(dec(1), 5))))))
+inc(inc(inc(inc( 5 ))))
+inc(inc(inc( 6 )))
+inc(inc( 7 ))
+inc( 8 )
+9
+	    </JAVASCRIPT>
+	  </SNIPPET>
+	  The process generated by the second function is iterative.
+          <SNIPPET PAGE="36" EVAL="no">
+	    <!--<JAVASCRIPT>
+plus(4, 5)
+4 === 0 ? 5 : plus(dec(4), inc(5))
+plus(dec(4), inc(5))
+...
+plus(3, 6)
+...
+plus(2, 7)
+...
+plus(1, 8)
+...
+plus(0, 9)
+0 === 0 ? 9 : plus(dec(0), inc(9))
+9
+	    </JAVASCRIPT>-->
+        <JAVASCRIPT>
+add_frac(1, 4, 1, 5);
+plus(4, 5)
+4 === 1 ? inc(5) : plus(dec(4), inc(5))
+plus(dec(4), inc(5))
+...
+plus(3, 6)
+...
+plus(2, 7)
+...
+plus(1, 8)
+1 === 1 ? inc(8) : plus(dec(0), inc(9))
+inc(8)
+9
+	    </JAVASCRIPT>
+	  </SNIPPET>
+	</JAVASCRIPT>
+      </SPLIT>
+    </SOLUTION>
+  </EXERCISE>
+
+  <!-- practicing how to trace?? -->
+<!--  <EXERCISE>
     <INDEX>Ackermann<APOS/>s function</INDEX>
     <INDEX>function (mathematical)<SUBINDEX>Ackermann<APOS/>s</SUBINDEX></INDEX>
     The following
@@ -791,6 +1547,6 @@ k(4);
       where the number of 2s in the chain of exponentiation is
       <LATEXINLINE>$n$</LATEXINLINE>.
     </SOLUTION>
-  </EXERCISE>
+  </EXERCISE> -->
 
 </SUBSECTION>

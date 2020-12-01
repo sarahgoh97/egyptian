@@ -7,6 +7,12 @@
   <INDEX>local state variable|(</INDEX>
   <INDEX>state variable<SUBINDEX>local|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection introduces variable declarations and assignments with objects.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     <INDEX>bank account</INDEX>
     <INDEX>object(s)<SUBINDEX>with time-varying state</SUBINDEX></INDEX>

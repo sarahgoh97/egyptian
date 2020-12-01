@@ -57,6 +57,15 @@
 
   <CHAPTERCONTENT/>
 
+        <TEXT>
+            [<EM>
+            In this chapter, it introduces compound data and data-directed
+          programming in this chapter. This teaches a different programming
+          paradigm from the first chapter which is more like functional
+          programming.
+        </EM>]
+        </TEXT>
+
   <TEXT>
     <INDEX>compound data, need for|(</INDEX>
     <INDEX>data<SUBINDEX>compound|(</SUBINDEX></INDEX>

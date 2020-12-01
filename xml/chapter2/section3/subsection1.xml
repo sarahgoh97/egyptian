@@ -18,6 +18,14 @@
     </JAVASCRIPT>
   </SPLITINLINE>
 
+    <TEXT>
+        [<EM>
+      This subsection introduces the concepts of strings and how it is a
+        sequence of characters. Although strings were used with the display()
+        function earlier on, it was not discussed.
+    </EM>]
+    </TEXT>
+
   <SPLIT>
     <SCHEME>
       <TEXT>

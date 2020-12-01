@@ -6,6 +6,12 @@
   <LABEL NAME="sec:symbolic-data"/>
   <INDEX>data<SUBINDEX>symbolic</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+      This section talks about other data types that are not numbers.
+    </EM>]
+    </TEXT>
+
   <INDEX>symbol(s)</INDEX>
   All the compound data objects we have used so far were constructed
   ultimately from numbers.  In this section we extend the representational

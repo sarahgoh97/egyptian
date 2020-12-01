@@ -5,6 +5,14 @@
 
   <INDEX>concurrency<SUBINDEX>mechanisms for controlling|(</SUBINDEX></INDEX>
 
+    <TEXT>
+        [<EM>
+This subsection talks about ways to deal with the concurrency problems.
+      This requires communication among the threads to be able to synchronise
+      states.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We<APOS/>ve seen that the difficulty in dealing with concurrent 
     <SPLITINLINE><SCHEME>processes</SCHEME>

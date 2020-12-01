@@ -6,6 +6,13 @@
   <LABEL NAME="sec:streams"/>
   <INDEX>stream(s)|(</INDEX>
 
+    <TEXT>
+        [<EM>
+This section talks about delayed evaluation which can represent very large
+      sequences as streams.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     We<APOS/>ve gained a good understanding of assignment as a tool in modeling,
     as well as an appreciation of the complex problems that assignment

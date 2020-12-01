@@ -8,6 +8,12 @@
     <INDEX>local state|(</INDEX>
 
     <TEXT>
+        [<EM>
+This section introduces assignments and variables.
+    </EM>]
+    </TEXT>
+
+    <TEXT>
       We ordinarily view the world as populated by independent objects, each
       of which has a state that changes over time.  An object is said to
       <QUOTE>have state</QUOTE> if its behavior is influenced by its history.

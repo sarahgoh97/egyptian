@@ -5,6 +5,14 @@
 
   <LABEL NAME="sec:delayed-lists"/>
   <INDEX>stream(s)<SUBINDEX>implemented as delayed lists|(</SUBINDEX></INDEX>
+
+    <TEXT>
+        [<EM>
+This subsection looks at lists from Chapter 2 and using them to represent
+        streams.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     As we saw in
     section<SPACE/><REF NAME="sec:sequences-conventional-interfaces"/>,

@@ -9,7 +9,14 @@
 
   <SECTIONCONTENT/>
 
-  <LABEL NAME="sec:procedures-and-processes"/> 
+  <LABEL NAME="sec:procedures-and-processes"/>
+
+  <TEXT>
+    [<EM>
+    In this subsection, the original authors talk about the process of
+    functions being evaluated as well as how to evaluate functions.
+  </EM>]
+  </TEXT>
 
   <TEXT>
     We have now considered the elements of programming: We have used
@@ -126,8 +133,5 @@
 
   <!-- Subsection 5 : Greatest Comman Divisors -->
   &subsection1.2.5;
-
-  <!-- Subsection 6 : Example: Testing for Primality -->
-  &subsection1.2.6;
 
 </SECTION>

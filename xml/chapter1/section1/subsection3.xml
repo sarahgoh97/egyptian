@@ -10,6 +10,16 @@
     </SPLITINLINE>
   </NAME>
 
+    <TEXT>
+    [<EM>
+      In this subsection, the original authors talk about how programs evaluate
+      operations from previous subsection - to recursively evaluate them from
+      primitive expressions - which forms a tree in
+      Figure<SPACE/><REF NAME="fig:tree-comb"/>. Here, the
+      story of Egyptians help to loosely link it back to Egyptian Fractions.
+    </EM>]
+  </TEXT>
+
   <TEXT>
     One of our goals in this chapter is to isolate issues about thinking
     procedurally.  As a case in point, let us consider that, in evaluating
@@ -94,7 +104,13 @@
   </TEXT>
   <TEXT>
     <INDEX>recursion<SUBINDEX>expressing complicated process</SUBINDEX></INDEX>
-    Notice how succinctly the idea of recursion can be used to express
+    If a Egyptian land owner wanted to increase the quantity of grain produced
+    of workers by increasing pay and making them work longer hours, he would
+    have to evaluate the cost of doing so. For example, the workers originally
+    worked 4 days a week for 6 hours and the land owner wanted them to work for
+    2 hours on an additional day. At the same time, the land owner wants to
+    encourage them to work by increasing their pay by 3 from the original pay
+    of 12. Notice how succinctly the idea of recursion can be used to express
     what, in the case of a deeply nested combination, would otherwise be
     viewed as a rather complicated process.  For example, evaluating
     <SNIPPET>

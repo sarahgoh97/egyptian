@@ -3,6 +3,14 @@
     Generic Arithmetic Operations
   </NAME>
 
+    <TEXT>
+        [<EM>
+This subsection talks about packages for different types of numbers, the
+        ordinary numbers, rational numbers and complex numbers. This is done by
+        using tags, as an extension from the previous section.
+    </EM>]
+    </TEXT>
+
   <LABEL NAME="sec:generic-arithmetic-operators"/>
   <INDEX>generic arithmetic operations|(</INDEX>
   <TEXT>

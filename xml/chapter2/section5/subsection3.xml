@@ -5,6 +5,15 @@
 
   <LABEL NAME="sec:symbolic-algebra"/>
   <INDEX>symbolic algebra|(</INDEX>
+
+    <TEXT>
+        [<EM>
+This subsection uses symbolic algebra to illustrate the ideas from the previous
+        subsections. It gives an example of how system designers make design
+        choices.
+    </EM>]
+    </TEXT>
+
   <TEXT>
     The manipulation of symbolic algebraic expressions is a complex
     process that illustrates many of the hardest problems that occur in
