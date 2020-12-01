@@ -11,6 +11,7 @@ function binary(num, den) {
     var repeating = []; //repeating part
 
     getBinaryRep();
+    console.log(nonRepeating + " " + repeating);
     getDecimalRep();
     denominators.sort(compareNumbers);
     print();
@@ -38,6 +39,7 @@ function binary(num, den) {
         getNonRepeating(remainders);
         var firstTime = remainders.indexOf(rem);
         noOfRepeats = remainders.length - firstTime; //diff between 1st and 2nd instance of rem
+        console.log("repeats: " + noOfRepeats);
         getRepeating();
 
         //get non-repeating part of binary representation
@@ -54,6 +56,7 @@ function binary(num, den) {
                 }
                 rem = num;
             } while (remainders.indexOf(rem) === -1);
+            console.log(nonRepeating);
         }
 
         //get repeating part of binary representation

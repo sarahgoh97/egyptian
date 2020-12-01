@@ -298,15 +298,6 @@ revGreed(23,231, "SMALL_NUM");
 revGreed(23,231, "SMALL_DEN");
 revGreed(23,231,"BIG_DIV");
 
-//revGreed(17,180, "SMALL_NUM");
-//revGreed(10,143, "SMALL_NUM");
-
-//revGreed(10,143,"BASIC");
-//revGreed(5,6,"BASIC");
-//revGreed(3,7,"BASIC");
-//revGreed(7,15);
-//revGreed(6,7);
-
 revGreed(4,21,"BASIC");
 revGreed(4,21, "SMALL_UNIT");
 revGreed(4,21, "SMALL_NUM");

@@ -85,17 +85,6 @@ function continued(num, den) {
     }
     //find secondary convergents for continued fraction
     function findSecondaryConvergents() {
-        /*for (var counter = 0; counter <= largestInt; counter++) {
-            secConNums.push([]);
-            secConDens.push([]);
-        }
-        //find secondary convergent: use a table to store for 0 to max a[i] with formula
-        for (counter = 0; counter <= largestInt; counter++) {
-            for (var index = 2; index < conNums.length; index++) { //conNums and conDens have same length
-                secConNums[counter].push(conNums[index-1] + conNums[index] * counter);
-                secConDens[counter].push(conDens[index-1] + conDens[index] * counter);
-            }
-        }*/
         for (var counter = 0; counter < conNums.length - 2; counter++) {
             secConNums.push([]);
             secConDens.push([]);
@@ -148,7 +137,3 @@ function continued(num, den) {
 continued(11,21);
 continued(18,23);
 continued(5,6);
-//continued(3,7);
-//continued(7,15);
-//continued(6,7);
-//continued(5,6);
